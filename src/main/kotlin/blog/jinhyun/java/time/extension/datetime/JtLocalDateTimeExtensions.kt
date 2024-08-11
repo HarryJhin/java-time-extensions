@@ -1,4 +1,4 @@
-package blog.jinhyun.java.time.extension
+package blog.jinhyun.java.time.extension.datetime
 
 import java.time.LocalDateTime
 import java.time.YearMonth
