@@ -1,4 +1,6 @@
 import org.jetbrains.dokka.DokkaConfiguration
+import org.jetbrains.dokka.gradle.DokkaTask
+import java.net.URL
 
 plugins {
     kotlin("jvm") version "2.0.0"
@@ -24,11 +26,22 @@ kotlin {
     jvmToolchain(17)
 }
 
-tasks.dokkaHtml {
+tasks.withType<DokkaTask>().configureEach {
     outputDirectory.set(file("docs"))
 
     dokkaSourceSets.configureEach {
-        documentedVisibilities.set(setOf(DokkaConfiguration.Visibility.PUBLIC))
+        documentedVisibilities.set(
+            setOf(
+                DokkaConfiguration.Visibility.PUBLIC,
+                DokkaConfiguration.Visibility.PROTECTED
+            )
+        )
+
+        sourceLink {
+            localDirectory.set(file("src/main/kotlin"))
+            remoteUrl.set(URL("https://github.com/HarryJhin/java-time-extensions/src/main/kotlin"))
+            remoteLineSuffix.set("#L")
+        }
     }
 }
 
