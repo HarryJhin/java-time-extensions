@@ -39,7 +39,7 @@ tasks.withType<DokkaTask>().configureEach {
 
         sourceLink {
             localDirectory.set(file("src/main/kotlin"))
-            remoteUrl.set(URL("https://github.com/HarryJhin/java-time-extensions/src/main/kotlin"))
+            remoteUrl.set(URL("https://github.com/HarryJhin/java-time-extensions/blob/master/src/main/kotlin"))
             remoteLineSuffix.set("#L")
         }
     }
