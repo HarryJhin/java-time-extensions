@@ -20,5 +20,7 @@ class JtLocalDateExtensionsTest {
             actual = yearMonth,
             expected = YearMonth.of(2022, 1),
         )
+
+        println("LocalDate.toYearMonth() Passed.")
     }
 }
