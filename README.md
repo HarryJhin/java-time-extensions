@@ -1,3 +1,5 @@
+[![Deploy static content to Pages](https://github.com/HarryJhin/java-time-extensions/actions/workflows/static.yml/badge.svg)](https://github.com/HarryJhin/java-time-extensions/actions/workflows/static.yml)
+
 # Kotlin용 java.time.* 확장 라이브러리
 
 ## License
