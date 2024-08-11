@@ -8,6 +8,6 @@ import java.time.YearMonth
  *
  * @receiver [LocalDate] 객체
  * @return [YearMonth] 객체
- * @sample blog.jinhyun.java.time.extension.JtLocalDateExtensionsTest.toYearMonth
+ * @sample blog.jinhyun.java.time.extension.date.JtLocalDateExtensionsTest.toYearMonth
  */
 fun LocalDate.toYearMonth(): YearMonth = YearMonth.of(year, month)
