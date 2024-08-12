@@ -5,9 +5,13 @@ import java.net.URL
 plugins {
     kotlin("jvm") version "2.0.0"
     id("org.jetbrains.dokka") version "1.9.20"
-    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
+    id("org.jreleaser") version "1.13.1"
     `maven-publish`
-    signing
+    application
+}
+
+application {
+    applicationName = "java-time-extensions"
 }
 
 group = "io.github.harryjhin"
@@ -35,8 +39,7 @@ tasks.withType<DokkaTask>().configureEach {
     dokkaSourceSets.configureEach {
         documentedVisibilities.set(
             setOf(
-                DokkaConfiguration.Visibility.PUBLIC,
-                DokkaConfiguration.Visibility.PROTECTED
+                DokkaConfiguration.Visibility.PUBLIC, DokkaConfiguration.Visibility.PROTECTED
             )
         )
 
@@ -46,6 +49,11 @@ tasks.withType<DokkaTask>().configureEach {
             remoteLineSuffix.set("#L")
         }
     }
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
 }
 
 tasks.register<Jar>("dokkaHtmlJar") {
@@ -83,8 +91,8 @@ publishing {
                     }
                 }
                 scm {
-                    connection.set("scm:git:git://github.com/Hjson/java-time-extensions.git")
-                    developerConnection.set("scm:git:ssh://github.com/Hjson/java-time-extensions.git")
+                    connection.set("scm:git:git://github.com/HarryJhin/java-time-extensions.git")
+                    developerConnection.set("scm:git:ssh://github.com/HarryJhin/java-time-extensions.git")
                     url.set("https://github.com/HarryJhin/java-time-extensions/tree/master")
                 }
             }
@@ -101,21 +109,51 @@ publishing {
     }
 }
 
-nexusPublishing {
-    repositories {
-        sonatype {
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-            username.set(System.getenv("SONATYPE_USERNAME"))
-            password.set(System.getenv("SONATYPE_PASSWORD"))
+jreleaser {
+    project {
+        name = "java-time-extensions"
+        version = "0.0.1"
+        copyright = "2024 Harry Jhin"
+        description = "Java Time Extensions"
+        website = "harryjhin.github.io/java-time-extensions/"
+        docsUrl = "harryjhin.github.io/java-time-extensions/"
+        license = "MIT"
+        authors = listOf("Harry Jhin")
+    }
+    release {
+        github {
+            repoOwner = "HarryJhin"
+            token = System.getenv("GITHUB_TOKEN")
+            overwrite = true
         }
     }
-}
-
-signing {
-    useInMemoryPgpKeys(
-        System.getenv("GPG_SECRET_KEY"),
-        System.getenv("GPG_PASSWORD"),
-    )
-    sign(publishing.publications)
+    distributions {
+        create("app") {
+            artifact {
+                setPath("build/libs/${project.name}-${project.version}.jar")
+            }
+        }
+    }
+    signing {
+        setActive("ALWAYS")
+        armored = true
+        publicKey = System.getenv("GPG_PUBLIC_KEY")
+        secretKey = System.getenv("GPG_SECRET_KEY")
+        passphrase = System.getenv("GPG_PASSPHRASE")
+    }
+    deploy {
+//        version = "0.0.1"
+        group = "io.github.harryjhin"
+        maven {
+            mavenCentral {
+                create("sonatype") {
+                    setActive("ALWAYS")
+                    username = System.getenv("SONATYPE_USERNAME")
+                    password = System.getenv("SONATYPE_PASSWORD")
+                    url = "https://central.sonatype.com/api/v1/publisher"
+                    stagingRepository("build/staging-deploy")
+                }
+            }
+        }
+    }
 }
