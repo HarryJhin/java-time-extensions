@@ -130,7 +130,7 @@ jreleaser {
     distributions {
         create("app") {
             artifact {
-                setPath("build/libs/${project.name}-${project.version}.jar")
+                setPath("build/libs/java-time-extensions-0.0.1.jar")
             }
         }
     }
