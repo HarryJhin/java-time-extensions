@@ -6,6 +6,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 /**
  * 날짜와 시간을 특정 형식으로 포맷팅하기 위한 클래스입니다.
@@ -18,6 +19,7 @@ import java.time.format.DateTimeFormatter
  * @see JavaTimeDisplay.Default
  */
 sealed class JavaTimeDisplay(
+    val locale: Locale,
     val yearMonthPattern: String,
     val datePattern: String,
     val timePattern: String,
@@ -29,28 +31,28 @@ sealed class JavaTimeDisplay(
      *
      * @return [DateTimeFormatter] 객체
      */
-    val yearMonthFormatter: DateTimeFormatter = yearMonthPattern.toDateTimeFormatter()
+    val yearMonthFormatter: DateTimeFormatter = yearMonthPattern.toDateTimeFormatter(locale)
 
     /**
      * [LocalDate] 객체를 문자열로 변환할 때 사용할 [DateTimeFormatter] 객체입니다.
      *
      * @return [DateTimeFormatter] 객체
      */
-    val dateFormatter: DateTimeFormatter = datePattern.toDateTimeFormatter()
+    val dateFormatter: DateTimeFormatter = datePattern.toDateTimeFormatter(locale)
 
     /**
      * [LocalTime] 객체를 문자열로 변환할 때 사용할 [DateTimeFormatter] 객체입니다.
      *
      * @return [DateTimeFormatter] 객체
      */
-    val timeFormatter: DateTimeFormatter = timePattern.toDateTimeFormatter()
+    val timeFormatter: DateTimeFormatter = timePattern.toDateTimeFormatter(locale)
 
     /**
      * [LocalDateTime] 객체를 문자열로 변환할 때 사용할 [DateTimeFormatter] 객체입니다.
      *
      * @return [DateTimeFormatter] 객체
      */
-    val dateTimeFormatter: DateTimeFormatter = dateTimePattern.toDateTimeFormatter()
+    val dateTimeFormatter: DateTimeFormatter = dateTimePattern.toDateTimeFormatter(locale)
 
     /**
      * 기본 날짜 및 시간 형식을 정의하는 객체입니다.
@@ -61,6 +63,7 @@ sealed class JavaTimeDisplay(
      * @property dateTimePattern 기본 [LocalDateTime] 형식: "y년 M월 d일 (E) H시 m분 s초"
      */
     companion object Default : JavaTimeDisplay(
+        locale = Locale.KOREA,
         yearMonthPattern = "y년 M월",
         datePattern = "y년 M월 d일 (E)",
         timePattern = "H시 m분 s초",
@@ -151,11 +154,13 @@ fun JavaTimeDisplay(
 }
 
 private class JavaTimeDisplayImpl(
+    locale: Locale,
     yearMonthPattern: String,
     datePattern: String,
     timePattern: String,
     dateTimePattern: String,
 ) : JavaTimeDisplay(
+    locale = locale,
     yearMonthPattern = yearMonthPattern,
     datePattern = datePattern,
     timePattern = timePattern,
@@ -169,6 +174,7 @@ private class JavaTimeDisplayImpl(
  * 예시:
  * ```kotlin
  * val customTimeDisplay = JavaTimeDisplay {
+ *     locale = Locale.KOREA
  *     yearMonthPattern = "yyyy년 MM월"
  *     datePattern = "yyyy년 MM월 dd일"
  *     timePattern = "HH시 mm분 ss초"
@@ -182,7 +188,16 @@ class JavaTimeDisplayBuilder internal constructor(
     javaTimeDisplay: JavaTimeDisplay,
 ) {
     /**
+     * [JavaTimeDisplay] 객체를 생성할 때 사용할 로케일입니다.
+     *
+     * 기본값은 [Locale.KOREA]입니다.
+     */
+    var locale: Locale = javaTimeDisplay.locale
+
+    /**
      * [YearMonth] 객체를 문자열로 변환할 때 사용할 형식 패턴입니다.
+     *
+     * 기본값은 "y년 M월"입니다.
      *
      * 예시:
      * ```kotlin
@@ -198,6 +213,8 @@ class JavaTimeDisplayBuilder internal constructor(
     /**
      * [LocalDate] 객체를 문자열로 변환할 때 사용할 형식 패턴입니다.
      *
+     * 기본값은 "y년 M월 d일 (E)"입니다.
+     *
      * 예시:
      * ```kotlin
      * datePattern = "yyyy년 MM월 dd일"
@@ -212,6 +229,8 @@ class JavaTimeDisplayBuilder internal constructor(
     /**
      * [LocalTime] 객체를 문자열로 변환할 때 사용할 형식 패턴입니다.
      *
+     * 기본값은 "H시 m분 s초"입니다.
+     *
      * 예시:
      * ```kotlin
      * timePattern = "HH시 mm분 ss초"
@@ -225,6 +244,8 @@ class JavaTimeDisplayBuilder internal constructor(
 
     /**
      * [LocalDateTime] 객체를 문자열로 변환할 때 사용할 형식 패턴입니다.
+     *
+     * 기본값은 "y년 M월 d일 (E) H시 m분 s초"입니다.
      *
      * 예시:
      * ```kotlin
@@ -243,6 +264,7 @@ class JavaTimeDisplayBuilder internal constructor(
      * @return 사용자 정의 형식이 적용된 새로운 [JavaTimeDisplay] 객체
      */
     internal fun build(): JavaTimeDisplay = JavaTimeDisplayImpl(
+        locale = locale,
         yearMonthPattern = yearMonthPattern,
         datePattern = datePattern,
         timePattern = timePattern,

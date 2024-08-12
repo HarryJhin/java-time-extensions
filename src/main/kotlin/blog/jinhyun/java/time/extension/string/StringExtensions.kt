@@ -3,6 +3,7 @@ package blog.jinhyun.java.time.extension.string
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
+import java.util.Locale
 
 /**
  * 문자열을 [DateTimeFormatter]로 변환합니다.
@@ -15,7 +16,9 @@ import java.time.format.DateTimeParseException
  * @return [DateTimeFormatter] 객체
  * @throws IllegalArgumentException 날짜 포맷이 유효하지 않은 경우
  */
-fun String.toDateTimeFormatter(): DateTimeFormatter = DateTimeFormatter.ofPattern(this)
+fun String.toDateTimeFormatter(
+    locale: Locale = Locale.getDefault(),
+): DateTimeFormatter = DateTimeFormatter.ofPattern(this, locale)
 
 /**
  * 문자열을 [LocalDate]로 변환합니다.
