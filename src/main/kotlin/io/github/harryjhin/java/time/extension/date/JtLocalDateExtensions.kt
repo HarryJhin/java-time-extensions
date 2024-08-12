@@ -1,7 +1,7 @@
-package blog.jinhyun.java.time.extension.date
+package io.github.harryjhin.java.time.extension.date
 
-import blog.jinhyun.java.time.extension.JavaTimeDisplay
-import blog.jinhyun.java.time.extension.string.toDateTimeFormatter
+import io.github.harryjhin.java.time.extension.JavaTimeDisplay
+import io.github.harryjhin.java.time.extension.string.toDateTimeFormatter
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter

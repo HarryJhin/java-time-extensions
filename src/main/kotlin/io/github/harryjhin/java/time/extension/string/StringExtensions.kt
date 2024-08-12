@@ -1,4 +1,4 @@
-package blog.jinhyun.java.time.extension.string
+package io.github.harryjhin.java.time.extension.string
 
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

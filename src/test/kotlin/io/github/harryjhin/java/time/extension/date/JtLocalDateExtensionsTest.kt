@@ -1,4 +1,4 @@
-package blog.jinhyun.java.time.extension.date
+package io.github.harryjhin.java.time.extension.date
 
 import java.time.LocalDate
 import java.time.YearMonth
@@ -20,7 +20,5 @@ class JtLocalDateExtensionsTest {
             actual = yearMonth,
             expected = YearMonth.of(2022, 1),
         )
-
-        println("LocalDate.toYearMonth() Passed.")
     }
 }

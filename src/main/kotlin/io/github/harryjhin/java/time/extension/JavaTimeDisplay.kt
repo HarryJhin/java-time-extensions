@@ -1,6 +1,6 @@
-package blog.jinhyun.java.time.extension
+package io.github.harryjhin.java.time.extension
 
-import blog.jinhyun.java.time.extension.string.toDateTimeFormatter
+import io.github.harryjhin.java.time.extension.string.toDateTimeFormatter
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -145,7 +145,7 @@ sealed class JavaTimeDisplay(
  * @return 사용자 정의 형식이 적용된 새로운 [JavaTimeDisplay] 객체
  */
 fun JavaTimeDisplay(
-    from: JavaTimeDisplay = JavaTimeDisplay.Default,
+    from: JavaTimeDisplay = JavaTimeDisplay,
     builderToAction: JavaTimeDisplayBuilder.() -> Unit,
 ): JavaTimeDisplay {
     val builder = JavaTimeDisplayBuilder(from)

@@ -1,6 +1,6 @@
-package blog.jinhyun.java.time.extension.time
+package io.github.harryjhin.java.time.extension.time
 
-import blog.jinhyun.java.time.extension.string.toDateTimeFormatter
+import io.github.harryjhin.java.time.extension.string.toDateTimeFormatter
 import java.time.DateTimeException
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter

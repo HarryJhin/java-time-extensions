@@ -1,4 +1,4 @@
-package blog.jinhyun.java.time.extension
+package io.github.harryjhin.java.time.extension
 
 import java.time.LocalDate
 import java.time.LocalDateTime
