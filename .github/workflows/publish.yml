@@ -24,4 +24,4 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Publish
-        run: ./gradlew jreleaserPublish
+        run: ./gradlew jreleaserPublish -PsigningPassphrase="${GPG_PASSPHRASE}" -PsigningPublicKey="${GPG_PUBLIC_KEY}" -PsigningSecretKey="${GPG_SECRET_KEY}" -PreleaseGithubToken="${GITHUB_TOKEN}" -PdeployMavenMavenCentralSonatypeUsername="${SONATYPE_USERNAME}" -PdeployMavenMavenCentralSonatypePassword="${SONATYPE_PASSWORD}"

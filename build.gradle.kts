@@ -2,6 +2,13 @@ import org.jetbrains.dokka.DokkaConfiguration
 import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
+val signingPassphrase: String by project
+val signingPublicKey: String by project
+val signingSecretKey: String by project
+val releaseGithubToken: String by project
+val deployMavenMavenCentralSonatypeUsername: String by project
+val deployMavenMavenCentralSonatypePassword: String by project
+
 plugins {
     kotlin("jvm") version "2.0.0"
     id("org.jetbrains.dokka") version "1.9.20"
@@ -138,17 +145,17 @@ jreleaser {
     signing {
         setActive("ALWAYS")
         armored = true
-        publicKey = System.getenv("GPG_PUBLIC_KEY")
-        secretKey = System.getenv("GPG_SECRET_KEY")
-        passphrase = System.getenv("GPG_PASSPHRASE")
+        publicKey = signingPublicKey
+        secretKey = signingSecretKey
+        passphrase = signingPassphrase
     }
     deploy {
         maven {
             mavenCentral {
                 create("sonatype") {
                     setActive("ALWAYS")
-                    username = System.getenv("SONATYPE_USERNAME")
-                    password = System.getenv("SONATYPE_PASSWORD")
+                    username = deployMavenMavenCentralSonatypeUsername
+                    password = deployMavenMavenCentralSonatypePassword
                     url = "https://central.sonatype.com/api/v1/publisher"
                     stagingRepository("build/staging-deploy")
                 }
