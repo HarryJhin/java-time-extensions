@@ -112,6 +112,7 @@ publishing {
 jreleaser {
     project {
         name = "java-time-extensions"
+        group = "io.github.harryjhin"
         version = "0.0.1"
         copyright = "2024 Harry Jhin"
         description = "Java Time Extensions"
@@ -142,8 +143,6 @@ jreleaser {
         passphrase = System.getenv("GPG_PASSPHRASE")
     }
     deploy {
-//        version = "0.0.1"
-        group = "io.github.harryjhin"
         maven {
             mavenCentral {
                 create("sonatype") {
