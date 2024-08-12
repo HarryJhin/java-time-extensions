@@ -1,6 +1,7 @@
 package blog.jinhyun.java.time.extension.time
 
 import blog.jinhyun.java.time.extension.string.toDateTimeFormatter
+import java.time.DateTimeException
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
@@ -15,6 +16,8 @@ import java.time.format.DateTimeFormatter
  * @receiver [LocalTime] 객체
  * @param format 시간 형식
  * @return 시간 문자열
+ * @throws IllegalArgumentException 시간 포맷이 유효하지 않은 경우
+ * @throws DateTimeException 시간 형식이 유효하지 않은 경우
  */
 fun LocalTime.toFormattedString(
     format: String = "HH:mm:ss",
@@ -31,6 +34,7 @@ fun LocalTime.toFormattedString(
  * @receiver [LocalTime] 객체
  * @param formatter [DateTimeFormatter] 객체
  * @return 시간 문자열
+ * @throws DateTimeException 시간 형식이 유효하지 않은 경우
  */
 fun LocalTime.toFormattedString(
     formatter: DateTimeFormatter,
