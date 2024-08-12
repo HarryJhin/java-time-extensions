@@ -16,7 +16,7 @@ import java.time.format.DateTimeFormatter
  * @param format 시간 형식
  * @return 시간 문자열
  */
-fun LocalTime.toFormatString(
+fun LocalTime.toFormattedString(
     format: String = "HH:mm:ss",
 ): String = this.format(format.toDateTimeFormatter())
 
@@ -32,6 +32,6 @@ fun LocalTime.toFormatString(
  * @param formatter [DateTimeFormatter] 객체
  * @return 시간 문자열
  */
-fun LocalTime.toFormatString(
+fun LocalTime.toFormattedString(
     formatter: DateTimeFormatter,
 ): String = this.format(formatter)
