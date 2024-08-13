@@ -20,7 +20,6 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Publish
-        run: ./gradlew jreleaserPublish -DSONATYPE_USERNAME=$SONATYPE_USERNAME -DSONATYPE_PASSWORD=$SONATYPE_PASSWORD -DGPG_PUBLIC_KEY=$GPG_PUBLIC_KEY -DGPG_SECRET_KEY=$GPG_SECRET_KEY -DGPG_PASSPHRASE=$GPG_PASSPHRASE
         env:
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
@@ -28,3 +27,10 @@ jobs:
           GPG_SECRET_KEY: ${{ secrets.GPG_SECRET_KEY }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ./gradlew jreleaserPublish \
+            -DSONATYPE_USERNAME=$SONATYPE_USERNAME \
+            -DSONATYPE_PASSWORD=$SONATYPE_PASSWORD \
+            -DGPG_PUBLIC_KEY=$GPG_PUBLIC_KEY \
+            -DGPG_SECRET_KEY=$GPG_SECRET_KEY \
+            -DGPG_PASSPHRASE=$GPG_PASSPHRASE
