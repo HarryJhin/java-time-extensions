@@ -8,12 +8,8 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    env:
-      SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-      SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-      GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
-      GPG_SECRET_KEY: ${{ secrets.GPG_SECRET_KEY }}
-      GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout
@@ -24,4 +20,11 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Publish
-        run: ./gradlew jreleaserPublish -PsigningPassphrase="${GPG_PASSPHRASE}" -PsigningPublicKey="${GPG_PUBLIC_KEY}" -PsigningSecretKey="${GPG_SECRET_KEY}" -PreleaseGithubToken="${GITHUB_TOKEN}" -PdeployMavenMavenCentralSonatypeUsername="${SONATYPE_USERNAME}" -PdeployMavenMavenCentralSonatypePassword="${SONATYPE_PASSWORD}"
+        run: ./gradlew jreleaserPublish -DSONATYPE_USERNAME=$SONATYPE_USERNAME -DSONATYPE_PASSWORD=$SONATYPE_PASSWORD -DGPG_PUBLIC_KEY=$GPG_PUBLIC_KEY -DGPG_SECRET_KEY=$GPG_SECRET_KEY -DGPG_PASSPHRASE=$GPG_PASSPHRASE
+        env:
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
+          GPG_SECRET_KEY: ${{ secrets.GPG_SECRET_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
