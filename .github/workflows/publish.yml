@@ -2,9 +2,9 @@ name: Publish to Sonatype
 
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - 'v*.*.*'
+  release:
+    types:
+      - created
 
 jobs:
   publish:

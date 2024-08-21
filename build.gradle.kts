@@ -15,7 +15,7 @@ val version: String by project
 
 project.description = "Kotlin을 위한 java.time.* 확장 함수 라이브러리"
 project.group = "io.github.harryjhin"
-project.version = "0.0.7"
+project.version = "0.0.8"
 
 repositories {
     mavenCentral()
