@@ -29,8 +29,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ./gradlew jreleaserPublish \
-            -DSONATYPE_USERNAME=$SONATYPE_USERNAME \
-            -DSONATYPE_PASSWORD=$SONATYPE_PASSWORD \
+            -DSONATYPE_USERNAME=${{ secrets.GPG_PASSPHRASE }} \
+            -DSONATYPE_PASSWORD=${{ secrets.GPG_PUBLIC_KEY }} \
             -DGPG_PUBLIC_KEY=$GPG_PUBLIC_KEY \
             -DGPG_SECRET_KEY=$GPG_SECRET_KEY \
             -DGPG_PASSPHRASE=$GPG_PASSPHRASE
