@@ -12,7 +12,7 @@ plugins {
 
 project.description = "Kotlin을 위한 java.time.* 확장 함수 라이브러리"
 project.group = "io.github.harryjhin"
-project.version = "0.0.11"
+project.version = "0.0.12"
 
 repositories {
     mavenCentral()
@@ -118,6 +118,7 @@ jreleaser {
         maven {
             mavenCentral {
                 create("sonatype") {
+                    setActive("ALWAYS")
                     url = "https://central.sonatype.com/api/v1/publisher"
                     stagingRepository(layout.buildDirectory.dir("staging-deploy").get().toString())
                 }
@@ -126,6 +127,7 @@ jreleaser {
     }
     release {
         github {
+            enabled = true
             repoOwner = "HarryJhin"
             host = "github.com"
             overwrite = false
