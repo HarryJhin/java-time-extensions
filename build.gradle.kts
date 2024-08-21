@@ -1,17 +1,14 @@
 import org.jetbrains.dokka.DokkaConfiguration
 import org.jetbrains.dokka.gradle.DokkaTask
+import java.net.URI
 import java.net.URL
 
 plugins {
     kotlin("jvm") version "2.0.0"
     id("org.jetbrains.dokka") version "1.9.20"
     id("org.jreleaser") version "1.13.1"
+    `java-library`
     `maven-publish`
-    application
-}
-
-application {
-    applicationName = "java-time-extensions"
 }
 
 group = "io.github.harryjhin"
@@ -51,11 +48,6 @@ tasks.withType<DokkaTask>().configureEach {
     }
 }
 
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
-
 tasks.register<Jar>("dokkaHtmlJar") {
     dependsOn(tasks.dokkaHtml)
     from(tasks.dokkaHtml.flatMap { it.outputDirectory })
@@ -68,15 +60,24 @@ tasks.register<Jar>("dokkaJavadocJar") {
     archiveClassifier.set("javadoc")
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 publishing {
     publications {
-        create<MavenPublication>("mavenJava") {
+        create<MavenPublication>("maven") {
+            groupId = "io.github.harryjhin"
+            artifactId = "java-time-extensions"
+
             from(components["java"])
 
             pom {
                 name.set("java-time-extensions")
                 description.set("Java Time Extensions")
                 url.set("https://github.com/HarryJhin/java-time-extensions")
+                inceptionYear.set("2024")
                 licenses {
                     license {
                         name.set("MIT License")
@@ -91,20 +92,24 @@ publishing {
                     }
                 }
                 scm {
-                    connection.set("scm:git:git://github.com/HarryJhin/java-time-extensions.git")
+                    connection.set("scm:git://github.com/HarryJhin/java-time-extensions.git")
                     developerConnection.set("scm:git:ssh://github.com/HarryJhin/java-time-extensions.git")
                     url.set("https://github.com/HarryJhin/java-time-extensions/tree/master")
                 }
             }
-            groupId = project.group.toString()
-            artifactId = project.name
-            version = project.version.toString()
+
             artifacts {
                 artifact(tasks["dokkaJavadocJar"])
                 artifact(tasks.kotlinSourcesJar) {
                     classifier = "sources"
                 }
             }
+        }
+    }
+
+    repositories {
+        maven {
+            url = URI(layout.buildDirectory.dir("staging-deploy").toString())
         }
     }
 }
@@ -124,7 +129,6 @@ jreleaser {
     release {
         github {
             repoOwner = "HarryJhin"
-            token = System.getenv("GITHUB_TOKEN")
             overwrite = true
         }
     }
@@ -145,7 +149,7 @@ jreleaser {
                 create("sonatype") {
                     setActive("ALWAYS")
                     url = "https://central.sonatype.com/api/v1/publisher"
-                    stagingRepository("build/staging-deploy")
+                    stagingRepository("target/staging-deploy")
                 }
             }
         }
