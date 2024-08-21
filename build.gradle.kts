@@ -1,6 +1,5 @@
 import org.jetbrains.dokka.DokkaConfiguration
 import org.jetbrains.dokka.gradle.DokkaTask
-import java.net.URI
 import java.net.URL
 
 plugins {
