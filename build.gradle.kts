@@ -139,7 +139,7 @@ jreleaser {
                 create("sonatype") {
                     setActive("ALWAYS")
                     url = "https://central.sonatype.com/api/v1/publisher"
-                    stagingRepository("build/staging-deploy")
+                    stagingRepository(layout.buildDirectory.dir("staging-deploy").get().toString())
                 }
             }
         }
