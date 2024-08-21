@@ -128,4 +128,15 @@ jreleaser {
             }
         }
     }
+    release {
+        github {
+            enabled = true
+            repoOwner = "HarryJhin"
+            host = "github.com"
+            overwrite = false
+            update {
+                enabled = false
+            }
+        }
+    }
 }
