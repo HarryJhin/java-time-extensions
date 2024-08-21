@@ -10,8 +10,12 @@ plugins {
     `maven-publish`
 }
 
-group = "io.github.harryjhin"
-version = "0.0.1"
+val groupId: String by project
+val version: String by project
+
+project.description = "Kotlin을 위한 java.time.* 확장 함수 라이브러리"
+project.group = "io.github.harryjhin"
+project.version = "0.0.3"
 
 repositories {
     mavenCentral()
@@ -72,9 +76,6 @@ java {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            groupId = "io.github.harryjhin"
-            artifactId = "java-time-extensions"
-
             from(components["java"])
 
             pom {
@@ -90,8 +91,8 @@ publishing {
                 }
                 developers {
                     developer {
-                        id.set("harryjhin")
-                        name.set("Harry Jhin")
+                        id.set("HarryJhin")
+                        name.set("주진현")
                         email.set("joojinhyun00@gmail.com")
                     }
                 }
@@ -112,23 +113,6 @@ publishing {
 }
 
 jreleaser {
-    project {
-        name = "java-time-extensions"
-        group = "io.github.harryjhin"
-        version = "0.0.1"
-        copyright = "2024 Harry Jhin"
-        description = "Java Time Extensions"
-        website = "harryjhin.github.io/java-time-extensions/"
-        docsUrl = "harryjhin.github.io/java-time-extensions/"
-        license = "MIT"
-        authors = listOf("Harry Jhin")
-    }
-    release {
-        github {
-            repoOwner = "HarryJhin"
-            overwrite = true
-        }
-    }
     signing {
         setActive("ALWAYS")
         armored = true
