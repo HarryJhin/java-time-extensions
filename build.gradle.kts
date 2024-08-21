@@ -129,13 +129,6 @@ jreleaser {
             overwrite = true
         }
     }
-//    distributions {
-//        create("app") {
-//            artifact {
-//                setPath("build/libs/java-time-extensions-0.0.1.jar")
-//            }
-//        }
-//    }
     signing {
         setActive("ALWAYS")
         armored = true
