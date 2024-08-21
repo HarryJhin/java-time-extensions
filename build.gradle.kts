@@ -59,6 +59,10 @@ tasks.register<Jar>("dokkaJavadocJar") {
     archiveClassifier.set("javadoc")
 }
 
+tasks.jar {
+    dependsOn(tasks.named("dokkaJavadocJar"))
+}
+
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     withJavadocJar()
@@ -125,13 +129,13 @@ jreleaser {
             overwrite = true
         }
     }
-    distributions {
-        create("app") {
-            artifact {
-                setPath("build/libs/java-time-extensions-0.0.1.jar")
-            }
-        }
-    }
+//    distributions {
+//        create("app") {
+//            artifact {
+//                setPath("build/libs/java-time-extensions-0.0.1.jar")
+//            }
+//        }
+//    }
     signing {
         setActive("ALWAYS")
         armored = true
@@ -142,7 +146,7 @@ jreleaser {
                 create("sonatype") {
                     setActive("ALWAYS")
                     url = "https://central.sonatype.com/api/v1/publisher"
-                    stagingRepository("staging-deploy")
+                    stagingRepository("build/staging-deploy")
                 }
             }
         }
