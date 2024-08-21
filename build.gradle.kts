@@ -60,6 +60,7 @@ tasks.register<Jar>("dokkaJavadocJar") {
 }
 
 java {
+    sourceCompatibility = JavaVersion.VERSION_17
     withJavadocJar()
     withSourcesJar()
 }
