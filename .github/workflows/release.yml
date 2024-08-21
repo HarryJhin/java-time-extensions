@@ -39,7 +39,7 @@ jobs:
 
       - name: Release
         run: |
-          ./gradlew publish jreleaserFullRelease
+          ./gradlew publish jreleaserFullRelease --stacktrace
         env:
           JRELEASER_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
           JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
