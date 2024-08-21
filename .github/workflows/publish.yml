@@ -8,8 +8,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
+    permissions: read-all
 
     steps:
       - name: Checkout
