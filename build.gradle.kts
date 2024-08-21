@@ -97,13 +97,6 @@ publishing {
                     url.set("https://github.com/HarryJhin/java-time-extensions/tree/master")
                 }
             }
-
-            artifacts {
-                artifact(tasks["dokkaJavadocJar"])
-                artifact(tasks.kotlinSourcesJar) {
-                    classifier = "sources"
-                }
-            }
         }
     }
 
@@ -149,7 +142,7 @@ jreleaser {
                 create("sonatype") {
                     setActive("ALWAYS")
                     url = "https://central.sonatype.com/api/v1/publisher"
-                    stagingRepository("target/staging-deploy")
+                    stagingRepository("staging-deploy")
                 }
             }
         }
