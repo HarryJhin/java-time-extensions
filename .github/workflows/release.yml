@@ -38,7 +38,12 @@ jobs:
           JRELEASER_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Release
-        run: ./gradlew publish jreleaserSign jreleaserRelease
+        run: |
+          ./gradlew publish jreleaserFullRelease \
+          --exclude-announcer \
+          --exclude-deployer \
+          --exclude-packager \
+          --exclude-uploader
         env:
           JRELEASER_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
           JRELEASER_GPG_PUBLIC_KEY: ${{ secrets.GPG_PUBLIC_KEY }}
