@@ -11,7 +11,7 @@ import java.time.Year
  * ```
  *
  * @return [Year] 인스턴스
- * @since 0.1.0
+ * @since 0.1.1
  */
 val Long.years: Year
     get() = this.toInt().years
@@ -24,7 +24,7 @@ val Long.years: Year
  * ```
  *
  * @return [Month] 인스턴스
- * @since 0.1.0
+ * @since 0.1.1
  */
 val Long.months: Month
     get() = this.toInt().months
