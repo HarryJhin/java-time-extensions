@@ -12,7 +12,7 @@ plugins {
 
 project.description = "Kotlin을 위한 java.time.* 확장 함수 라이브러리"
 project.group = "io.github.harryjhin"
-project.version = "0.1.4"
+project.version = "0.1.5"
 
 repositories {
     mavenCentral()
@@ -110,17 +110,16 @@ publishing {
 }
 
 jreleaser {
-    signing {
-        setActive("ALWAYS")
-        armored = true
-    }
     deploy {
+        setActive("ALWAYS")
         maven {
             mavenCentral {
                 create("sonatype") {
                     setActive("ALWAYS")
                     url = "https://central.sonatype.com/api/v1/publisher"
                     stagingRepository(layout.buildDirectory.dir("staging-deploy").get().toString())
+                    retryDelay = 5
+                    maxRetries = 600
                 }
             }
         }
@@ -134,6 +133,18 @@ jreleaser {
             update {
                 enabled = false
             }
+            commitAuthor {
+                name = "주진현"
+                email = "joojinhyun00@gmail.com"
+            }
         }
+    }
+    signing {
+        setActive("ALWAYS")
+        armored = true
+        verify = true
+    }
+    upload {
+        enabled = false
     }
 }
