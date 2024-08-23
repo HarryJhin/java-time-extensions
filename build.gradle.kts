@@ -111,11 +111,11 @@ publishing {
 
 jreleaser {
     deploy {
-        setActive("ALWAYS")
+        setActive("RELEASE")
         maven {
             mavenCentral {
                 create("sonatype") {
-                    setActive("ALWAYS")
+                    setActive("RELEASE")
                     url = "https://central.sonatype.com/api/v1/publisher"
                     stagingRepository(layout.buildDirectory.dir("staging-deploy").get().toString())
                     retryDelay = 5
@@ -140,7 +140,7 @@ jreleaser {
         }
     }
     signing {
-        setActive("ALWAYS")
+        setActive("RELEASE")
         armored = true
         verify = true
     }
