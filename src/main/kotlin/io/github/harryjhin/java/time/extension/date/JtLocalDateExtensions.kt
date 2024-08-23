@@ -126,3 +126,63 @@ operator fun LocalDate.plusAssign(year: Year) {
 operator fun LocalDate.plusAssign(month: Month) {
     this.plusMonths(month.value.toLong())
 }
+
+/**
+ * [LocalDate] 인스턴스를 [Year] 만큼 뺍니다.
+ *
+ * ```kotlin
+ * val date = LocalDate.of(2022, 1, 1)
+ * val minusOneYear = date - 1.years // 2021-01-01
+ * ```
+ *
+ * @return [LocalDate] 인스턴스
+ * @since 0.1.0
+ */
+operator fun LocalDate.minus(year: Year): LocalDate {
+    if (year.value == 0) return this
+    return this.minusYears(year.value.toLong())
+}
+
+/**
+ * [LocalDate] 인스턴스를 [Month] 만큼 뺍니다.
+ *
+ * ```kotlin
+ * val date = LocalDate.of(2022, 1, 1)
+ * val minusOneMonth = date - 1.months // 2021-12-01
+ * ```
+ *
+ * @return [LocalDate] 인스턴스
+ * @since 0.1.0
+ */
+operator fun LocalDate.minus(month: Month): LocalDate {
+    return this.minusMonths(month.value.toLong())
+}
+
+/**
+ * [LocalDate] 인스턴스에 [Year] 만큼 뺍니다.
+ *
+ * ```kotlin
+ * var date = LocalDate.of(2022, 1, 1)
+ * date -= 1.years // 2021-01-01
+ * ```
+ *
+ * @since 0.1.0
+ */
+operator fun LocalDate.minusAssign(year: Year) {
+    if (year.value == 0) return
+    this.minusYears(year.value.toLong())
+}
+
+/**
+ * [LocalDate] 인스턴스에 [Month] 만큼 뺍니다.
+ *
+ * ```kotlin
+ * var date = LocalDate.of(2022, 1, 1)
+ * date -= 1.months // 2021-12-01
+ * ```
+ *
+ * @since 0.1.0
+ */
+operator fun LocalDate.minusAssign(month: Month) {
+    this.minusMonths(month.value.toLong())
+}
