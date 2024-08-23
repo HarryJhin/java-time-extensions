@@ -1,4 +1,4 @@
-package io.github.harryjhin.java.time.extension.primitive
+package io.github.harryjhin.java.time.extension
 
 import java.time.Month
 import java.time.Year

@@ -1,7 +1,5 @@
-package io.github.harryjhin.java.time.extension.date
+package io.github.harryjhin.java.time.extension
 
-import io.github.harryjhin.java.time.extension.JavaTimeDisplay
-import io.github.harryjhin.java.time.extension.primitive.toDateTimeFormatter
 import java.time.LocalDate
 import java.time.Month
 import java.time.Year

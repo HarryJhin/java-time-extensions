@@ -1,7 +1,5 @@
-package io.github.harryjhin.java.time.extension.date
+package io.github.harryjhin.java.time.extension
 
-import io.github.harryjhin.java.time.extension.primitive.months
-import io.github.harryjhin.java.time.extension.primitive.years
 import java.time.LocalDate
 import java.time.YearMonth
 import kotlin.test.Test
