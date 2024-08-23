@@ -1,6 +1,6 @@
 package io.github.harryjhin.java.time.extension
 
-import io.github.harryjhin.java.time.extension.string.toDateTimeFormatter
+import io.github.harryjhin.java.time.extension.primitive.toDateTimeFormatter
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
