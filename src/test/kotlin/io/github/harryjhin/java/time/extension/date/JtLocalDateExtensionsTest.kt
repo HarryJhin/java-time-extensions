@@ -30,7 +30,7 @@ class JtLocalDateExtensionsTest {
         val date = LocalDate.of(2022, 1, 1)
 
         // When
-        val plusOneYear = date + 1.years
+        val plusOneYear = date + 1L.years
         val plusOneMonth = date + 1.months
 
         // Then
@@ -59,7 +59,7 @@ class JtLocalDateExtensionsTest {
         )
 
         // When
-        date += 1.months
+        date += 1L.months
 
         // Then
         assertEquals(
@@ -74,7 +74,7 @@ class JtLocalDateExtensionsTest {
         val date = LocalDate.of(2022, 1, 1)
 
         // When
-        val minusOneYear = date - 1.years
+        val minusOneYear = date - "1".years
         val minusOneMonth = date - 1.months
 
         // Then
@@ -103,7 +103,7 @@ class JtLocalDateExtensionsTest {
         )
 
         // When
-        date -= 1.months
+        date -= "1".months
 
         // Then
         assertEquals(

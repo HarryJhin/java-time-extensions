@@ -1,9 +1,37 @@
-package io.github.harryjhin.java.time.extension.string
+package io.github.harryjhin.java.time.extension.primitive
 
 import java.time.LocalDate
+import java.time.Month
+import java.time.Year
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import java.util.Locale
+
+/**
+ * [String]을 [Year]로 변환합니다.
+ *
+ * ```kotlin
+ * val year: Year = "2022".years
+ * ```
+ *
+ * @return [Year] 인스턴스
+ * @since 0.1.2
+ */
+val String.years: Year
+    get() = this.toInt().years
+
+/**
+ * [String]을 [Month]로 변환합니다.
+ *
+ * ```kotlin
+ * val month: Month = "1".months
+ * ```
+ *
+ * @return [Month] 인스턴스
+ * @since 0.1.2
+ */
+val String.months: Month
+    get() = this.toInt().months
 
 /**
  * 문자열을 [DateTimeFormatter]로 변환합니다.
