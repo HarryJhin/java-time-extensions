@@ -111,9 +111,16 @@ publishing {
 
 jreleaser {
     deploy {
+        setActive("RELEASE")
         maven {
+            setActive("RELEASE")
+            pomchecker {
+                version = "1.11.0"
+                failOnWarning = true
+                failOnError = true
+            }
             mavenCentral {
-                create("sonatype") {
+                create("centralPortal") {
                     setActive("RELEASE")
                     url = "https://central.sonatype.com/api/v1/publisher"
                     stagingRepository(layout.buildDirectory.dir("staging-deploy").get().toString())
@@ -132,14 +139,15 @@ jreleaser {
             update {
                 enabled = false
             }
+            commitAuthor {
+                name = "주진현"
+                email = "joojinhyun00@gmail.com"
+            }
         }
     }
     signing {
         setActive("RELEASE")
         armored = true
         verify = true
-    }
-    upload {
-        enabled = false
     }
 }
