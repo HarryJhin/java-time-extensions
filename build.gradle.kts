@@ -12,7 +12,7 @@ plugins {
 
 project.description = "Kotlin을 위한 java.time.* 확장 함수 라이브러리"
 project.group = "io.github.harryjhin"
-project.version = "0.0.14"
+project.version = "0.0.15"
 
 repositories {
     mavenCentral()
@@ -76,8 +76,8 @@ publishing {
             from(components["java"])
 
             pom {
-                name.set("java-time-extensions")
-                description.set("Java Time Extensions")
+                name.set(project.name)
+                description.set(project.description)
                 url.set("https://github.com/HarryJhin/java-time-extensions")
                 inceptionYear.set("2024")
                 licenses {
@@ -89,7 +89,7 @@ publishing {
                 developers {
                     developer {
                         id.set("HarryJhin")
-                        name.set("HarryJhin")
+                        name.set("주진현")
                         email.set("joojinhyun00@gmail.com")
                     }
                 }
