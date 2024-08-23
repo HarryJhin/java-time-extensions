@@ -111,7 +111,6 @@ publishing {
 
 jreleaser {
     deploy {
-        setActive("RELEASE")
         maven {
             mavenCentral {
                 create("sonatype") {
@@ -132,10 +131,6 @@ jreleaser {
             overwrite = false
             update {
                 enabled = false
-            }
-            commitAuthor {
-                name = "주진현"
-                email = "joojinhyun00@gmail.com"
             }
         }
     }
