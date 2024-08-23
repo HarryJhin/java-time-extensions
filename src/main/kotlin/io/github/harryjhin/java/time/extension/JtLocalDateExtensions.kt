@@ -1,10 +1,25 @@
 package io.github.harryjhin.java.time.extension
 
 import java.time.LocalDate
-import java.time.Month
-import java.time.Year
+import java.time.Period
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
+import java.time.temporal.TemporalAmount
+
+/**
+ * [LocalDate] 인스턴스를 [Period]로 변환합니다.
+ *
+ * 예시)
+ * ```kotlin
+ * val amount: TemporalAmount = LocalDate.of(1, 1, 1).amounts
+ * println(LocalDate.of(2022, 1, 1) + amount) // 2023-02-02
+ * ```
+ *
+ * @receiver [LocalDate] 인스턴스
+ * @return [TemporalAmount] 인스턴스
+ */
+val LocalDate.amounts: TemporalAmount
+    get() = Period.ofYears(year).plusMonths(monthValue.toLong()).plusDays(dayOfMonth.toLong())
 
 /**
  * [LocalDate] 인스턴스를 [YearMonth]로 변환합니다.
@@ -64,65 +79,3 @@ fun LocalDate.toFormattedString(
 fun LocalDate.toFormattedString(
     display: JavaTimeDisplay,
 ): String = this.format(display.dateFormatter)
-
-/**
- * [LocalDate] 인스턴스를 [Year] 만큼 더합니다.
- *
- * ```kotlin
- * val date = LocalDate.of(2022, 1, 1)
- * val plusOneYear = date + 1.years // 2023-01-01
- * ```
- *
- * @return [LocalDate] 인스턴스
- * @since 0.1.0
- */
-operator fun LocalDate.plus(year: Year): LocalDate {
-    if (year.value == 0) return this
-    return this.plusYears(year.value.toLong())
-}
-
-/**
- * [LocalDate] 인스턴스를 [Month] 만큼 더합니다.
- *
- * ```kotlin
- * val date = LocalDate.of(2022, 1, 1)
- * val plusOneMonth = date + 1.months // 2022-02-01
- * ```
- *
- * @return [LocalDate] 인스턴스
- * @since 0.1.0
- */
-operator fun LocalDate.plus(month: Month): LocalDate {
-    return this.plusMonths(month.value.toLong())
-}
-
-/**
- * [LocalDate] 인스턴스를 [Year] 만큼 뺍니다.
- *
- * ```kotlin
- * val date = LocalDate.of(2022, 1, 1)
- * val minusOneYear = date - 1.years // 2021-01-01
- * ```
- *
- * @return [LocalDate] 인스턴스
- * @since 0.1.0
- */
-operator fun LocalDate.minus(year: Year): LocalDate {
-    if (year.value == 0) return this
-    return this.minusYears(year.value.toLong())
-}
-
-/**
- * [LocalDate] 인스턴스를 [Month] 만큼 뺍니다.
- *
- * ```kotlin
- * val date = LocalDate.of(2022, 1, 1)
- * val minusOneMonth = date - 1.months // 2021-12-01
- * ```
- *
- * @return [LocalDate] 인스턴스
- * @since 0.1.0
- */
-operator fun LocalDate.minus(month: Month): LocalDate {
-    return this.minusMonths(month.value.toLong())
-}
