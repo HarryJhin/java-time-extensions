@@ -28,8 +28,10 @@ class JtLocalDateExtensionsTest {
         val date = LocalDate.of(2022, 1, 1)
 
         // When
-        val plusOneYear = date + 1L.years
-        val plusOneMonth = date + 1.months
+        val plusOneYear = date + 1L.years.amounts
+        val plusOneMonth = date + 1.months.amounts
+        val plusOneYearOneMonth = date + YearMonth.of(1, 1).amounts
+        val plusOneYearOneMonthOneDay = date + LocalDate.of(1, 1, 1).amounts
 
         // Then
         assertEquals(
@@ -40,6 +42,14 @@ class JtLocalDateExtensionsTest {
             actual = plusOneMonth,
             expected = LocalDate.of(2022, 2, 1),
         )
+        assertEquals(
+            actual = plusOneYearOneMonth,
+            expected = LocalDate.of(2023, 2, 1),
+        )
+        assertEquals(
+            actual = plusOneYearOneMonthOneDay,
+            expected = LocalDate.of(2023, 2, 2),
+        )
     }
 
     @Test
@@ -48,7 +58,7 @@ class JtLocalDateExtensionsTest {
         var date = LocalDate.of(2022, 1, 1)
 
         // When
-        date += 1.years
+        date += 1.years.amounts
 
         // Then
         assertEquals(
@@ -57,7 +67,7 @@ class JtLocalDateExtensionsTest {
         )
 
         // When
-        date += 1L.months
+        date += 1L.months.amounts
 
         // Then
         assertEquals(
@@ -72,8 +82,8 @@ class JtLocalDateExtensionsTest {
         val date = LocalDate.of(2022, 1, 1)
 
         // When
-        val minusOneYear = date - "1".years
-        val minusOneMonth = date - 1.months
+        val minusOneYear = date - "1".years.amounts
+        val minusOneMonth = date - 1.months.amounts
 
         // Then
         assertEquals(
@@ -92,7 +102,7 @@ class JtLocalDateExtensionsTest {
         var date = LocalDate.of(2022, 1, 1)
 
         // When
-        date -= 1.years
+        date -= 1.years.amounts
 
         // Then
         assertEquals(
@@ -101,7 +111,7 @@ class JtLocalDateExtensionsTest {
         )
 
         // When
-        date -= "1".months
+        date -= "1".months.amounts
 
         // Then
         assertEquals(
