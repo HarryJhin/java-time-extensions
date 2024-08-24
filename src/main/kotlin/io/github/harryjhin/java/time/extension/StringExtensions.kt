@@ -46,7 +46,7 @@ val String.months: Month
  * @since 0.2.0
  */
 val String.hours: HourOfDay
-    get() = HourOfDay.of(this.toInt())
+    get() = this.toInt().hours
 
 /**
  * [String]을 [MinuteOfHour]로 변환합니다.

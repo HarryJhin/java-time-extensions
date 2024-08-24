@@ -41,7 +41,7 @@ val Long.months: Month
  * @since 0.2.0
  */
 val Long.hours: HourOfDay
-    get() = HourOfDay.of(this.toInt())
+    get() = this.toInt().hours
 
 /**
  * [Long]을 [MinuteOfHour]로 변환합니다.
