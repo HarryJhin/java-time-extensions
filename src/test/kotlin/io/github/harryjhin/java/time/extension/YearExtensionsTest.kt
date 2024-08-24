@@ -5,6 +5,7 @@ import java.time.MonthDay
 import java.time.Year
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFails
 
 class YearExtensionsTest {
 
@@ -99,5 +100,10 @@ class YearExtensionsTest {
             actual = date2,
             expected = "2022-01-01".toLocalDate(),
         )
+
+        // When
+        assertFails {
+            year at 366
+        }
     }
 }
