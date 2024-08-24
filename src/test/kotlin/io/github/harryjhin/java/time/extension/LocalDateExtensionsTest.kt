@@ -5,7 +5,7 @@ import java.time.YearMonth
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-class JtLocalDateExtensionsTest {
+class LocalDateExtensionsTest {
 
     @Test
     fun toYearMonth() {

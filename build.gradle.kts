@@ -12,7 +12,7 @@ plugins {
 
 project.description = "Kotlin을 위한 java.time.* 확장 함수 라이브러리"
 project.group = "io.github.harryjhin"
-project.version = "0.1.5"
+project.version = "0.2.0"
 
 repositories {
     mavenCentral()
@@ -33,17 +33,20 @@ kotlin {
 tasks.withType<DokkaTask>().configureEach {
     outputDirectory.set(file("docs"))
 
-    dokkaSourceSets.configureEach {
-        documentedVisibilities.set(
-            setOf(
-                DokkaConfiguration.Visibility.PUBLIC, DokkaConfiguration.Visibility.PROTECTED
+    dokkaSourceSets {
+        configureEach {
+            documentedVisibilities.set(
+                setOf(
+                    DokkaConfiguration.Visibility.PUBLIC,
+                    DokkaConfiguration.Visibility.PROTECTED,
+                )
             )
-        )
-
-        sourceLink {
-            localDirectory.set(file("src/main/kotlin"))
-            remoteUrl.set(URL("https://github.com/HarryJhin/java-time-extensions/blob/master/src/main/kotlin"))
-            remoteLineSuffix.set("#L")
+            includes.from(project.files(), "packages.md")
+            sourceLink {
+                localDirectory.set(file("src/main/kotlin"))
+                remoteUrl.set(URL("https://github.com/HarryJhin/java-time-extensions/blob/master/src/main/kotlin"))
+                remoteLineSuffix.set("#L")
+            }
         }
     }
 }

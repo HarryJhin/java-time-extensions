@@ -28,3 +28,45 @@ val Int.years: Year
  */
 val Int.months: Month
     get() = Month.of(this)
+
+/**
+ * [Int]를 [HourOfDay]로 변환합니다.
+ *
+ * 예시)
+ * ```kotlin
+ * val hour: Hour = 1.hours
+ * ```
+ *
+ * @return [HourOfDay] 인스턴스
+ * @since 0.2.0
+ */
+val Int.hours: HourOfDay
+    get() = HourOfDay.of(this)
+
+/**
+ * [Int]를 [MinuteOfHour]로 변환합니다.
+ *
+ * 예시)
+ * ```kotlin
+ * val minute: MinuteOfHour = 1.minutes
+ * ```
+ *
+ * @return [MinuteOfHour] 인스턴스
+ * @since 0.2.0
+ */
+val Int.minutes: MinuteOfHour
+    get() = MinuteOfHour.of(minute = this)
+
+/**
+ * [Int]를 [SecondOfMinute]로 변환합니다.
+ *
+ * 예시)
+ * ```kotlin
+ * val second: SecondOfMinute = 1.seconds
+ * ```
+ *
+ * @return [SecondOfMinute] 인스턴스
+ * @since 0.2.0
+ */
+val Int.seconds: SecondOfMinute
+    get() = SecondOfMinute.of(second = this)
