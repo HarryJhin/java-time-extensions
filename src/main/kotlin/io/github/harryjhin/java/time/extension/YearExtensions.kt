@@ -33,6 +33,8 @@ val Year.years: Period
  *
  * @param month 결합할 [Month]
  * @return 생성된 [YearMonth] 인스턴스
+ * @since 0.4.0
+ * @sample io.github.harryjhin.java.time.extension.YearExtensionsTest.at
  */
 infix fun Year.at(month: Month): YearMonth {
     return this.atMonth(month)
@@ -50,6 +52,8 @@ infix fun Year.at(month: Month): YearMonth {
  *
  * @param monthDay 결합할 [MonthDay]
  * @return 생성된 [LocalDate] 인스턴스
+ * @since 0.4.0
+ * @sample io.github.harryjhin.java.time.extension.YearExtensionsTest.at
  */
 infix fun Year.at(monthDay: MonthDay): LocalDate {
     return this.atMonthDay(monthDay)
@@ -69,6 +73,8 @@ infix fun Year.at(monthDay: MonthDay): LocalDate {
  * @param dayOfYear 연중 일 (1-365, 윤년의 경우 1-366)
  * @return 생성된 [LocalDate] 인스턴스
  * @throws DateTimeException 유효하지 않은 연중 일이 제공된 경우
+ * @since 0.4.0
+ * @sample io.github.harryjhin.java.time.extension.YearExtensionsTest.at
  */
 infix fun Year.at(dayOfYear: Int): LocalDate {
     return this.atDay(dayOfYear)

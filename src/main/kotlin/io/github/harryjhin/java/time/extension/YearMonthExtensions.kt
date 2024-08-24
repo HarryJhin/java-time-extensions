@@ -1,5 +1,6 @@
 package io.github.harryjhin.java.time.extension
 
+import java.time.LocalDate
 import java.time.Period
 import java.time.YearMonth
 
@@ -29,3 +30,7 @@ val YearMonth.years: Period
  */
 val YearMonth.months: Period
     get() = this.monthValue.months
+
+infix fun YearMonth.at(dayOfMonth: Int): LocalDate {
+    return this.atDay(dayOfMonth)
+}
