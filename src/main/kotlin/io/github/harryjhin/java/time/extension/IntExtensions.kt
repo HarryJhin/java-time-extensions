@@ -28,3 +28,17 @@ val Int.years: Year
  */
 val Int.months: Month
     get() = Month.of(this)
+
+/**
+ * [Int]를 [HourOfDay]로 변환합니다.
+ *
+ * 예시)
+ * ```kotlin
+ * val hour: Hour = 1.hours
+ * ```
+ *
+ * @return [HourOfDay] 인스턴스
+ * @since 0.2.0
+ */
+val Int.hours: HourOfDay
+    get() = HourOfDay.of(this)

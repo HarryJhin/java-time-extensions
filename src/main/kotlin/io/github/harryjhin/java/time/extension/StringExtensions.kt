@@ -35,6 +35,20 @@ val String.months: Month
     get() = this.toInt().months
 
 /**
+ * [String]을 [HourOfDay]로 변환합니다.
+ *
+ * 예시)
+ * ```kotlin
+ * val hour: Hour = "1".hours
+ * ```
+ *
+ * @return [HourOfDay] 인스턴스
+ * @since 0.2.0
+ */
+val String.hours: HourOfDay
+    get() = HourOfDay.of(this.toInt())
+
+/**
  * 문자열을 [DateTimeFormatter]로 변환합니다.
  *
  * ```kotlin
