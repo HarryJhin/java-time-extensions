@@ -423,7 +423,7 @@ class HourOfDay private constructor(
      * @return a string representation of this hour, not null
      */
     override fun toString(): String {
-        return value.toString()
+        return "%02d".format(value)
     }
 
     @Suppress("UNUSED_PARAMETER")
