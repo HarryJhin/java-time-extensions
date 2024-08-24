@@ -4,6 +4,7 @@ import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.Period
+import java.time.Year
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
@@ -141,6 +142,113 @@ fun String.toDateTimeFormatter(
 ): DateTimeFormatter = DateTimeFormatter.ofPattern(this, locale)
 
 /**
+ * [String]을 [Year]로 변환합니다. 기본 포맷 "yyyy"를 사용합니다.
+ *
+ * 예시:
+ * ```kotlin
+ * val year: Year = "2022".toYear() // 2022
+ * ```
+ *
+ * @return 변환된 [Year] 인스턴스
+ * @throws DateTimeParseException 문자열 파싱에 실패한 경우
+ */
+fun String.toYear(): Year {
+    return toYear(formatter = FORMATTER_YEAR)
+}
+
+/**
+ * [String]을 지정된 포맷의 [Year]로 변환합니다.
+ *
+ * 예시:
+ * ```kotlin
+ * val year: Year = "22".toYear("yy") // 2022
+ * ```
+ *
+ * @param format 년도 문자열의 포맷
+ * @return 변환된 [Year] 인스턴스
+ * @throws DateTimeParseException 문자열 파싱에 실패한 경우
+ * @throws IllegalArgumentException 제공된 포맷이 유효하지 않은 경우
+ */
+fun String.toYear(format: String): Year {
+    if (format == PATTERN_YEAR) {
+        return toYear()
+    }
+    return toYear(formatter = DateTimeFormatter.ofPattern(format))
+}
+
+/**
+ * [String]을 지정된 [DateTimeFormatter]를 사용하여 [Year]로 변환합니다.
+ *
+ * 예시:
+ * ```kotlin
+ * val formatter = DateTimeFormatter.ofPattern("yy")
+ * val year: Year = "22".toYear(formatter) // 2022
+ * ```
+ *
+ * @param formatter 년도 문자열을 파싱할 [DateTimeFormatter]
+ * @return 변환된 [Year] 인스턴스
+ * @throws DateTimeParseException 문자열 파싱에 실패한 경우
+ */
+fun String.toYear(formatter: DateTimeFormatter): Year {
+    return Year.parse(this, formatter)
+}
+
+/**
+ * [String]을 [Year]로 변환합니다. 기본 포맷 "yyyy"를 사용합니다.
+ * 변환에 실패하면 `null`을 반환합니다.
+ *
+ * 예시:
+ * ```kotlin
+ * val validYear: Year? = "2022".toYearOrNull() // 2022
+ * val invalidYear: Year? = "202X".toYearOrNull() // null
+ * ```
+ *
+ * @return 변환된 [Year] 인스턴스 또는 변환 실패 시 null
+ */
+fun String.toYearOrNull(): Year? {
+    return toYearOrNull(formatter = FORMATTER_YEAR)
+}
+
+/**
+ * [String]을 지정된 포맷의 [Year]로 변환합니다.
+ * 변환에 실패하면 `null`을 반환합니다.
+ *
+ * 예시:
+ * ```kotlin
+ * val validYear: Year? = "22".toYearOrNull("yy") // 2022
+ * val invalidYear: Year? = "XX".toYearOrNull("yy") // null
+ * ```
+ *
+ * @param format 년도 문자열의 포맷
+ * @return 변환된 [Year] 인스턴스 또는 변환 실패 시 null
+ */
+fun String.toYearOrNull(format: String): Year? {
+    return toYearOrNull(formatter = DateTimeFormatter.ofPattern(format))
+}
+
+/**
+ * [String]을 지정된 [DateTimeFormatter]를 사용하여 [Year]로 변환합니다.
+ * 변환에 실패하면 `null`을 반환합니다.
+ *
+ * 예시:
+ * ```kotlin
+ * val formatter = DateTimeFormatter.ofPattern("yy")
+ * val validYear: Year? = "22".toYearOrNull(formatter) // 2022
+ * val invalidYear: Year? = "XX".toYearOrNull(formatter) // null
+ * ```
+ *
+ * @param formatter 년도 문자열을 파싱할 [DateTimeFormatter]
+ * @return 변환된 [Year] 인스턴스 또는 변환 실패 시 null
+ */
+fun String.toYearOrNull(formatter: DateTimeFormatter): Year? {
+    return try {
+        toYear(formatter = formatter)
+    } catch (e: Exception) {
+        null
+    }
+}
+
+/**
  * [String]을 [YearMonth]로 변환합니다. 기본 포맷 "yyyy-MM"을 사용합니다.
  *
  * 예시:
@@ -202,7 +310,7 @@ fun String.toYearMonth(
 
 /**
  * [String]을 [YearMonth]로 변환합니다. 기본 포맷 "yyyy-MM"을 사용합니다.
- * 변환에 실패하면 null을 반환합니다.
+ * 변환에 실패하면 `null`을 반환합니다.
  *
  * 예시:
  * ```kotlin
@@ -219,7 +327,7 @@ fun String.toYearMonthOrNull(): YearMonth? {
 
 /**
  * [String]을 지정된 포맷의 [YearMonth]로 변환합니다.
- * 변환에 실패하면 null을 반환합니다.
+ * 변환에 실패하면 `null`을 반환합니다.
  *
  * 예시:
  * ```kotlin
@@ -239,7 +347,7 @@ fun String.toYearMonthOrNull(
 
 /**
  * [String]을 지정된 [DateTimeFormatter]를 사용하여 [YearMonth]로 변환합니다.
- * 변환에 실패하면 null을 반환합니다.
+ * 변환에 실패하면 `null`을 반환합니다.
  *
  * 예시:
  * ```kotlin

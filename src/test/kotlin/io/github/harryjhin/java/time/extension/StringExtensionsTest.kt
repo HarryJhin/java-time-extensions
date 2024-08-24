@@ -142,6 +142,67 @@ class StringExtensionsTest {
     }
 
     @Test
+    fun toYear1() {
+        // Given
+        val text = "2022"
+
+        // When
+        val year = text.toYear()
+
+        // Then
+        assertEquals(
+            expected = "2022".toYear(),
+            actual = year,
+        )
+        assertFails {
+            "2022-01".toYear()
+        }
+    }
+
+    @Test
+    fun toYear2() {
+        // Given
+        val text = "22"
+
+        // When
+        val year = text.toYear("yy")
+
+        // Then
+        assertEquals(
+            expected = "2022".toYear(),
+            actual = year,
+        )
+    }
+
+    @Test
+    fun toYear3() {
+        // Given
+        val text = "22"
+
+        // When
+
+        // Then
+        assertFails {
+            text.toYear()
+        }
+    }
+
+    @Test
+    fun toYearOrNull1() {
+        // Given
+        val text = "22"
+
+        // When
+        val year = text.toYearOrNull()
+
+        // Then
+        assertEquals(
+            expected = null,
+            actual = year,
+        )
+    }
+
+    @Test
     fun toYearMonth() {
         // Given
         val text = "2022-01"
