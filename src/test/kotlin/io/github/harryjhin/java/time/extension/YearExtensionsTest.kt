@@ -69,7 +69,7 @@ class YearExtensionsTest {
     }
 
     @Test
-    fun to() {
+    fun at() {
         // Given
         val year = "2022".toYear()
 
