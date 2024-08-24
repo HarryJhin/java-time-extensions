@@ -11,7 +11,7 @@ class YearExtensionsTest {
         val year = 2022.years
 
         // When
-        val plusOneYear = year + 1.years.amounts
+        val plusOneYear = year + 1.years
 
         // Then
         assertEquals(
@@ -26,7 +26,7 @@ class YearExtensionsTest {
         var year = 2022.years
 
         // When
-        year += 1.years.amounts
+        year += 1.years
 
         // Then
         assertEquals(
@@ -41,7 +41,7 @@ class YearExtensionsTest {
         val year = 2022.years
 
         // When
-        val minusOneYear = year - 1.years.amounts
+        val minusOneYear = year - 1.years
 
         // Then
         assertEquals(
@@ -56,7 +56,7 @@ class YearExtensionsTest {
         var year = 2022.years
 
         // When
-        year -= 1.years.amounts
+        year -= 1.years
 
         // Then
         assertEquals(

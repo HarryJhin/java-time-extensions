@@ -2,6 +2,7 @@ package io.github.harryjhin.java.time.extension
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFails
 
 class StringExtensionsTest {
 
@@ -15,8 +16,8 @@ class StringExtensionsTest {
 
         // Then
         assertEquals(
-            expected = 2022,
-            actual = year.value,
+            expected = "P2022Y",
+            actual = year.toString(),
         )
     }
 
@@ -30,8 +31,23 @@ class StringExtensionsTest {
 
         // Then
         assertEquals(
-            expected = 1,
-            actual = month.value,
+            expected = "P1M",
+            actual = month.toString(),
+        )
+    }
+
+    @Test
+    fun days() {
+        // Given
+        val text = "1"
+
+        // When
+        val day = text.days
+
+        // Then
+        assertEquals(
+            expected = "P1D",
+            actual = day.toString(),
         )
     }
 
@@ -45,9 +61,102 @@ class StringExtensionsTest {
 
         // Then
         assertEquals(
-            expected = 1,
-            actual = hour.value,
+            expected = "PT1H",
+            actual = hour.toString(),
         )
+    }
+
+    @Test
+    fun minutes() {
+        // Given
+        val text = "1"
+
+        // When
+        val minute = text.minutes
+
+        // Then
+        assertEquals(
+            expected = "PT1M",
+            actual = minute.toString(),
+        )
+    }
+
+    @Test
+    fun seconds() {
+        // Given
+        val text = "1"
+
+        // When
+        val second = text.seconds
+
+        // Then
+        assertEquals(
+            expected = "PT1S",
+            actual = second.toString(),
+        )
+    }
+
+    @Test
+    fun milliseconds() {
+        // Given
+        val text = "1"
+
+        // When
+        val millisecond = text.milliseconds
+
+        // Then
+        assertEquals(
+            expected = "PT0.001S",
+            actual = millisecond.toString(),
+        )
+    }
+
+    @Test
+    fun microseconds() {
+        // Given
+        val text = "1"
+
+        // When
+        val microsecond = text.microseconds
+
+        // Then
+        assertEquals(
+            expected = "PT0.000001S",
+            actual = microsecond.toString(),
+        )
+    }
+
+    @Test
+    fun nanoseconds() {
+        // Given
+        val text = "1"
+
+        // When
+        val nanosecond = text.nanoseconds
+
+        // Then
+        assertEquals(
+            expected = "PT0.000000001S",
+            actual = nanosecond.toString(),
+        )
+    }
+
+    @Test
+    fun toYearMonth() {
+        // Given
+        val text = "2022-01"
+
+        // When
+        val yearMonth = text.toYearMonth()
+
+        // Then
+        assertEquals(
+            expected = "2022-01".toYearMonth(),
+            actual = yearMonth,
+        )
+        assertFails {
+            "2022-01-01".toYearMonth()
+        }
     }
 
     @Test
