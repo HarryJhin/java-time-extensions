@@ -1,6 +1,7 @@
 package io.github.harryjhin.java.time.extension
 
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.Month
 import java.time.Year
 import java.time.format.DateTimeFormatter
@@ -40,8 +41,7 @@ val String.months: Month
  * val formatter: DateTimeFormatter = "yyyy-MM-dd".toDateTimeFormatter()
  * ```
  *
- * @receiver 변환할 문자열
- * @return [DateTimeFormatter] 객체
+ * @return [DateTimeFormatter] 인스턴스
  * @throws IllegalArgumentException 날짜 포맷이 유효하지 않은 경우
  */
 fun String.toDateTimeFormatter(
@@ -55,9 +55,8 @@ fun String.toDateTimeFormatter(
  * val date: LocalDate = "2022-01-01".toLocalDate()
  * ```
  *
- * @receiver 변환할 문자열
  * @param format 날짜 형식
- * @return [LocalDate] 객체
+ * @return [LocalDate] 인스턴스
  * @throws DateTimeParseException 문자열 분석에 실패한 경우
  * @throws IllegalArgumentException 날짜 포맷이 유효하지 않은 경우
  */
@@ -72,9 +71,8 @@ fun String.toLocalDate(
  * val date: LocalDate = "2022-01-01".toLocalDate(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
  * ```
  *
- * @receiver 변환할 문자열
- * @param formatter [DateTimeFormatter] 객체
- * @return [LocalDate] 객체
+ * @param formatter [DateTimeFormatter] 인스턴스
+ * @return [LocalDate] 인스턴스
  * @throws DateTimeParseException 문자열 분석에 실패한 경우
  */
 fun String.toLocalDate(
@@ -88,9 +86,8 @@ fun String.toLocalDate(
  * val date: LocalDate? = "2022-01-01".toLocalDateOrNull()
  * ```
  *
- * @receiver 변환할 문자열
  * @param format 날짜 형식
- * @return [LocalDate] 객체
+ * @return [LocalDate] 인스턴스
  */
 fun String.toLocalDateOrNull(
     format: String = "yyyy-MM-dd",
@@ -107,9 +104,8 @@ fun String.toLocalDateOrNull(
  * val date: LocalDate? = "2022-01-01".toLocalDateOrNull(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
  * ```
  *
- * @receiver 변환할 문자열
- * @param formatter [DateTimeFormatter] 객체
- * @return [LocalDate] 객체
+ * @param formatter [DateTimeFormatter] 인스턴스
+ * @return [LocalDate] 인스턴스
  */
 fun String.toLocalDateOrNull(
     formatter: DateTimeFormatter,
@@ -196,7 +192,6 @@ fun String.toLocalTimeOrNull(): LocalTime? {
  * val time: LocalTime? = "00:00:00".toLocalTimeOrNull(format)
  * ```
  *
- * @receiver 변환할 문자열
  * @param format 날짜 형식 문자열
  * @return [LocalTime] 인스턴스
  * @since 0.2.0
@@ -215,7 +210,6 @@ fun String.toLocalTimeOrNull(
  * val time: LocalTime? = "00:00:00".toLocalTimeOrNull(formatter)
  * ```
  *
- * @receiver 변환할 문자열
  * @param formatter [DateTimeFormatter] 인스턴스
  * @return [LocalTime] 인스턴스
  * @since 0.2.0
