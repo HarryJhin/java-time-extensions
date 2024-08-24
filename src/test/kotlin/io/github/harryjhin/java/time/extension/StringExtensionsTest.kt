@@ -15,8 +15,8 @@ class StringExtensionsTest {
 
         // Then
         assertEquals(
-            expected = 2022,
-            actual = year.value,
+            expected = "P2022Y",
+            actual = year.toString(),
         )
     }
 
@@ -30,8 +30,23 @@ class StringExtensionsTest {
 
         // Then
         assertEquals(
-            expected = 1,
-            actual = month.value,
+            expected = "P1M",
+            actual = month.toString(),
+        )
+    }
+
+    @Test
+    fun days() {
+        // Given
+        val text = "1"
+
+        // When
+        val day = text.days
+
+        // Then
+        assertEquals(
+            expected = "P1D",
+            actual = day.toString(),
         )
     }
 
@@ -45,8 +60,8 @@ class StringExtensionsTest {
 
         // Then
         assertEquals(
-            expected = 1,
-            actual = hour.value,
+            expected = "PT1H",
+            actual = hour.toString(),
         )
     }
 

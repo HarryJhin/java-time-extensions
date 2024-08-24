@@ -1,25 +1,8 @@
 package io.github.harryjhin.java.time.extension
 
 import java.time.LocalDate
-import java.time.Period
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
-import java.time.temporal.TemporalAmount
-
-/**
- * [LocalDate] 인스턴스를 [Period]로 변환합니다.
- *
- * 예시)
- * ```kotlin
- * val amount: TemporalAmount = LocalDate.of(1, 1, 1).amounts
- * println(LocalDate.of(2022, 1, 1) + amount) // 2023-02-02
- * ```
- *
- * @receiver [LocalDate] 인스턴스
- * @return [TemporalAmount] 인스턴스
- */
-val LocalDate.amounts: TemporalAmount
-    get() = Period.ofYears(year).plusMonths(monthValue.toLong()).plusDays(dayOfMonth.toLong())
 
 /**
  * [LocalDate] 인스턴스를 [YearMonth]로 변환합니다.

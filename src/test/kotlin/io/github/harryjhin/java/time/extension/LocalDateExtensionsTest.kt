@@ -10,7 +10,7 @@ class LocalDateExtensionsTest {
     @Test
     fun toYearMonth() {
         // Given
-        val date = LocalDate.of(2022, 1, 1)
+        val date = "2022-01-01".toLocalDate()
 
         // When
         val yearMonth = date.toYearMonth()
@@ -18,7 +18,7 @@ class LocalDateExtensionsTest {
         // Then
         assertEquals(
             actual = yearMonth,
-            expected = YearMonth.of(2022, 1),
+            expected = "2022-01".toYearMonth(),
         )
     }
 
@@ -28,27 +28,22 @@ class LocalDateExtensionsTest {
         val date = LocalDate.of(2022, 1, 1)
 
         // When
-        val plusOneYear = date + 1L.years.amounts
-        val plusOneMonth = date + 1.months.amounts
-        val plusOneYearOneMonth = date + YearMonth.of(1, 1).amounts
-        val plusOneYearOneMonthOneDay = date + LocalDate.of(1, 1, 1).amounts
+        val plusOneYear = date + 1L.years
+        val plusOneMonth = date + 1.months
+        val plusOneDay = date + 1.days
 
         // Then
         assertEquals(
             actual = plusOneYear,
-            expected = LocalDate.of(2023, 1, 1),
+            expected = "2023-01-01".toLocalDate(),
         )
         assertEquals(
             actual = plusOneMonth,
-            expected = LocalDate.of(2022, 2, 1),
+            expected = "2022-02-01".toLocalDate(),
         )
         assertEquals(
-            actual = plusOneYearOneMonth,
-            expected = LocalDate.of(2023, 2, 1),
-        )
-        assertEquals(
-            actual = plusOneYearOneMonthOneDay,
-            expected = LocalDate.of(2023, 2, 2),
+            actual = plusOneDay,
+            expected = "2022-01-02".toLocalDate(),
         )
     }
 
@@ -58,21 +53,30 @@ class LocalDateExtensionsTest {
         var date = LocalDate.of(2022, 1, 1)
 
         // When
-        date += 1.years.amounts
+        date += 1.years
 
         // Then
         assertEquals(
             actual = date,
-            expected = LocalDate.of(2023, 1, 1),
+            expected = "2023-01-01".toLocalDate(),
         )
 
         // When
-        date += 1L.months.amounts
+        date += 1.months
 
         // Then
         assertEquals(
             actual = date,
-            expected = LocalDate.of(2023, 2, 1),
+            expected = "2023-02-01".toLocalDate(),
+        )
+
+        // When
+        date += 1L.days
+
+        // Then
+        assertEquals(
+            actual = date,
+            expected = "2023-02-02".toLocalDate(),
         )
     }
 
@@ -82,41 +86,55 @@ class LocalDateExtensionsTest {
         val date = LocalDate.of(2022, 1, 1)
 
         // When
-        val minusOneYear = date - "1".years.amounts
-        val minusOneMonth = date - 1.months.amounts
+        val minusOneYear = date - 1.years
+        val minusOneMonth = date - 1.months
+        val minusOneDay = date - 1.days
 
         // Then
         assertEquals(
             actual = minusOneYear,
-            expected = LocalDate.of(2021, 1, 1),
+            expected = "2021-01-01".toLocalDate(),
         )
         assertEquals(
             actual = minusOneMonth,
-            expected = LocalDate.of(2021, 12, 1),
+            expected = "2021-12-01".toLocalDate(),
+        )
+        assertEquals(
+            actual = minusOneDay,
+            expected = "2021-12-31".toLocalDate(),
         )
     }
 
     @Test
     fun minusAssign() {
         // Given
-        var date = LocalDate.of(2022, 1, 1)
+        var date = "2022-01-01".toLocalDate()
 
         // When
-        date -= 1.years.amounts
+        date -= 1.years
 
         // Then
         assertEquals(
             actual = date,
-            expected = LocalDate.of(2021, 1, 1),
+            expected = "2021-01-01".toLocalDate(),
         )
 
         // When
-        date -= "1".months.amounts
+        date -= "1".months
 
         // Then
         assertEquals(
             actual = date,
-            expected = LocalDate.of(2020, 12, 1),
+            expected = "2020-12-01".toLocalDate(),
+        )
+
+        // When
+        date -= 1L.days
+
+        // Then
+        assertEquals(
+            actual = date,
+            expected = "2020-11-30".toLocalDate(),
         )
     }
 }

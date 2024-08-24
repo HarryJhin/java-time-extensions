@@ -1,69 +1,130 @@
 package io.github.harryjhin.java.time.extension
 
+import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
-import java.time.Month
-import java.time.Year
+import java.time.Period
+import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import java.util.Locale
 
 /**
- * [String]을 [Year]로 변환합니다.
+ * [String]을 연(Year) 단위의 [Period]로 변환합니다.
  *
  * ```kotlin
- * val year: Year = "2022".years
+ * val year: Period = "2022".years // P2022Y
  * ```
  *
- * @return [Year] 인스턴스
- * @since 0.1.2
+ * @return 지정된 연 수를 나타내는 [Period] 인스턴스
+ * @since 0.3.0
  */
-val String.years: Year
+val String.years: Period
     get() = this.toInt().years
 
 /**
- * [String]을 [Month]로 변환합니다.
+ * [String]을 월(month) 단위의 [Period]로 변환합니다.
  *
  * ```kotlin
- * val month: Month = "1".months
+ * val month: Period = "3".months // P3M
  * ```
  *
- * @return [Month] 인스턴스
- * @since 0.1.2
+ * @return 지정된 월 수를 나타내는 [Period] 인스턴스
+ * @since 0.3.0
  */
-val String.months: Month
+val String.months: Period
     get() = this.toInt().months
 
 /**
- * [String]을 [HourOfDay]로 변환합니다.
+ * [String]을 일(day) 단위의 [Period]로 변환합니다.
  *
- * 예시)
  * ```kotlin
- * val hour: Hour = "1".hours
+ * val day: Period = "14".days // P14D
  * ```
  *
- * @return [HourOfDay] 인스턴스
- * @since 0.2.0
+ * @return 지정된 일 수를 나타내는 [Period] 인스턴스
+ * @since 0.3.0
  */
-val String.hours: HourOfDay
-    get() = this.toInt().hours
+val String.days: Period
+    get() = this.toInt().days
 
 /**
- * [String]을 [MinuteOfHour]로 변환합니다.
+ * [String]을 시간(hour) 단위의 [Duration]으로 변환합니다.
  *
- * 예시)
  * ```kotlin
- * val minute: MinuteOfHour = "1".minutes
+ * val hour: Duration = "1".hours // PT1H
  * ```
  *
- * @return [MinuteOfHour] 인스턴스
- * @since 0.2.0
+ * @return 지정된 시간 기간을 나타내는 [Duration] 인스턴스
+ * @since 0.3.0
  */
-val String.minutes: MinuteOfHour
-    get() = this.toInt().minutes
+val String.hours: Duration
+    get() = this.toLong().hours
 
-val String.seconds: SecondOfMinute
-    get() = this.toInt().seconds
+/**
+ * [String]을 분(minute) 단위의 [Duration]으로 변환합니다.
+ *
+ * ```kotlin
+ * val minute: Duration = "30".minutes // PT30M
+ * ```
+ *
+ * @return 지정된 분 기간을 나타내는 [Duration] 인스턴스
+ * @since 0.3.0
+ */
+val String.minutes: Duration
+    get() = this.toLong().minutes
+
+/**
+ * [String]을 초(second) 단위의 [Duration]으로 변환합니다.
+ *
+ * ```kotlin
+ * val second: Duration = "30".seconds // PT30S
+ * ```
+ *
+ * @return 지정된 초 기간을 나타내는 [Duration] 인스턴스
+ * @since 0.3.0
+ */
+val String.seconds: Duration
+    get() = this.toLong().seconds
+
+/**
+ * [String]을 밀리초(millisecond) 단위의 [Duration]으로 변환합니다.
+ *
+ * ```kotlin
+ * val millisecond: Duration = "1".milliseconds // PT0.001S
+ * ```
+ *
+ * @return 지정된 밀리초 기간을 나타내는 [Duration] 인스턴스
+ * @since 0.3.0
+ */
+val String.milliseconds: Duration
+    get() = this.toLong().milliseconds
+
+/**
+ * [String]을 마이크로초(microsecond) 단위의 [Duration]으로 변환합니다.
+ *
+ * ```kotlin
+ * val microsecond: Duration = "1".microseconds // PT0.000001S
+ * ```
+ *
+ * @return 지정된 마이크로초 기간을 나타내는 [Duration] 인스턴스
+ * @since 0.3.0
+ */
+val String.microseconds: Duration
+    get() = this.toLong().microseconds
+
+/**
+ * [String]을 나노초(nanosecond) 단위의 [Duration]으로 변환합니다.
+ *
+ * ```kotlin
+ * val nanosecond: Duration = "1".nanoseconds // PT0.000000001S
+ * ```
+ *
+ * @return 지정된 나노초 기간을 나타내는 [Duration] 인스턴스
+ * @since 0.3.0
+ */
+val String.nanoseconds: Duration
+    get() = this.toLong().nanoseconds
 
 /**
  * 문자열을 [DateTimeFormatter]로 변환합니다.
