@@ -49,6 +49,20 @@ val String.hours: HourOfDay
     get() = HourOfDay.of(this.toInt())
 
 /**
+ * [String]을 [MinuteOfHour]로 변환합니다.
+ *
+ * 예시)
+ * ```kotlin
+ * val minute: MinuteOfHour = "1".minutes
+ * ```
+ *
+ * @return [MinuteOfHour] 인스턴스
+ * @since 0.2.0
+ */
+val String.minutes: MinuteOfHour
+    get() = this.toInt().minutes
+
+/**
  * 문자열을 [DateTimeFormatter]로 변환합니다.
  *
  * ```kotlin
