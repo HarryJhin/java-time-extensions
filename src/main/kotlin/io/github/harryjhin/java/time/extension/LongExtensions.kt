@@ -56,3 +56,17 @@ val Long.hours: HourOfDay
  */
 val Long.minutes: MinuteOfHour
     get() = this.toInt().minutes
+
+/**
+ * [Long]을 [SecondOfMinute]로 변환합니다.
+ *
+ * 예시)
+ * ```kotlin
+ * val second: SecondOfMinute = 1L.seconds
+ * ```
+ *
+ * @return [SecondOfMinute] 인스턴스
+ * @since 0.2.0
+ */
+val Long.seconds: SecondOfMinute
+    get() = this.toInt().seconds

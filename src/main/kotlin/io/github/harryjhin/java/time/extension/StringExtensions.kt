@@ -62,6 +62,9 @@ val String.hours: HourOfDay
 val String.minutes: MinuteOfHour
     get() = this.toInt().minutes
 
+val String.seconds: SecondOfMinute
+    get() = this.toInt().seconds
+
 /**
  * 문자열을 [DateTimeFormatter]로 변환합니다.
  *

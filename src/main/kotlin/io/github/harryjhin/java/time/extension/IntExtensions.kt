@@ -56,3 +56,17 @@ val Int.hours: HourOfDay
  */
 val Int.minutes: MinuteOfHour
     get() = MinuteOfHour.of(minute = this)
+
+/**
+ * [Int]를 [SecondOfMinute]로 변환합니다.
+ *
+ * 예시)
+ * ```kotlin
+ * val second: SecondOfMinute = 1.seconds
+ * ```
+ *
+ * @return [SecondOfMinute] 인스턴스
+ * @since 0.2.0
+ */
+val Int.seconds: SecondOfMinute
+    get() = SecondOfMinute.of(second = this)
