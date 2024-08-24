@@ -170,23 +170,62 @@ fun String.toLocalTime(
  */
 fun String.toLocalTime(
     formatter: DateTimeFormatter,
-): LocalDate = LocalDate.parse(this, formatter)
+): LocalTime {
+    return LocalTime.parse(this, formatter)
+}
 
 /**
- * 문자열을 [LocalDate]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ * 문자열을 [LocalTime]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
  *
  * ```kotlin
- * val date: LocalDate? = "2022-01-01".toLocalDateOrNull()
+ * val time: LocalTime? = "00:00:00".toLocalTimeOrNull()
+ * ```
+ *
+ * @return [LocalTime] 인스턴스
+ * @since 0.2.0
+ */
+fun String.toLocalTimeOrNull(): LocalTime? {
+    return toLocalTimeOrNull(formatter = DateTimeFormatter.ISO_LOCAL_TIME)
+}
+
+/**
+ * 문자열을 [LocalTime]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ *
+ * ```kotlin
+ * val format = "HH:mm:ss"
+ * val time: LocalTime? = "00:00:00".toLocalTimeOrNull(format)
  * ```
  *
  * @receiver 변환할 문자열
- * @param format 날짜 형식
- * @return [LocalDate] 객체
+ * @param format 날짜 형식 문자열
+ * @return [LocalTime] 인스턴스
+ * @since 0.2.0
  */
 fun String.toLocalTimeOrNull(
-    format: String = "HH:mm:ss",
-): LocalDate? = try {
-    toLocalDate(format)
-} catch (e: Exception) {
-    null
+    format: String,
+): LocalTime? {
+    return toLocalTimeOrNull(formatter = format.toDateTimeFormatter())
+}
+
+/**
+ * 문자열을 [LocalTime]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ *
+ * ```kotlin
+ * val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
+ * val time: LocalTime? = "00:00:00".toLocalTimeOrNull(formatter)
+ * ```
+ *
+ * @receiver 변환할 문자열
+ * @param formatter [DateTimeFormatter] 인스턴스
+ * @return [LocalTime] 인스턴스
+ * @since 0.2.0
+ */
+fun String.toLocalTimeOrNull(
+    formatter: DateTimeFormatter,
+): LocalTime? {
+    return try {
+        toLocalTime(formatter)
+    } catch (e: Exception) {
+        null
+    }
 }
