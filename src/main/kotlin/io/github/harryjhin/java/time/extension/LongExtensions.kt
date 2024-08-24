@@ -109,7 +109,7 @@ val Long.milliseconds: Duration
  * @since 0.3.0
  */
 val Long.microseconds: Duration
-    get() = Duration.ofNanos(this)
+    get() = Duration.ofNanos(this * 1000)
 
 /**
  * [Long]을 나노초(nanosecond) 단위의 [Duration]으로 변환합니다.
