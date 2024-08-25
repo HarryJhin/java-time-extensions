@@ -1,7 +1,9 @@
 package io.github.harryjhin.java.time.extension
 
 import java.time.Duration
+import java.time.Month
 import java.time.Period
+import java.time.Year
 
 /**
  * [Long]을 연(Year) 단위의 [Period]로 변환합니다.
@@ -124,3 +126,53 @@ val Long.microseconds: Duration
  */
 val Long.nanoseconds: Duration
     get() = Duration.ofNanos(this)
+
+/**
+ * [Long]을 [Year]로 변환합니다.
+ *
+ * @return 지정된 연도를 나타내는 [Year] 인스턴스
+ * @since 0.5.0
+ * @sample io.github.harryjhin.java.time.extension.YearExtensionsTest.longToYear
+ * @sample io.github.harryjhin.java.time.extension.YearExtensionsTest.longToYearFail
+ */
+fun Long.toYear(): Year {
+    return this.toInt().toYear()
+}
+
+/**
+ * [Long]을 [Year]로 변환합니다.
+ *
+ * 변환 중에 예외가 발생하면 `null`을 반환합니다.
+ *
+ * @return 지정된 연도를 나타내는 [Year] 인스턴스
+ * @since 0.5.0
+ * @sample io.github.harryjhin.java.time.extension.YearExtensionsTest.longToYearOrNull
+ */
+fun Long.toYearOrNull(): Year? {
+    return this.toInt().toYearOrNull()
+}
+
+/**
+ * [Long]을 [Month]로 변환합니다.
+ *
+ * @return 지정된 월을 나타내는 [Month] 인스턴스
+ * @since 0.5.0
+ * @sample io.github.harryjhin.java.time.extension.MonthExtensionsTest.longToMonth
+ * @sample io.github.harryjhin.java.time.extension.MonthExtensionsTest.longToMonthFail
+ */
+fun Long.toMonth(): Month {
+    return this.toInt().toMonth()
+}
+
+/**
+ * [Long]을 [Month]로 변환합니다.
+ *
+ * 변환 중에 예외가 발생하면 `null`을 반환합니다.
+ *
+ * @return 지정된 월을 나타내는 [Month] 인스턴스
+ * @since 0.5.0
+ * @sample io.github.harryjhin.java.time.extension.MonthExtensionsTest.longToMonthOrNull
+ */
+fun Long.toMonthOrNull(): Month? {
+    return this.toInt().toMonthOrNull()
+}
