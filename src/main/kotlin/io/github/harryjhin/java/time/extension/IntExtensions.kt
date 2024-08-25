@@ -1,7 +1,10 @@
 package io.github.harryjhin.java.time.extension
 
+import java.time.DayOfWeek
 import java.time.Duration
+import java.time.Month
 import java.time.Period
+import java.time.Year
 
 /**
  * [Int]를 연(Year) 단위의 [Period]로 변환합니다.
@@ -127,3 +130,90 @@ val Int.microseconds: Duration
  */
 val Int.nanoseconds: Duration
     get() = this.toLong().nanoseconds
+
+/**
+ * [Int]를 [Year]로 변환합니다.
+ *
+ * 예시:
+ * ```kotlin
+ * val year: Year = 2022.toYear() // 2022
+ * ```
+ *
+ * @return 지정된 연도를 나타내는 [Year] 인스턴스
+ * @since 0.5.0
+ */
+fun Int.toYear(): Year {
+    return Year.of(this)
+}
+
+/**
+ * [Int]를 [Year]로 변환합니다.
+ *
+ * 변환 중에 예외가 발생하면 `null`을 반환합니다.
+ *
+ * 예시:
+ * ```kotlin
+ * val year: Year? = 2022.toYearOrNull() // 2022
+ * ```
+ *
+ * @return 지정된 연도를 나타내는 [Year] 인스턴스 또는 `null`
+ * @since 0.5.0
+ */
+fun Int.toYearOrNull(): Year? {
+    return try {
+        this.toYear()
+    } catch (e: Exception) {
+        null
+    }
+}
+
+/**
+ * [Int]를 [Month]로 변환합니다.
+ *
+ * 예시:
+ * ```kotlin
+ * val month: Month = 1.toMonth() // JANUARY
+ * ```
+ *
+ * @return 지정된 월을 나타내는 [Month] 인스턴스
+ * @since 0.5.0
+ */
+fun Int.toMonth(): Month {
+    return Month.of(this)
+}
+
+/**
+ * [Int]를 [Month]로 변환합니다.
+ *
+ * 변환 중에 예외가 발생하면 `null`을 반환합니다.
+ *
+ * 예시:
+ * ```kotlin
+ * val month: Month? = 13.toMonthOrNull() // null
+ * ```
+ *
+ * @return 지정된 월을 나타내는 [Month] 인스턴스 또는 `null`
+ * @since 0.5.0
+ */
+fun Int.toMonthOrNull(): Month? {
+    return try {
+        this.toMonth()
+    } catch (e: Exception) {
+        null
+    }
+}
+
+/**
+ * [Int]를 [DayOfWeek]로 변환합니다.
+ *
+ * 예시:
+ * ```kotlin
+ * val dayOfWeek: DayOfWeek = 1.toDayOfWeek() // MONDAY
+ * ```
+ *
+ * @return 지정된 요일을 나타내는 [DayOfWeek] 인스턴스
+ * @since 0.5.0
+ */
+fun Int.toDayOfWeek(): DayOfWeek {
+    return DayOfWeek.of(this)
+}

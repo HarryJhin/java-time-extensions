@@ -106,4 +106,86 @@ class YearExtensionsTest {
             year at 366
         }
     }
+
+    @Test
+    fun intToYear() {
+        // Given
+        val year = 2022
+
+        // When
+        val result = year.toYear()
+
+        // Then
+        assertEquals(
+            actual = result,
+            expected = Year.of(year),
+        )
+    }
+
+    @Test
+    fun intOoYearFail() {
+        // Given
+        val year = Year.MAX_VALUE + 1
+
+        // When
+        assertFails {
+            year.toYear()
+        }
+    }
+
+    @Test
+    fun intToYearOrNull() {
+        // Given
+        val year = Year.MAX_VALUE + 1
+
+        // When
+        val result = year.toYearOrNull()
+
+        // Then
+        assertEquals(
+            actual = result,
+            expected = null,
+        )
+    }
+
+    @Test
+    fun longToYear() {
+        // Given
+        val year = 2022L
+
+        // When
+        val result = year.toYear()
+
+        // Then
+        assertEquals(
+            actual = result,
+            expected = Year.of(year.toInt()),
+        )
+    }
+
+    @Test
+    fun longToYearFail() {
+        // Given
+        val year = Year.MAX_VALUE + 1L
+
+        // When
+        assertFails {
+            year.toYear()
+        }
+    }
+
+    @Test
+    fun longToYearOrNull() {
+        // Given
+        val year: Long = Year.MAX_VALUE + 1L
+
+        // When
+        val result: Year? = year.toYearOrNull()
+
+        // Then
+        assertEquals(
+            actual = result,
+            expected = null,
+        )
+    }
 }
