@@ -13,6 +13,7 @@ import java.time.YearMonth
  *
  * @return 지정된 연 수를 나타내는 [Period] 인스턴스
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.YearMonthTest.years
  */
 val YearMonth.years: Period
     get() = this.year.years
@@ -27,6 +28,7 @@ val YearMonth.years: Period
  *
  * @return 지정된 월 수를 나타내는 [Period] 인스턴스
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.YearMonthTest.months
  */
 val YearMonth.months: Period
     get() = this.monthValue.months
