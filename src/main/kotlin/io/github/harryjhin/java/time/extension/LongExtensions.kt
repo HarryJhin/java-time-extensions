@@ -189,5 +189,11 @@ fun Long.toMonthOrNull(): Month? {
  * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.underflowOoIntExact
  */
 internal fun Long.toIntExact(): Int {
-    return Math.toIntExact(this)
+    val value: Int = this.toInt()
+
+    if (this != value.toLong()) {
+        throw ArithmeticException("long overflow: $this")
+    }
+
+    return value
 }
