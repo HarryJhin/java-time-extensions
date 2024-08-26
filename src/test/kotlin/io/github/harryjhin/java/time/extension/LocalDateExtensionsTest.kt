@@ -11,6 +11,8 @@ import java.time.YearMonth
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class LocalDateExtensionsTest {
 
@@ -247,6 +249,54 @@ class LocalDateExtensionsTest {
         assertEquals(
             expected = LocalDateTime.of(2022, 1, 1, 23, 59, 59, 999_999_999),
             actual = dateTime,
+        )
+    }
+
+    @Test
+    fun asStartDayOfMonth() {
+        // Given
+        val date: LocalDate = "2022-01-15".toLocalDate()
+
+        // When
+        val firstDayOfMonth: LocalDate = date.asStartDayOfMonth()
+
+        // Then
+        assertEquals(
+            expected = LocalDate.of(2022, 1, 1),
+            actual = firstDayOfMonth,
+        )
+    }
+
+    @Test
+    fun asEndDayOfMonth() {
+        // Given
+        val date: LocalDate = "2022-02-15".toLocalDate()
+
+        // When
+        val lastDayOfMonth: LocalDate = date.asEndDayOfMonth()
+
+        // Then
+        assertFalse {
+            date.isLeapYear
+        }
+        assertEquals(
+            expected = LocalDate.of(2022, 2, 28),
+            actual = lastDayOfMonth,
+        )
+
+        // Given
+        val leapYearDate: LocalDate = "2020-02-15".toLocalDate()
+
+        // When
+        val leapYearLastDayOfMonth: LocalDate = leapYearDate.asEndDayOfMonth()
+
+        // Then
+        assertTrue {
+            leapYearDate.isLeapYear
+        }
+        assertEquals(
+            expected = LocalDate.of(2020, 2, 29),
+            actual = leapYearLastDayOfMonth,
         )
     }
 

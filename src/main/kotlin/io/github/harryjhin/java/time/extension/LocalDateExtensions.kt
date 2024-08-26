@@ -145,6 +145,40 @@ fun LocalDate.atEndOfDay(): LocalDateTime {
 }
 
 /**
+ * [LocalDate]의 일 정보를 1일로 변경합니다.
+ *
+ * 예시:
+ * ```kotlin
+ * val date = LocalDate.of(2022, 1, 15)
+ * val firstDayOfMonth = date.asStartDayOfMonth() // 2022-01-01
+ * ```
+ *
+ * @return 변경된 [LocalDate] 인스턴스
+ * @since 0.9.0
+ * @sample io.github.harryjhin.java.time.extension.LocalDateExtensionsTest.asStartDayOfMonth
+ */
+fun LocalDate.asStartDayOfMonth(): LocalDate {
+    return this.withDayOfMonth(1)
+}
+
+/**
+ * [LocalDate]의 일 정보를 해당 월의 마지막 일로 변경합니다.
+ *
+ * 예시:
+ * ```kotlin
+ * val date = LocalDate.of(2022, 1, 15)
+ * val lastDayOfMonth = date.asEndDayOfMonth() // 2022-01-31
+ * ```
+ *
+ * @return 변경된 [LocalDate] 인스턴스
+ * @since 0.9.0
+ * @sample io.github.harryjhin.java.time.extension.LocalDateExtensionsTest.asEndDayOfMonth
+ */
+fun LocalDate.asEndDayOfMonth(): LocalDate {
+    return this.withDayOfMonth(this.lengthOfMonth())
+}
+
+/**
  * [LocalDate]에 [LocalTime]을 결합하여 [LocalDateTime]를 생성합니다.
  *
  * 이 함수는 중위 표기법을 사용하여 가독성 있게 [LocalDateTime]를 생성할 수 있습니다.
