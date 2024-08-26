@@ -128,18 +128,83 @@ val String.nanoseconds: Duration
     get() = this.toLong().nanoseconds
 
 /**
+ * [String]을 [DateTimeFormatter]로 변환합니다.
+ *
+ * 예시:
+ * ```kotlin
+ * val formatter: DateTimeFormatter = "yyyy-MM-dd".toDateTimeFormatter()
+ * ```
+ *
+ * @return 변환된 [DateTimeFormatter] 인스턴스
+ * @throws IllegalArgumentException 날짜 포맷이 유효하지 않은 경우
+ * @since 0.7.0
+ */
+fun String.toDateTimeFormatter(): DateTimeFormatter {
+    return when (this) {
+        PATTERN_YEAR -> FORMATTER_YEAR
+        PATTERN_YEAR_MONTH -> FORMATTER_YEAR_MONTH
+        PATTERN_MONTH -> FORMATTER_MONTH
+        PATTERN_MONTH_DAY -> FORMATTER_MONTH_DAY
+        PATTERN_DATE -> FORMATTER_DATE
+        PATTERN_DATE_TIME -> FORMATTER_DATE_TIME
+        PATTERN_TIME -> FORMATTER_TIME
+        else -> DateTimeFormatter.ofPattern(this)
+    }
+}
+
+/**
  * 문자열을 [DateTimeFormatter]로 변환합니다.
  *
  * ```kotlin
  * val formatter: DateTimeFormatter = "yyyy-MM-dd".toDateTimeFormatter()
  * ```
  *
- * @return [DateTimeFormatter] 인스턴스
+ * @param locale [Locale] 인스턴스
+ * @return 변환된 [DateTimeFormatter] 인스턴스
  * @throws IllegalArgumentException 날짜 포맷이 유효하지 않은 경우
  */
 fun String.toDateTimeFormatter(
-    locale: Locale = Locale.getDefault(),
-): DateTimeFormatter = DateTimeFormatter.ofPattern(this, locale)
+    locale: Locale,
+): DateTimeFormatter {
+    return this.toDateTimeFormatter().withLocale(locale)
+}
+
+/**
+ * [String]을 [DateTimeFormatter]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ *
+ * ```kotlin
+ * val formatter: DateTimeFormatter? = "yyyy-MM-dd".toDateTimeFormatterOrNull()
+ * ```
+ *
+ * @return 변환된 [DateTimeFormatter] 인스턴스 또는 변환 실패 시 null
+ */
+fun String.toDateTimeFormatterOrNull(): DateTimeFormatter? {
+    return try {
+        toDateTimeFormatter()
+    } catch (e: Exception) {
+        null
+    }
+}
+
+/**
+ * [String]을 [DateTimeFormatter]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ *
+ * ```kotlin
+ * val formatter: DateTimeFormatter? = "yyyy-MM-dd".toDateTimeFormatterOrNull()
+ * ```
+ *
+ * @param locale [Locale] 인스턴스
+ * @return 변환된 [DateTimeFormatter] 인스턴스 또는 변환 실패 시 null
+ */
+fun String.toDateTimeFormatterOrNull(
+    locale: Locale,
+): DateTimeFormatter? {
+    return try {
+        toDateTimeFormatter(locale)
+    } catch (e: Exception) {
+        null
+    }
+}
 
 /**
  * [String]을 [Year]로 변환합니다. 기본 포맷 "yyyy"를 사용합니다.
