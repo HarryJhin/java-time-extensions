@@ -18,9 +18,9 @@ internal const val PATTERN_YEAR_MONTH: String = "yyyy-MM"
 internal const val PATTERN_MONTH: String = "MM"
 
 /**
- * [java.time.MonthDay] 기본 패턴 `--MM-dd`을 나타냅니다.
+ * [java.time.MonthDay] 기본 패턴 `MM-dd`을 나타냅니다.
  */
-internal const val PATTERN_MONTH_DAY: String = "--MM-dd"
+internal const val PATTERN_MONTH_DAY: String = "MM-dd"
 
 /**
  * [java.time.LocalDate] 기본 패턴 `yyyy-MM-dd`을 나타냅니다.
@@ -67,7 +67,7 @@ internal val FORMATTER_MONTH: DateTimeFormatter by lazy {
 /**
  * [java.time.MonthDay] 기본 포맷터 [DateTimeFormatter]입니다.
  *
- * 패턴: `--MM-dd`
+ * 패턴: `MM-dd`
  */
 internal val FORMATTER_MONTH_DAY: DateTimeFormatter by lazy {
     DateTimeFormatter.ofPattern(PATTERN_MONTH_DAY)

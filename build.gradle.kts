@@ -12,7 +12,7 @@ plugins {
 
 project.description = "Kotlin을 위한 java.time.* 확장 함수 라이브러리"
 project.group = "io.github.harryjhin"
-project.version = "0.7.0"
+project.version = "0.8.0"
 
 repositories {
     mavenCentral()
