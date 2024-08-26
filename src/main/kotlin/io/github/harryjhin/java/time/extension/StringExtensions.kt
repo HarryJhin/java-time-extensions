@@ -1,5 +1,6 @@
 package io.github.harryjhin.java.time.extension
 
+import java.lang.ArithmeticException
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
@@ -18,6 +19,7 @@ import java.time.format.DateTimeParseException
  * ```
  *
  * @return 지정된 연 수를 나타내는 [Period] 인스턴스
+ * @throws NumberFormatException 문자열이 숫자로 변환할 수 없는 경우
  * @since 0.3.0
  */
 val String.years: Period
@@ -31,6 +33,7 @@ val String.years: Period
  * ```
  *
  * @return 지정된 월 수를 나타내는 [Period] 인스턴스
+ * @throws NumberFormatException 문자열이 숫자로 변환할 수 없는 경우
  * @since 0.3.0
  */
 val String.months: Period
@@ -44,6 +47,7 @@ val String.months: Period
  * ```
  *
  * @return 지정된 일 수를 나타내는 [Period] 인스턴스
+ * @throws NumberFormatException 문자열이 숫자로 변환할 수 없는 경우
  * @since 0.3.0
  */
 val String.days: Period
@@ -57,6 +61,7 @@ val String.days: Period
  * ```
  *
  * @return 지정된 시간 기간을 나타내는 [Duration] 인스턴스
+ * @throws NumberFormatException 문자열이 숫자로 변환할 수 없는 경우
  * @since 0.3.0
  */
 val String.hours: Duration
@@ -70,6 +75,7 @@ val String.hours: Duration
  * ```
  *
  * @return 지정된 분 기간을 나타내는 [Duration] 인스턴스
+ * @throws NumberFormatException 문자열이 숫자로 변환할 수 없는 경우
  * @since 0.3.0
  */
 val String.minutes: Duration
@@ -83,6 +89,7 @@ val String.minutes: Duration
  * ```
  *
  * @return 지정된 초 기간을 나타내는 [Duration] 인스턴스
+ * @throws NumberFormatException 문자열이 숫자로 변환할 수 없는 경우
  * @since 0.3.0
  */
 val String.seconds: Duration
@@ -96,6 +103,7 @@ val String.seconds: Duration
  * ```
  *
  * @return 지정된 밀리초 기간을 나타내는 [Duration] 인스턴스
+ * @throws NumberFormatException 문자열이 숫자로 변환할 수 없는 경우
  * @since 0.3.0
  */
 val String.milliseconds: Duration
@@ -109,6 +117,7 @@ val String.milliseconds: Duration
  * ```
  *
  * @return 지정된 마이크로초 기간을 나타내는 [Duration] 인스턴스
+ * @throws NumberFormatException 문자열이 숫자로 변환할 수 없는 경우
  * @since 0.3.0
  */
 val String.microseconds: Duration
@@ -122,6 +131,7 @@ val String.microseconds: Duration
  * ```
  *
  * @return 지정된 나노초 기간을 나타내는 [Duration] 인스턴스
+ * @throws NumberFormatException 문자열이 숫자로 변환할 수 없는 경우
  * @since 0.3.0
  */
 val String.nanoseconds: Duration
