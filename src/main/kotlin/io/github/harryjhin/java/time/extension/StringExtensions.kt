@@ -259,7 +259,7 @@ fun String.toYearOrNull(formatter: DateTimeFormatter): Year? {
  * @return 변환된 [YearMonth] 인스턴스
  * @throws DateTimeParseException 문자열 파싱에 실패한 경우
  * @since 0.3.0
- * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toYearMonth
+ * @sample io.github.harryjhin.java.time.extension.YearMonthTest.stringToYearMonth
  */
 fun String.toYearMonth(): YearMonth {
     return toYearMonth(formatter = FORMATTER_YEAR_MONTH)
@@ -278,6 +278,7 @@ fun String.toYearMonth(): YearMonth {
  * @throws DateTimeParseException 문자열 파싱에 실패한 경우
  * @throws IllegalArgumentException 제공된 포맷이 유효하지 않은 경우
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.YearMonthTest.stringToYearMonthFormat
  */
 fun String.toYearMonth(
     format: String,
@@ -301,6 +302,7 @@ fun String.toYearMonth(
  * @return 변환된 [YearMonth] 인스턴스
  * @throws DateTimeParseException 문자열 파싱에 실패한 경우
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.YearMonthTest.stringToYearMonthFormatter
  */
 fun String.toYearMonth(
     formatter: DateTimeFormatter,
@@ -310,6 +312,7 @@ fun String.toYearMonth(
 
 /**
  * [String]을 [YearMonth]로 변환합니다. 기본 포맷 "yyyy-MM"을 사용합니다.
+ *
  * 변환에 실패하면 `null`을 반환합니다.
  *
  * 예시:
@@ -320,6 +323,7 @@ fun String.toYearMonth(
  *
  * @return 변환된 [YearMonth] 인스턴스 또는 변환 실패 시 null
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.YearMonthTest.stringToYearMonthOrNull
  */
 fun String.toYearMonthOrNull(): YearMonth? {
     return toYearMonthOrNull(formatter = FORMATTER_YEAR_MONTH)
@@ -327,6 +331,7 @@ fun String.toYearMonthOrNull(): YearMonth? {
 
 /**
  * [String]을 지정된 포맷의 [YearMonth]로 변환합니다.
+ *
  * 변환에 실패하면 `null`을 반환합니다.
  *
  * 예시:
@@ -338,6 +343,7 @@ fun String.toYearMonthOrNull(): YearMonth? {
  * @param format 날짜 문자열의 포맷
  * @return 변환된 [YearMonth] 인스턴스 또는 변환 실패 시 null
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.YearMonthTest.stringToYearMonthOrNullFormat
  */
 fun String.toYearMonthOrNull(
     format: String,
@@ -347,6 +353,7 @@ fun String.toYearMonthOrNull(
 
 /**
  * [String]을 지정된 [DateTimeFormatter]를 사용하여 [YearMonth]로 변환합니다.
+ *
  * 변환에 실패하면 `null`을 반환합니다.
  *
  * 예시:
@@ -359,6 +366,7 @@ fun String.toYearMonthOrNull(
  * @param formatter 날짜 문자열을 파싱할 [DateTimeFormatter]
  * @return 변환된 [YearMonth] 인스턴스 또는 변환 실패 시 null
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.YearMonthTest.stringToYearMonthOrNullFormatter
  */
 fun String.toYearMonthOrNull(
     formatter: DateTimeFormatter,
