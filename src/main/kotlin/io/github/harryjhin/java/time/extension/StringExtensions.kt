@@ -218,7 +218,7 @@ fun String.toDateTimeFormatterOrNull(
  * @throws DateTimeParseException 문자열 파싱에 실패한 경우
  */
 fun String.toYear(): Year {
-    return toYear(formatter = FORMATTER_YEAR)
+    return toYear(FORMATTER_YEAR)
 }
 
 /**
@@ -235,10 +235,8 @@ fun String.toYear(): Year {
  * @throws IllegalArgumentException 제공된 포맷이 유효하지 않은 경우
  */
 fun String.toYear(format: String): Year {
-    if (format == PATTERN_YEAR) {
-        return toYear()
-    }
-    return toYear(formatter = DateTimeFormatter.ofPattern(format))
+    val formatter = format.toDateTimeFormatter()
+    return toYear(formatter)
 }
 
 /**
@@ -271,7 +269,11 @@ fun String.toYear(formatter: DateTimeFormatter): Year {
  * @return 변환된 [Year] 인스턴스 또는 변환 실패 시 null
  */
 fun String.toYearOrNull(): Year? {
-    return toYearOrNull(formatter = FORMATTER_YEAR)
+    return try {
+        toYear()
+    } catch (e: Exception) {
+        null
+    }
 }
 
 /**
@@ -288,7 +290,11 @@ fun String.toYearOrNull(): Year? {
  * @return 변환된 [Year] 인스턴스 또는 변환 실패 시 null
  */
 fun String.toYearOrNull(format: String): Year? {
-    return toYearOrNull(formatter = DateTimeFormatter.ofPattern(format))
+    return try {
+        toYear(format)
+    } catch (e: Exception) {
+        null
+    }
 }
 
 /**
@@ -307,7 +313,7 @@ fun String.toYearOrNull(format: String): Year? {
  */
 fun String.toYearOrNull(formatter: DateTimeFormatter): Year? {
     return try {
-        toYear(formatter = formatter)
+        toYear(formatter)
     } catch (e: Exception) {
         null
     }
@@ -327,7 +333,7 @@ fun String.toYearOrNull(formatter: DateTimeFormatter): Year? {
  * @sample io.github.harryjhin.java.time.extension.YearMonthTest.stringToYearMonth
  */
 fun String.toYearMonth(): YearMonth {
-    return toYearMonth(formatter = FORMATTER_YEAR_MONTH)
+    return toYearMonth(FORMATTER_YEAR_MONTH)
 }
 
 /**
@@ -348,10 +354,8 @@ fun String.toYearMonth(): YearMonth {
 fun String.toYearMonth(
     format: String,
 ): YearMonth {
-    if (format == PATTERN_YEAR_MONTH) {
-        return toYearMonth()
-    }
-    return toYearMonth(formatter = format.toDateTimeFormatter())
+    val formatter = format.toDateTimeFormatter()
+    return toYearMonth(formatter)
 }
 
 /**
@@ -391,7 +395,11 @@ fun String.toYearMonth(
  * @sample io.github.harryjhin.java.time.extension.YearMonthTest.stringToYearMonthOrNull
  */
 fun String.toYearMonthOrNull(): YearMonth? {
-    return toYearMonthOrNull(formatter = FORMATTER_YEAR_MONTH)
+    return try {
+        toYearMonth()
+    } catch (e: Exception) {
+        null
+    }
 }
 
 /**
@@ -413,7 +421,11 @@ fun String.toYearMonthOrNull(): YearMonth? {
 fun String.toYearMonthOrNull(
     format: String,
 ): YearMonth? {
-    return toYearMonthOrNull(formatter = format.toDateTimeFormatter())
+    return try {
+        toYearMonth(format)
+    } catch (e: Exception) {
+        null
+    }
 }
 
 /**
@@ -437,10 +449,25 @@ fun String.toYearMonthOrNull(
     formatter: DateTimeFormatter,
 ): YearMonth? {
     return try {
-        toYearMonth(formatter = formatter)
+        toYearMonth(formatter)
     } catch (e: Exception) {
         null
     }
+}
+
+/**
+ * 문자열을 [LocalDate]로 변환합니다. 기본 포맷 "yyyy-MM-dd"를 사용합니다.
+ *
+ * ```kotlin
+ * val date: LocalDate = "2022-01-01".toLocalDate()
+ * ```
+ *
+ * @return 변환된 [LocalDate] 인스턴스
+ * @throws DateTimeParseException 문자열 분석에 실패한 경우
+ * @since 0.7.0
+ */
+fun String.toLocalDate(): LocalDate {
+    return this.toLocalDate(FORMATTER_DATE)
 }
 
 /**
@@ -454,10 +481,14 @@ fun String.toYearMonthOrNull(
  * @return [LocalDate] 인스턴스
  * @throws DateTimeParseException 문자열 분석에 실패한 경우
  * @throws IllegalArgumentException 날짜 포맷이 유효하지 않은 경우
+ * @since 0.7.0
  */
 fun String.toLocalDate(
-    format: String = "yyyy-MM-dd",
-): LocalDate = LocalDate.parse(this, format.toDateTimeFormatter())
+    format: String,
+): LocalDate {
+    val formatter = format.toDateTimeFormatter()
+    return toLocalDate(formatter)
+}
 
 /**
  * 문자열을 [LocalDate]로 변환합니다.
@@ -467,12 +498,33 @@ fun String.toLocalDate(
  * ```
  *
  * @param formatter [DateTimeFormatter] 인스턴스
- * @return [LocalDate] 인스턴스
+ * @return 변환된 [LocalDate] 인스턴스
  * @throws DateTimeParseException 문자열 분석에 실패한 경우
+ * @since 0.7.0
  */
 fun String.toLocalDate(
     formatter: DateTimeFormatter,
-): LocalDate = LocalDate.parse(this, formatter)
+): LocalDate {
+    return LocalDate.parse(this, formatter)
+}
+
+/**
+ * 문자열을 [LocalDate]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ *
+ * ```kotlin
+ * val date: LocalDate? = "2022-01-01".toLocalDateOrNull()
+ * ```
+ *
+ * @return 변환된 [LocalDate] 인스턴스 또는 null
+ * @since 0.7.0
+ */
+fun String.toLocalDateOrNull(): LocalDate? {
+    return try {
+        toLocalDate()
+    } catch (e: Exception) {
+        null
+    }
+}
 
 /**
  * 문자열을 [LocalDate]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
@@ -482,14 +534,17 @@ fun String.toLocalDate(
  * ```
  *
  * @param format 날짜 형식
- * @return [LocalDate] 인스턴스
+ * @return 변환된 [LocalDate] 인스턴스 또는 null
+ * @since 0.7.0
  */
 fun String.toLocalDateOrNull(
-    format: String = "yyyy-MM-dd",
-): LocalDate? = try {
-    toLocalDate(format)
-} catch (e: Exception) {
-    null
+    format: String,
+): LocalDate? {
+    return try {
+        toLocalDate(format)
+    } catch (e: Exception) {
+        null
+    }
 }
 
 /**
@@ -523,7 +578,7 @@ fun String.toLocalDateOrNull(
  * @since 0.2.0
  */
 fun String.toLocalTime(): LocalTime {
-    return toLocalTime(formatter = DateTimeFormatter.ISO_LOCAL_TIME)
+    return toLocalTime(FORMATTER_TIME)
 }
 
 /**
@@ -543,7 +598,8 @@ fun String.toLocalTime(): LocalTime {
 fun String.toLocalTime(
     format: String,
 ): LocalTime {
-    return toLocalTime(formatter = format.toDateTimeFormatter())
+    val formatter = format.toDateTimeFormatter()
+    return toLocalTime(formatter)
 }
 
 /**
@@ -576,7 +632,11 @@ fun String.toLocalTime(
  * @since 0.2.0
  */
 fun String.toLocalTimeOrNull(): LocalTime? {
-    return toLocalTimeOrNull(formatter = DateTimeFormatter.ISO_LOCAL_TIME)
+    return try {
+        toLocalTime()
+    } catch (e: Exception) {
+        null
+    }
 }
 
 /**
@@ -594,7 +654,11 @@ fun String.toLocalTimeOrNull(): LocalTime? {
 fun String.toLocalTimeOrNull(
     format: String,
 ): LocalTime? {
-    return toLocalTimeOrNull(formatter = format.toDateTimeFormatter())
+    return try {
+        toLocalTime(format)
+    } catch (e: Exception) {
+        null
+    }
 }
 
 /**
