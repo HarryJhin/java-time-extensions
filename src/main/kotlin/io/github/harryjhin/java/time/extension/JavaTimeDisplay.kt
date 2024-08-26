@@ -30,28 +30,28 @@ sealed class JavaTimeDisplay(
      *
      * @return [DateTimeFormatter] 객체
      */
-    val yearMonthFormatter: DateTimeFormatter = yearMonthPattern.toDateTimeFormatter(locale)
+    val yearMonthFormatter: DateTimeFormatter = yearMonthPattern.toDateTimeFormatter().withLocale(locale)
 
     /**
      * [LocalDate] 객체를 문자열로 변환할 때 사용할 [DateTimeFormatter] 객체입니다.
      *
      * @return [DateTimeFormatter] 객체
      */
-    val dateFormatter: DateTimeFormatter = datePattern.toDateTimeFormatter(locale)
+    val dateFormatter: DateTimeFormatter = datePattern.toDateTimeFormatter().withLocale(locale)
 
     /**
      * [LocalTime] 객체를 문자열로 변환할 때 사용할 [DateTimeFormatter] 객체입니다.
      *
      * @return [DateTimeFormatter] 객체
      */
-    val timeFormatter: DateTimeFormatter = timePattern.toDateTimeFormatter(locale)
+    val timeFormatter: DateTimeFormatter = timePattern.toDateTimeFormatter().withLocale(locale)
 
     /**
      * [LocalDateTime] 객체를 문자열로 변환할 때 사용할 [DateTimeFormatter] 객체입니다.
      *
      * @return [DateTimeFormatter] 객체
      */
-    val dateTimeFormatter: DateTimeFormatter = dateTimePattern.toDateTimeFormatter(locale)
+    val dateTimeFormatter: DateTimeFormatter = dateTimePattern.toDateTimeFormatter().withLocale(locale)
 
     /**
      * 기본 날짜 및 시간 형식을 정의하는 객체입니다.
