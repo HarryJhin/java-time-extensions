@@ -185,7 +185,8 @@ fun Long.toMonthOrNull(): Month? {
  * @return 변환된 [Int] 값
  * @throws ArithmeticException [Int] 범위를 벗어난 경우
  * @since 0.8.1
- * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.toIntExact
+ * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.overflowOoIntExact
+ * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.underflowOoIntExact
  */
 internal fun Long.toIntExact(): Int {
     return Math.toIntExact(this)
