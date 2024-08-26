@@ -8,7 +8,6 @@ import java.time.Year
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
-import java.util.Locale
 
 /**
  * [String]을 연(Year) 단위의 [Period]로 변환합니다.
@@ -138,6 +137,7 @@ val String.nanoseconds: Duration
  * @return 변환된 [DateTimeFormatter] 인스턴스
  * @throws IllegalArgumentException 날짜 포맷이 유효하지 않은 경우
  * @since 0.7.0
+ * @sample io.github.harryjhin.java.time.extension.DateTimeFormatterExtensionsTest.stringToDateTimeFormatter
  */
 fun String.toDateTimeFormatter(): DateTimeFormatter {
     return when (this) {
@@ -153,23 +153,6 @@ fun String.toDateTimeFormatter(): DateTimeFormatter {
 }
 
 /**
- * 문자열을 [DateTimeFormatter]로 변환합니다.
- *
- * ```kotlin
- * val formatter: DateTimeFormatter = "yyyy-MM-dd".toDateTimeFormatter()
- * ```
- *
- * @param locale [Locale] 인스턴스
- * @return 변환된 [DateTimeFormatter] 인스턴스
- * @throws IllegalArgumentException 날짜 포맷이 유효하지 않은 경우
- */
-fun String.toDateTimeFormatter(
-    locale: Locale,
-): DateTimeFormatter {
-    return this.toDateTimeFormatter().withLocale(locale)
-}
-
-/**
  * [String]을 [DateTimeFormatter]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
  *
  * ```kotlin
@@ -177,30 +160,12 @@ fun String.toDateTimeFormatter(
  * ```
  *
  * @return 변환된 [DateTimeFormatter] 인스턴스 또는 변환 실패 시 null
+ * @since 0.7.0
+ * @sample io.github.harryjhin.java.time.extension.DateTimeFormatterExtensionsTest.stringToDateTimeFormatterOrNull
  */
 fun String.toDateTimeFormatterOrNull(): DateTimeFormatter? {
     return try {
         toDateTimeFormatter()
-    } catch (e: Exception) {
-        null
-    }
-}
-
-/**
- * [String]을 [DateTimeFormatter]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
- *
- * ```kotlin
- * val formatter: DateTimeFormatter? = "yyyy-MM-dd".toDateTimeFormatterOrNull()
- * ```
- *
- * @param locale [Locale] 인스턴스
- * @return 변환된 [DateTimeFormatter] 인스턴스 또는 변환 실패 시 null
- */
-fun String.toDateTimeFormatterOrNull(
-    locale: Locale,
-): DateTimeFormatter? {
-    return try {
-        toDateTimeFormatter(locale)
     } catch (e: Exception) {
         null
     }
