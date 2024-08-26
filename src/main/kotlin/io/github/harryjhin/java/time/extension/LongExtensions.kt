@@ -16,7 +16,7 @@ import java.time.Year
  * @since 0.3.0
  */
 val Long.years: Period
-    get() = this.toInt().years
+    get() = this.toIntExact().years
 
 /**
  * [Long]을 월(month) 단위의 [Period]로 변환합니다.
@@ -29,7 +29,7 @@ val Long.years: Period
  * @since 0.3.0
  */
 val Long.months: Period
-    get() = this.toInt().months
+    get() = this.toIntExact().months
 
 /**
  * [Long]을 일(day) 단위의 [Period]으로 변환합니다.
@@ -42,7 +42,7 @@ val Long.months: Period
  * @since 0.3.0
  */
 val Long.days: Period
-    get() = this.toInt().days
+    get() = this.toIntExact().days
 
 /**
  * [Long]을 시간(hour) 단위의 [Duration]으로 변환합니다.
@@ -136,7 +136,7 @@ val Long.nanoseconds: Duration
  * @sample io.github.harryjhin.java.time.extension.YearExtensionsTest.longToYearFail
  */
 fun Long.toYear(): Year {
-    return this.toInt().toYear()
+    return this.toIntExact().toYear()
 }
 
 /**
@@ -149,7 +149,7 @@ fun Long.toYear(): Year {
  * @sample io.github.harryjhin.java.time.extension.YearExtensionsTest.longToYearOrNull
  */
 fun Long.toYearOrNull(): Year? {
-    return this.toInt().toYearOrNull()
+    return this.toIntExact().toYearOrNull()
 }
 
 /**
@@ -161,7 +161,7 @@ fun Long.toYearOrNull(): Year? {
  * @sample io.github.harryjhin.java.time.extension.MonthExtensionsTest.longToMonthFail
  */
 fun Long.toMonth(): Month {
-    return this.toInt().toMonth()
+    return this.toIntExact().toMonth()
 }
 
 /**
@@ -174,5 +174,26 @@ fun Long.toMonth(): Month {
  * @sample io.github.harryjhin.java.time.extension.MonthExtensionsTest.longToMonthOrNull
  */
 fun Long.toMonthOrNull(): Month? {
-    return this.toInt().toMonthOrNull()
+    return this.toIntExact().toMonthOrNull()
+}
+
+/**
+ * [Long]을 [Int]로 변환합니다.
+ *
+ * 변환 중에 [Int] 범위를 벗어나면 예외를 발생시킵니다.
+ *
+ * @return 변환된 [Int] 값
+ * @throws ArithmeticException [Int] 범위를 벗어난 경우
+ * @since 0.8.1
+ * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.overflowOoIntExact
+ * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.underflowOoIntExact
+ */
+internal fun Long.toIntExact(): Int {
+    val value: Int = this.toInt()
+
+    if (this != value.toLong()) {
+        throw ArithmeticException("long overflow: $this")
+    }
+
+    return value
 }
