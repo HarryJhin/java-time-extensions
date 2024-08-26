@@ -236,6 +236,21 @@ class LocalDateExtensionsTest {
     }
 
     @Test
+    fun atEndOfDay() {
+        // Given
+        val date: LocalDate = "2022-01-01".toLocalDate()
+
+        // When
+        val dateTime: LocalDateTime = date.atEndOfDay()
+
+        // Then
+        assertEquals(
+            expected = LocalDateTime.of(2022, 1, 1, 23, 59, 59, 999_999_999),
+            actual = dateTime,
+        )
+    }
+
+    @Test
     fun atLocalTime() {
         // Given
         val date: LocalDate = "2022-01-01".toLocalDate()

@@ -126,6 +126,25 @@ fun LocalDate.toMonthDay(): MonthDay {
 }
 
 /**
+ * [LocalDate]와 [LocalTime.MAX]를 결합하여 [LocalDateTime]를 생성합니다.
+ *
+ * 그러면 [LocalDate]의 날짜 정보를 그대로 유지하면서 시간 정보는 23:59:59.999999999로 설정됩니다.
+ *
+ * 예시:
+ * ```kotlin
+ * val date = LocalDate.of(2022, 1, 1)
+ * val dateTime = date.atEndOfDay() // 2022-01-01T23:59:59.999999999
+ * ```
+ *
+ * @return 생성된 [LocalDateTime] 인스턴스
+ * @since 0.9.0
+ * @sample io.github.harryjhin.java.time.extension.LocalDateExtensionsTest.atEndOfDay
+ */
+fun LocalDate.atEndOfDay(): LocalDateTime {
+    return LocalDateTime.of(this, LocalTime.MAX)
+}
+
+/**
  * [LocalDate]에 [LocalTime]을 결합하여 [LocalDateTime]를 생성합니다.
  *
  * 이 함수는 중위 표기법을 사용하여 가독성 있게 [LocalDateTime]를 생성할 수 있습니다.
