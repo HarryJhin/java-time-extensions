@@ -10,6 +10,7 @@ import java.time.Year
 import java.time.YearMonth
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFails
 
 class LocalDateExtensionsTest {
 
@@ -23,8 +24,8 @@ class LocalDateExtensionsTest {
 
         // Then
         assertEquals(
-            actual = years,
             expected = Period.ofYears(2022),
+            actual = years,
         )
     }
 
@@ -38,8 +39,8 @@ class LocalDateExtensionsTest {
 
         // Then
         assertEquals(
-            actual = months,
             expected = Period.ofMonths(1),
+            actual = months,
         )
     }
 
