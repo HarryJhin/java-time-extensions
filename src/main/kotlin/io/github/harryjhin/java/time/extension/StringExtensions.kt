@@ -229,13 +229,15 @@ fun String.toYear(): Year {
  * val year: Year = "22".toYear("yy") // 2022
  * ```
  *
- * @param format 년도 문자열의 포맷
+ * @param pattern 년도 문자열의 포맷
  * @return 변환된 [Year] 인스턴스
  * @throws DateTimeParseException 문자열 파싱에 실패한 경우
  * @throws IllegalArgumentException 제공된 포맷이 유효하지 않은 경우
  */
-fun String.toYear(format: String): Year {
-    val formatter = format.toDateTimeFormatter()
+fun String.toYear(
+    pattern: String,
+): Year {
+    val formatter = pattern.toDateTimeFormatter()
     return toYear(formatter)
 }
 
@@ -252,7 +254,9 @@ fun String.toYear(format: String): Year {
  * @return 변환된 [Year] 인스턴스
  * @throws DateTimeParseException 문자열 파싱에 실패한 경우
  */
-fun String.toYear(formatter: DateTimeFormatter): Year {
+fun String.toYear(
+    formatter: DateTimeFormatter,
+): Year {
     return Year.parse(this, formatter)
 }
 
@@ -286,12 +290,14 @@ fun String.toYearOrNull(): Year? {
  * val invalidYear: Year? = "XX".toYearOrNull("yy") // null
  * ```
  *
- * @param format 년도 문자열의 포맷
+ * @param pattern 년도 문자열의 포맷
  * @return 변환된 [Year] 인스턴스 또는 변환 실패 시 null
  */
-fun String.toYearOrNull(format: String): Year? {
+fun String.toYearOrNull(
+    pattern: String,
+): Year? {
     return try {
-        toYear(format)
+        toYear(pattern)
     } catch (e: Exception) {
         null
     }
@@ -311,7 +317,9 @@ fun String.toYearOrNull(format: String): Year? {
  * @param formatter 년도 문자열을 파싱할 [DateTimeFormatter]
  * @return 변환된 [Year] 인스턴스 또는 변환 실패 시 null
  */
-fun String.toYearOrNull(formatter: DateTimeFormatter): Year? {
+fun String.toYearOrNull(
+    formatter: DateTimeFormatter,
+): Year? {
     return try {
         toYear(formatter)
     } catch (e: Exception) {
@@ -344,7 +352,7 @@ fun String.toYearMonth(): YearMonth {
  * val yearMonth: YearMonth = "2022/01".toYearMonth("yyyy/MM") // 2022-01
  * ```
  *
- * @param format 날짜 문자열의 포맷
+ * @param pattern 날짜 문자열의 포맷
  * @return 변환된 [YearMonth] 인스턴스
  * @throws DateTimeParseException 문자열 파싱에 실패한 경우
  * @throws IllegalArgumentException 제공된 포맷이 유효하지 않은 경우
@@ -352,9 +360,9 @@ fun String.toYearMonth(): YearMonth {
  * @sample io.github.harryjhin.java.time.extension.YearMonthTest.stringToYearMonthFormat
  */
 fun String.toYearMonth(
-    format: String,
+    pattern: String,
 ): YearMonth {
-    val formatter = format.toDateTimeFormatter()
+    val formatter = pattern.toDateTimeFormatter()
     return toYearMonth(formatter)
 }
 
@@ -413,16 +421,16 @@ fun String.toYearMonthOrNull(): YearMonth? {
  * val invalidYearMonth: YearMonth? = "2022/13".toYearMonthOrNull("yyyy/MM") // null
  * ```
  *
- * @param format 날짜 문자열의 포맷
+ * @param pattern 날짜 문자열의 포맷
  * @return 변환된 [YearMonth] 인스턴스 또는 변환 실패 시 null
  * @since 0.3.0
  * @sample io.github.harryjhin.java.time.extension.YearMonthTest.stringToYearMonthOrNullFormat
  */
 fun String.toYearMonthOrNull(
-    format: String,
+    pattern: String,
 ): YearMonth? {
     return try {
-        toYearMonth(format)
+        toYearMonth(pattern)
     } catch (e: Exception) {
         null
     }
@@ -477,16 +485,16 @@ fun String.toLocalDate(): LocalDate {
  * val date: LocalDate = "2022-01-01".toLocalDate()
  * ```
  *
- * @param format 날짜 형식
+ * @param pattern 날짜 형식
  * @return [LocalDate] 인스턴스
  * @throws DateTimeParseException 문자열 분석에 실패한 경우
  * @throws IllegalArgumentException 날짜 포맷이 유효하지 않은 경우
  * @since 0.7.0
  */
 fun String.toLocalDate(
-    format: String,
+    pattern: String,
 ): LocalDate {
-    val formatter = format.toDateTimeFormatter()
+    val formatter = pattern.toDateTimeFormatter()
     return toLocalDate(formatter)
 }
 
@@ -533,15 +541,15 @@ fun String.toLocalDateOrNull(): LocalDate? {
  * val date: LocalDate? = "2022-01-01".toLocalDateOrNull()
  * ```
  *
- * @param format 날짜 형식
+ * @param pattern 날짜 형식
  * @return 변환된 [LocalDate] 인스턴스 또는 null
  * @since 0.7.0
  */
 fun String.toLocalDateOrNull(
-    format: String,
+    pattern: String,
 ): LocalDate? {
     return try {
-        toLocalDate(format)
+        toLocalDate(pattern)
     } catch (e: Exception) {
         null
     }
@@ -589,16 +597,16 @@ fun String.toLocalTime(): LocalTime {
  * val time: LocalTime = "00:00:00".toLocalTime(format)
  * ```
  *
- * @param format 시간 포맷 문자열
+ * @param pattern 시간 포맷 문자열
  * @return [LocalTime] 인스턴스
  * @throws DateTimeParseException 문자열 분석에 실패한 경우
  * @throws IllegalArgumentException 시간 포맷이 유효하지 않은 경우
  * @since 0.2.0
  */
 fun String.toLocalTime(
-    format: String,
+    pattern: String,
 ): LocalTime {
-    val formatter = format.toDateTimeFormatter()
+    val formatter = pattern.toDateTimeFormatter()
     return toLocalTime(formatter)
 }
 
@@ -647,15 +655,15 @@ fun String.toLocalTimeOrNull(): LocalTime? {
  * val time: LocalTime? = "00:00:00".toLocalTimeOrNull(format)
  * ```
  *
- * @param format 날짜 형식 문자열
+ * @param pattern 날짜 형식 문자열
  * @return [LocalTime] 인스턴스
  * @since 0.2.0
  */
 fun String.toLocalTimeOrNull(
-    format: String,
+    pattern: String,
 ): LocalTime? {
     return try {
-        toLocalTime(format)
+        toLocalTime(pattern)
     } catch (e: Exception) {
         null
     }
