@@ -2,6 +2,7 @@ package io.github.harryjhin.java.time.extension
 
 import java.time.Month
 import java.time.MonthDay
+import java.time.Period
 import java.time.Year
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -186,6 +187,22 @@ class YearExtensionsTest {
         assertEquals(
             actual = result,
             expected = null,
+        )
+    }
+
+    @Test
+    fun between() {
+        // Given
+        val startYear: Year = "2022".toYear()
+        val endYear: Year = "2023".toYear()
+
+        // When
+        val actual: Period = startYear between endYear // P1Y
+
+        // Then
+        assertEquals(
+            expected = Period.ofYears(1),
+            actual = actual,
         )
     }
 }

@@ -132,3 +132,17 @@ fun LocalTime.toDuration(): Duration {
 infix fun LocalTime.at(date: LocalDate): LocalDateTime {
     return LocalDateTime.of(date, this)
 }
+
+/**
+ * [LocalTime]과 [endTime] 사이의 차이를 [Duration]로 계산합니다.
+ *
+ * @param endTime 종료 시간
+ * @return 차이를 나타내는 [Duration] 인스턴스
+ * @since 0.11.2
+ * @sample io.github.harryjhin.java.time.extension.LocalTimeExtensionsTest.between
+ */
+infix fun LocalTime.between(
+    endTime: LocalTime,
+): Duration {
+    return Duration.between(this, endTime)
+}

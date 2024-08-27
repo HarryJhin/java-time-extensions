@@ -13,7 +13,7 @@ import java.time.YearMonth
  *
  * @return 지정된 연 수를 나타내는 [Period] 인스턴스
  * @since 0.3.0
- * @sample io.github.harryjhin.java.time.extension.YearMonthTest.years
+ * @sample io.github.harryjhin.java.time.extension.YearMonthExtensionsTest.years
  */
 val YearMonth.years: Period
     get() = this.year.years
@@ -28,7 +28,7 @@ val YearMonth.years: Period
  *
  * @return 지정된 월 수를 나타내는 [Period] 인스턴스
  * @since 0.3.0
- * @sample io.github.harryjhin.java.time.extension.YearMonthTest.months
+ * @sample io.github.harryjhin.java.time.extension.YearMonthExtensionsTest.months
  */
 val YearMonth.months: Period
     get() = this.monthValue.months
@@ -46,8 +46,25 @@ val YearMonth.months: Period
  * @param dayOfMonth 결합할 일(day)
  * @return 생성된 [LocalDate] 인스턴스
  * @since 0.6.0
- * @sample io.github.harryjhin.java.time.extension.YearMonthTest.atDayOfMonth
+ * @sample io.github.harryjhin.java.time.extension.YearMonthExtensionsTest.atDayOfMonth
  */
 infix fun YearMonth.at(dayOfMonth: Int): LocalDate {
     return this.atDay(dayOfMonth)
+}
+
+/**
+ * [YearMonth]와 [endYearMonth] 사이의 차이를 [Period]로 계산합니다.
+ *
+ * @param endYearMonth 종료 연월
+ * @return 차이를 나타내는 [Period] 인스턴스
+ * @since 0.11.2
+ * @sample io.github.harryjhin.java.time.extension.YearMonthExtensionsTest.between
+ */
+infix fun YearMonth.between(
+    endYearMonth: YearMonth,
+): Period {
+    val month = (endYearMonth.year - this.year) * 12 + (endYearMonth.monthValue - this.monthValue)
+    val year = month / 12
+    val monthOfYear = month % 12
+    return Period.ofYears(year).plusMonths(monthOfYear.toLong())
 }

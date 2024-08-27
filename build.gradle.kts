@@ -12,7 +12,7 @@ plugins {
 
 project.description = "Kotlin을 위한 java.time.* 확장 함수 라이브러리"
 project.group = "io.github.harryjhin"
-project.version = "0.11.1"
+project.version = "0.11.2"
 
 repositories {
     mavenCentral()
@@ -47,7 +47,7 @@ tasks.withType<DokkaTask>().configureEach {
                 remoteUrl.set(URL("https://github.com/HarryJhin/java-time-extensions/blob/master/src/main/kotlin"))
                 remoteLineSuffix.set("#L")
             }
-            samples.from(project.files(), "src/main/test/kotlin")
+            samples.from(project.files(), "${rootDir}/src/test/kotlin")
         }
     }
 }

@@ -198,3 +198,17 @@ infix fun LocalDate.at(
 ): LocalDateTime {
     return this.atTime(time)
 }
+
+/**
+ * [LocalDate]와 [endDate] 사이의 차이를 [Period]로 계산합니다.
+ *
+ * @param endDate 종료 날짜
+ * @return 차이를 나타내는 [Period] 인스턴스
+ * @since 0.11.2
+ * @sample io.github.harryjhin.java.time.extension.LocalDateExtensionsTest.between
+ */
+infix fun LocalDate.between(
+    endDate: LocalDate,
+): Period {
+    return this.until(endDate)
+}
