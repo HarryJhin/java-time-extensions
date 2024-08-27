@@ -1,5 +1,8 @@
 package io.github.harryjhin.java.time.extension
 
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
@@ -307,6 +310,113 @@ class StringExtensionsTest {
         assertEquals(
             expected = null,
             actual = time,
+        )
+    }
+
+    @Test
+    fun toOffsetDateTime() {
+        // Given
+        val text = "2022-01-01T00:00:00+09:00"
+
+        // When
+        val offsetDateTime = text.toOffsetDateTime()
+
+        // Then
+        assertEquals(
+            expected = OffsetDateTime.of(2022, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)),
+            actual = offsetDateTime,
+        )
+    }
+
+    @Test
+    fun toOffsetDateTimeWithPattern() {
+        // Given
+        val text = "22-01-01T00:00:00+09:00"
+
+        // When
+        val offsetDateTime = text.toOffsetDateTime("yy-MM-dd'T'HH:mm:ssXXX")
+
+        // Then
+        assertEquals(
+            expected = OffsetDateTime.of(2022, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)),
+            actual = offsetDateTime,
+        )
+    }
+
+    @Test
+    fun toOffsetDateTimeWithDateTimeFormatter() {
+        // Given
+        val text = "22-01-01T00:00:00+09:00"
+        val formatter = DateTimeFormatter.ofPattern("yy-MM-dd'T'HH:mm:ssXXX")
+
+        // When
+        val offsetDateTime = text.toOffsetDateTime(formatter)
+
+        // Then
+        assertEquals(
+            expected = OffsetDateTime.of(2022, 1, 1, 0, 0, 0, 0, ZoneOffset.ofHours(9)),
+            actual = offsetDateTime,
+        )
+    }
+
+    @Test
+    fun toOffsetDateTimeOrNull() {
+        // Given
+        val text = "22-01-01T00:00:00+09:00"
+
+        // When
+        val offsetDateTime: OffsetDateTime? = text.toOffsetDateTimeOrNull()
+
+        // Then
+        assertEquals(
+            expected = null,
+            actual = offsetDateTime,
+        )
+    }
+
+    @Test
+    fun toOffsetDateTimeOrNullWithPattern() {
+        // Given
+        val text = "2022-01-01T00:00:00+09:00"
+
+        // When
+        val offsetDateTime: OffsetDateTime? = text.toOffsetDateTimeOrNull("yy-MM-dd'T'HH:mm:ssXXX")
+
+        // Then
+        assertEquals(
+            expected = null,
+            actual = offsetDateTime,
+        )
+    }
+
+    @Test
+    fun toOffsetDateTimeOrNullWithDateTimeFormatter() {
+        // Given
+        val text = "2022-01-01T00:00:00+09:00"
+        val formatter = DateTimeFormatter.ofPattern("yy-MM-dd'T'HH:mm:ssXXX")
+
+        // When
+        val offsetDateTime: OffsetDateTime? = text.toOffsetDateTimeOrNull(formatter)
+
+        // Then
+        assertEquals(
+            expected = null,
+            actual = offsetDateTime,
+        )
+    }
+
+    @Test
+    fun toZoneOffset() {
+        // Given
+        val text = "+09:00"
+
+        // When
+        val zoneOffset: ZoneOffset = text.toZoneOffset()
+
+        // Then
+        assertEquals(
+            expected = ZoneOffset.ofHours(9),
+            actual = zoneOffset,
         )
     }
 }

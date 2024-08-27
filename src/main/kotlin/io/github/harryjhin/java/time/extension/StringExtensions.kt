@@ -1,13 +1,15 @@
 package io.github.harryjhin.java.time.extension
 
-import java.lang.ArithmeticException
+import java.time.DateTimeException
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.MonthDay
+import java.time.OffsetDateTime
 import java.time.Period
 import java.time.Year
 import java.time.YearMonth
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
@@ -159,6 +161,7 @@ fun String.toDateTimeFormatter(): DateTimeFormatter {
         PATTERN_DATE -> FORMATTER_DATE
         PATTERN_DATE_TIME -> FORMATTER_DATE_TIME
         PATTERN_TIME -> FORMATTER_TIME
+        PATTERN_OFFSET_DATE_TIME -> FORMATTER_OFFSET_DATE_TIME
         else -> DateTimeFormatter.ofPattern(this)
     }
 }
@@ -801,4 +804,113 @@ fun String.toLocalTimeOrNull(
     } catch (e: Exception) {
         null
     }
+}
+
+/**
+ * 문자열을 [OffsetDateTime]으로 변환합니다. 기본 포맷 "yyyy-MM-dd'T'HH:mm:ssXXX"를 사용합니다.
+ *
+ * @return [OffsetDateTime] 인스턴스
+ * @throws DateTimeParseException 문자열 분석에 실패한 경우
+ * @since 0.12.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetDateTime
+ */
+fun String.toOffsetDateTime(): OffsetDateTime {
+    return toOffsetDateTime(FORMATTER_OFFSET_DATE_TIME)
+}
+
+/**
+ * 문자열을 [pattern] 형식으로 [OffsetDateTime]으로 변환합니다.
+ *
+ * @param pattern 날짜 형식 문자열
+ * @return [OffsetDateTime] 인스턴스
+ * @throws DateTimeParseException 문자열 분석에 실패한 경우
+ * @throws IllegalArgumentException 날짜 포맷이 유효하지 않은 경우
+ * @since 0.12.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetDateTimeWithPattern
+ */
+fun String.toOffsetDateTime(
+    pattern: String,
+): OffsetDateTime {
+    val formatter = pattern.toDateTimeFormatter()
+    return toOffsetDateTime(formatter)
+}
+
+/**
+ * 문자열을 [formatter]를 사용하여 [OffsetDateTime]으로 변환합니다.
+ *
+ * @param formatter 날짜 포맷터
+ * @return [OffsetDateTime] 인스턴스
+ * @throws DateTimeParseException 문자열 분석에 실패한 경우
+ * @since 0.12.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetDateTimeWithDateTimeFormatter
+ */
+fun String.toOffsetDateTime(
+    formatter: DateTimeFormatter,
+): OffsetDateTime {
+    return OffsetDateTime.parse(this, formatter)
+}
+
+/**
+ * 문자열을 [OffsetDateTime]으로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ *
+ * @return [OffsetDateTime] 인스턴스
+ * @since 0.12.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetDateTimeOrNull
+ */
+fun String.toOffsetDateTimeOrNull(): OffsetDateTime? {
+    return try {
+        toOffsetDateTime()
+    } catch (e: Exception) {
+        null
+    }
+}
+
+/**
+ * 문자열을 [pattern] 형식으로 [OffsetDateTime]으로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ *
+ * @param pattern 날짜 형식 문자열
+ * @return [OffsetDateTime] 인스턴스
+ * @since 0.12.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetDateTimeOrNullWithPattern
+ */
+fun String.toOffsetDateTimeOrNull(
+    pattern: String,
+): OffsetDateTime? {
+    return try {
+        toOffsetDateTime(pattern)
+    } catch (e: Exception) {
+        null
+    }
+}
+
+/**
+ * 문자열을 [formatter]를 사용하여 [OffsetDateTime]으로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ *
+ * @param formatter 날짜 포맷터
+ * @return [OffsetDateTime] 인스턴스
+ * @since 0.12.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetDateTimeOrNullWithDateTimeFormatter
+ */
+fun String.toOffsetDateTimeOrNull(
+    formatter: DateTimeFormatter,
+): OffsetDateTime? {
+    return try {
+        toOffsetDateTime(formatter)
+    } catch (e: Exception) {
+        null
+    }
+}
+
+/**
+ * 주어진 오프셋 ID [String]을 사용하여 [ZoneOffset] 인스턴스를 생성합니다.
+ *
+ * 지원되는 최대 범위는 `-18:00`에서 `+18:00`까지입니다.
+ *
+ * @return 지정된 오프셋을 나타내는 [ZoneOffset] 인스턴스
+ * @throws DateTimeException 오프셋 ID가 유효하지 않은 경우 발생합니다.
+ * @since 0.12.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toZoneOffset
+ */
+fun String.toZoneOffset(): ZoneOffset {
+    return ZoneOffset.of(this)
 }

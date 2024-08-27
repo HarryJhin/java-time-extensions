@@ -37,6 +37,8 @@ internal const val PATTERN_DATE_TIME: String = "yyyy-MM-dd'T'HH:mm:ss"
  */
 internal const val PATTERN_TIME: String = "HH:mm:ss"
 
+internal const val PATTERN_OFFSET_DATE_TIME: String = "yyyy-MM-dd'T'HH:mm:ssXXX"
+
 /**
  * [java.time.Year] 기본 포맷터 [DateTimeFormatter]입니다.
  *
@@ -98,4 +100,13 @@ internal val FORMATTER_DATE_TIME: DateTimeFormatter by lazy {
  */
 internal val FORMATTER_TIME: DateTimeFormatter by lazy {
     DateTimeFormatter.ofPattern(PATTERN_TIME)
+}
+
+/**
+ * [java.time.OffsetDateTime] 기본 포맷터 [DateTimeFormatter]입니다.
+ *
+ * 패턴: `yyyy-MM-dd'T'HH:mm:ssXXX`
+ */
+internal val FORMATTER_OFFSET_DATE_TIME: DateTimeFormatter by lazy {
+    DateTimeFormatter.ofPattern(PATTERN_OFFSET_DATE_TIME)
 }
