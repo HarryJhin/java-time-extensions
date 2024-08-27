@@ -314,4 +314,64 @@ class LocalDateExtensionsTest {
             actual = dateTime,
         )
     }
+
+    @Test
+    fun between() {
+        // Given
+        val startDate: LocalDate = "2022-01-01".toLocalDate()
+
+        // When
+        val actual: Period = startDate between "2022-01-15".toLocalDate() // P14D
+
+        // Then
+        assertEquals(
+            expected = Period.ofDays(14),
+            actual = actual,
+        )
+
+        // When
+        val actual2: Period = startDate between "2022-02-01".toLocalDate() // P1M
+
+        // Then
+        assertEquals(
+            expected = Period.ofMonths(1),
+            actual = actual2,
+        )
+
+        // When
+        val actual3: Period = startDate between "2023-01-01".toLocalDate() // P1Y
+
+        // Then
+        assertEquals(
+            expected = Period.ofYears(1),
+            actual = actual3,
+        )
+
+        // When
+        val actual4: Period = startDate between "2023-02-01".toLocalDate() // P1Y1M
+
+        // Then
+        assertEquals(
+            expected = Period.ofYears(1).plusMonths(1),
+            actual = actual4,
+        )
+
+        // When
+        val actual5: Period = startDate between "2021-12-25".toLocalDate() // P-7D
+
+        // Then
+        assertEquals(
+            expected = Period.ofDays(-7),
+            actual = actual5,
+        )
+
+        // When
+        val actual6: Period = startDate between "2021-08-15".toLocalDate() // P-4M-17D
+
+        // Then
+        assertEquals(
+            expected = Period.ofMonths(-4).plusDays(-17),
+            actual = actual6,
+        )
+    }
 }
