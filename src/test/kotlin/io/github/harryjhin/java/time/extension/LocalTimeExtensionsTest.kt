@@ -209,4 +209,55 @@ class LocalTimeExtensionsTest {
             actual = dateTime,
         )
     }
+
+    @Test
+    fun between() {
+        // Given
+        val start: LocalTime = "12:00:00".toLocalTime()
+
+        // When
+        val actual: Duration = start between "12:00:30".toLocalTime() // PT30S
+
+        // Then
+        assertEquals(
+            expected = Duration.ofSeconds(30),
+            actual = actual,
+        )
+
+        // When
+        val actual2: Duration = start between "12:30:00".toLocalTime() // PT30M
+
+        // Then
+        assertEquals(
+            expected = Duration.ofMinutes(30),
+            actual = actual2,
+        )
+
+        // When
+        val actual3: Duration = start between "13:00:00".toLocalTime() // PT1H
+
+        // Then
+        assertEquals(
+            expected = Duration.ofHours(1),
+            actual = actual3,
+        )
+
+        // When
+        val actual4: Duration = start between "13:30:30".toLocalTime() // PT1H30M30S
+
+        // Then
+        assertEquals(
+            expected = Duration.ofHours(1).plusMinutes(30).plusSeconds(30),
+            actual = actual4,
+        )
+
+        // When
+        val actual5: Duration = start between "10:30:30".toLocalTime() // PT-1H-29M-30S
+
+        // Then
+        assertEquals(
+            expected = Duration.ofHours(-1).plusMinutes(-29).plusSeconds(-30),
+            actual = actual5,
+        )
+    }
 }
