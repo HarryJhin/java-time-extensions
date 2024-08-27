@@ -47,7 +47,7 @@ tasks.withType<DokkaTask>().configureEach {
                 remoteUrl.set(URL("https://github.com/HarryJhin/java-time-extensions/blob/master/src/main/kotlin"))
                 remoteLineSuffix.set("#L")
             }
-            samples.from(project.files(), "src/main/test/kotlin")
+            samples.from(project.files(), "${rootDir}/src/test/kotlin")
         }
     }
 }
