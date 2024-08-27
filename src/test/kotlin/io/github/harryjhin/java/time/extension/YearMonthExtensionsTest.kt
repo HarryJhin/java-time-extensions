@@ -7,7 +7,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
 
-class YearMonthTest {
+class YearMonthExtensionsTest {
 
     @Test
     fun stringToYearMonth() {
@@ -193,6 +193,39 @@ class YearMonthTest {
         assertEquals(
             actual = date,
             expected = "2022-01-01".toLocalDate(),
+        )
+    }
+
+    @Test
+    fun between() {
+        // Given
+        val startYearMonth: YearMonth = "2022-01".toYearMonth()
+
+        // When
+        val actual: Period = startYearMonth between "2022-02".toYearMonth()
+
+        // Then
+        assertEquals(
+            expected = Period.ofMonths(1),
+            actual = actual,
+        )
+
+        // When
+        val actual2: Period = startYearMonth between "2023-01".toYearMonth()
+
+        // Then
+        assertEquals(
+            expected = Period.ofYears(1),
+            actual = actual2,
+        )
+
+        // When
+        val actual3: Period = startYearMonth between "2023-02".toYearMonth()
+
+        // Then
+        assertEquals(
+            expected = Period.ofYears(1).plusMonths(1),
+            actual = actual3,
         )
     }
 }
