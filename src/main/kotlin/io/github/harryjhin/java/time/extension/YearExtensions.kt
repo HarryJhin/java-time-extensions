@@ -79,3 +79,18 @@ infix fun Year.at(monthDay: MonthDay): LocalDate {
 infix fun Year.at(dayOfYear: Int): LocalDate {
     return this.atDay(dayOfYear)
 }
+
+/**
+ * [Year]와 [endYear] 사이의 차이를 [Period]로 계산합니다.
+ *
+ * @param endYear 종료 연도
+ * @return 차이를 나타내는 [Period] 인스턴스
+ * @since 0.11.2
+ * @sample io.github.harryjhin.java.time.extension.YearExtensionsTest.between
+ */
+infix fun Year.between(
+    endYear: Year,
+): Period {
+    val year = endYear.value - this.value
+    return Period.ofYears(year)
+}
