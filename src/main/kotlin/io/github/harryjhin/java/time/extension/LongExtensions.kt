@@ -1,9 +1,11 @@
 package io.github.harryjhin.java.time.extension
 
+import java.time.DateTimeException
 import java.time.Duration
 import java.time.Month
 import java.time.Period
 import java.time.Year
+import java.time.ZoneOffset
 
 /**
  * [Long]을 연(Year) 단위의 [Period]로 변환합니다.
@@ -175,6 +177,21 @@ fun Long.toMonth(): Month {
  */
 fun Long.toMonthOrNull(): Month? {
     return this.toIntExact().toMonthOrNull()
+}
+
+/**
+ * 전체 오프셋(초단위)[Long]을 사용하여 [ZoneOffset] 인스턴스를 생성합니다.
+ *
+ * 전체 오프셋은 `-18:00`에서 `+18:00` 범위 내에 있어야 하며, 이는 `-64_800L`에서 `64_800L` 사이의 값입니다.
+ *
+ * @return 지정된 오프셋을 나타내는 [ZoneOffset] 인스턴스를 반환합니다.
+ * @throws ArithmeticException 오프셋이 [Int] 범위를 벗어난 경우 발생합니다.
+ * @throws DateTimeException 오프셋이 지정된 범위 내에 있지 않은 경우 발생합니다.
+ * @since 0.12.0
+ * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.toZoneOffset
+ */
+fun Long.toZoneOffset(): ZoneOffset {
+    return ZoneOffset.ofTotalSeconds(this.toIntExact())
 }
 
 /**

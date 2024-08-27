@@ -1,5 +1,6 @@
 package io.github.harryjhin.java.time.extension
 
+import java.time.DateTimeException
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalTime
@@ -8,6 +9,7 @@ import java.time.OffsetDateTime
 import java.time.Period
 import java.time.Year
 import java.time.YearMonth
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
@@ -897,4 +899,18 @@ fun String.toOffsetDateTimeOrNull(
     } catch (e: Exception) {
         null
     }
+}
+
+/**
+ * 주어진 오프셋 ID [String]을 사용하여 [ZoneOffset] 인스턴스를 생성합니다.
+ *
+ * 지원되는 최대 범위는 `-18:00`에서 `+18:00`까지입니다.
+ *
+ * @return 지정된 오프셋을 나타내는 [ZoneOffset] 인스턴스
+ * @throws DateTimeException 오프셋 ID가 유효하지 않은 경우 발생합니다.
+ * @since 0.12.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toZoneOffset
+ */
+fun String.toZoneOffset(): ZoneOffset {
+    return ZoneOffset.of(this)
 }

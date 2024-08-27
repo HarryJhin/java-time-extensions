@@ -1,6 +1,8 @@
 package io.github.harryjhin.java.time.extension
 
+import java.time.ZoneOffset
 import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertFails
 
 class LongExtensionsTest {
@@ -25,5 +27,20 @@ class LongExtensionsTest {
         assertFails {
             underflow.toIntExact()
         }
+    }
+
+    @Test
+    fun toZoneOffset() {
+        // Given
+        val second = 9L * 60 * 60
+
+        // When
+        val zoneOffset: ZoneOffset = second.toZoneOffset()
+
+        // Then
+        assertEquals(
+            expected = ZoneOffset.ofHours(9),
+            actual = zoneOffset,
+        )
     }
 }

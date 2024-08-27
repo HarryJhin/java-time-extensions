@@ -1,10 +1,12 @@
 package io.github.harryjhin.java.time.extension
 
+import java.time.DateTimeException
 import java.time.DayOfWeek
 import java.time.Duration
 import java.time.Month
 import java.time.Period
 import java.time.Year
+import java.time.ZoneOffset
 
 /**
  * [Int]를 연(Year) 단위의 [Period]로 변환합니다.
@@ -216,4 +218,18 @@ fun Int.toMonthOrNull(): Month? {
  */
 fun Int.toDayOfWeek(): DayOfWeek {
     return DayOfWeek.of(this)
+}
+
+/**
+ * 전체 오프셋(초단위)[Int]을 사용하여 [ZoneOffset] 인스턴스를 생성합니다.
+ *
+ * 전체 오프셋은 `-18:00`에서 `+18:00` 범위 내에 있어야 하며, 이는 `-64800`에서 `64800` 사이의 값입니다.
+ *
+ * @return 지정된 오프셋을 나타내는 [ZoneOffset] 인스턴스를 반환합니다.
+ * @throws DateTimeException 오프셋이 지정된 범위 내에 있지 않은 경우 발생합니다.
+ * @since 0.12.0
+ * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.toZoneOffset
+ */
+fun Int.toZoneOffset(): ZoneOffset {
+    return ZoneOffset.ofTotalSeconds(this)
 }

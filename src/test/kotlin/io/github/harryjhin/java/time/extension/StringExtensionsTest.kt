@@ -404,4 +404,19 @@ class StringExtensionsTest {
             actual = offsetDateTime,
         )
     }
+
+    @Test
+    fun toZoneOffset() {
+        // Given
+        val text = "+09:00"
+
+        // When
+        val zoneOffset: ZoneOffset = text.toZoneOffset()
+
+        // Then
+        assertEquals(
+            expected = ZoneOffset.ofHours(9),
+            actual = zoneOffset,
+        )
+    }
 }
