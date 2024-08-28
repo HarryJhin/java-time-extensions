@@ -1,6 +1,7 @@
 package io.github.harryjhin.java.time.extension
 
 import java.time.DateTimeException
+import java.time.DayOfWeek
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.Month
@@ -224,6 +225,17 @@ fun LocalDateTime.toYearMonth(): YearMonth {
  */
 fun LocalDateTime.toMonthDay(): MonthDay {
     return MonthDay.from(this)
+}
+
+/**
+ * [LocalDateTime]의 요일 정보를 [DayOfWeek]로 변환합니다.
+ *
+ * @return 변환된 [DayOfWeek] 객체
+ * @since 0.13.2
+ * @sample io.github.harryjhin.java.time.extension.LocalDateTimeExtensionsTest.toDayOfWeek
+ */
+fun LocalDateTime.toDayOfWeek(): DayOfWeek {
+    return DayOfWeek.from(this)
 }
 
 /**

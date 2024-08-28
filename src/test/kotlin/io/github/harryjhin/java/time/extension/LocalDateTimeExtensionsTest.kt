@@ -1,5 +1,6 @@
 package io.github.harryjhin.java.time.extension
 
+import java.time.DayOfWeek
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.Month
@@ -328,6 +329,21 @@ class LocalDateTimeExtensionsTest {
         assertEquals(
             expected = MonthDay.of(1, 2),
             actual = monthDay,
+        )
+    }
+
+    @Test
+    fun toDayOfWeek() {
+        // Given
+        val dateTime: LocalDateTime = LocalDateTime.of(2022, 1, 2, 3, 4, 5, 123_456_789)
+
+        // When
+        val dayOfWeek = dateTime.toDayOfWeek() // SUNDAY
+
+        // Then
+        assertEquals(
+            expected = DayOfWeek.SUNDAY,
+            actual = dayOfWeek,
         )
     }
 
