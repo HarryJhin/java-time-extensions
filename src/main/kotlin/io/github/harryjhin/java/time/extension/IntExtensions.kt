@@ -10,7 +10,7 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeParseException
 
 /**
- * [Int]를 얀도로 해석하고 [Period]로 변환합니다.
+ * [Int]를 연도로 해석하고 [Period]로 변환합니다.
  *
  * @return 지정된 연 기간을 나타내는 [Period] 인스턴스
  * @throws DateTimeParseException 지정된 연도가 유효하지 않은 경우 발생합니다.
@@ -32,7 +32,7 @@ val Int.months: Period
     get() = Period.ofMonths(this)
 
 /**
- * [Int]를 일(day) 단위의 [Period]로 변환합니다.
+ * [Int]를 일로 해석하고 [Period]로 변환합니다.
  *
  * @return 지정된 일 수를 나타내는 [Period] 인스턴스
  * @throws DateTimeParseException 지정된 일이 유효하지 않은 경우 발생합니다.
