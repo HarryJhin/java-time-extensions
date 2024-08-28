@@ -9,6 +9,7 @@ import java.time.OffsetDateTime
 import java.time.Period
 import java.time.Year
 import java.time.YearMonth
+import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
@@ -899,6 +900,30 @@ fun String.toOffsetDateTimeOrNull(
     } catch (e: Exception) {
         null
     }
+}
+
+/**
+ * 주어진 문자열을 사용하여 [ZoneId] 인스턴스를 생성합니다.
+ *
+ * [toZoneId] 확장 함수는 [String]을 timezone ID로 해석하여 [ZoneId] 또는 [ZoneOffset]을 생성합니다.
+ *
+ * 파싱 과정은 다음 단계를 따릅니다:
+ *
+ * - 문자열이 `Z`와 같으면 [ZoneOffset.UTC]입니다.
+ * - 문자열이 단일 문자로 구성되면 유효하지 않은 것으로 간주되어 [DateTimeException]이 발생합니다.
+ * - 문자열이 `+` 또는 `-`로 시작하면 오프셋 ID로 간주되어 [ZoneOffset] 인스턴스를 생성합니다.
+ * - 문자열이 `GMT`, `UTC` 또는 `UT`로 시작하면 동일한 ID를 가진 [ZoneId]이며 [ZoneOffset.UTC]와 동등한 규칙을 가집니다.
+ * - 문자열이 `UTC+`, `UTC-`, `GMT+`, `GMT-`, `UT+` 또는 `UT-`로 시작하면 접두사가 있는 오프셋 기반 ID로 취급됩니다.
+ * - 그 외의 모든 문자열은 지역 기반 시간대 ID로 파싱됩니다. 이들은 정규 표현식 `[A-Za-z][A-Za-z0-9~/._+-]+`와 일치해야 합니다.
+ *
+ * @return 지정된 ID를 나타내는 [ZoneId] 인스턴스
+ * @throws DateTimeException 문자열의 형식이 유효하지 않은 경우
+ * @throws java.time.zone.ZoneRulesException 문자열이 찾을 수 없는 지역 ID인 경우
+ * @since 0.13.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toZoneId
+ */
+fun String.toZoneId(): ZoneId {
+    return ZoneId.of(this)
 }
 
 /**

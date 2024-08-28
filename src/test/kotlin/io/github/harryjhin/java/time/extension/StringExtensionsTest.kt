@@ -1,6 +1,7 @@
 package io.github.harryjhin.java.time.extension
 
 import java.time.OffsetDateTime
+import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import kotlin.test.Test
@@ -402,6 +403,21 @@ class StringExtensionsTest {
         assertEquals(
             expected = null,
             actual = offsetDateTime,
+        )
+    }
+
+    @Test
+    fun toZoneId() {
+        // Given
+        val text = "UTC+09:00"
+
+        // When
+        val zoneId: ZoneId = text.toZoneId()
+
+        // Then
+        assertEquals(
+            expected = ZoneId.of("UTC+09:00"),
+            actual = zoneId,
         )
     }
 

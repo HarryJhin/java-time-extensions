@@ -2,10 +2,14 @@ package io.github.harryjhin.java.time.extension
 
 import java.time.DateTimeException
 import java.time.Duration
+import java.time.Instant
+import java.time.LocalDateTime
 import java.time.Month
 import java.time.Period
 import java.time.Year
+import java.time.ZoneId
 import java.time.ZoneOffset
+import java.time.ZonedDateTime
 
 /**
  * [Long]을 연(Year) 단위의 [Period]로 변환합니다.
@@ -192,6 +196,62 @@ fun Long.toMonthOrNull(): Month? {
  */
 fun Long.toZoneOffset(): ZoneOffset {
     return ZoneOffset.ofTotalSeconds(this.toIntExact())
+}
+
+/**
+ * Unix Epoch 시간([Long])을 사용하여 [LocalDateTime] 인스턴스를 생성합니다.
+ *
+ * [toLocalDateTime] 확장 함수는 [Long]을 Unix Epoch(1970년 1월 1일 00:00:00 UTC) 시간으로부터 경과한 밀리초로 해석하여
+ * 해당하는 [LocalDateTime] 인스턴스를 생성합니다.
+ *
+ * @receiver Unix Epoch 시간을 나타내는 [Long] 값
+ * @return Unix Epoch 시간을 나타내는 [LocalDateTime] 인스턴스.
+ * @since 0.13.0
+ * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.toLocalDateTime
+ */
+fun Long.toLocalDateTime(): LocalDateTime {
+    val instant: Instant = Instant.ofEpochMilli(this)
+    return LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
+}
+
+/**
+ * Unix Epoch 시간([Long])을 사용하여 [ZonedDateTime] 인스턴스를 생성합니다.
+ *
+ * [toZonedDateTime] 확장 함수는 [Long]을 Unix Epoch(1970년 1월 1일 00:00:00 UTC) 시간으로부터 경과한 밀리초로 해석하여
+ * 해당하는 [ZonedDateTime] 인스턴스를 생성합니다.
+ *
+ * @receiver Unix Epoch 시간을 나타내는 [Long] 값
+ * @param zoneId 생성할 [ZonedDateTime]의 [ZoneId].
+ *               기본값은 시스템의 기본 시간대입니다.
+ * @return Unix Epoch 시간을 나타내는 [ZonedDateTime] 인스턴스.
+ * @since 0.13.0
+ * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.toZonedDateTimeWithString
+ */
+fun Long.toZonedDateTime(
+    zoneId: String,
+): ZonedDateTime {
+    val instant: Instant = Instant.ofEpochMilli(this)
+    return instant.atZone(zoneId.toZoneId())
+}
+
+/**
+ * Unix Epoch 시간([Long])을 사용하여 [ZonedDateTime] 인스턴스를 생성합니다.
+ *
+ * [toZonedDateTime] 확장 함수는 [Long]을 Unix Epoch(1970년 1월 1일 00:00:00 UTC) 시간으로부터 경과한 밀리초로 해석하여
+ * 해당하는 [ZonedDateTime] 인스턴스를 생성합니다.
+ *
+ * @receiver Unix Epoch 시간을 나타내는 [Long] 값
+ * @param zoneId 생성할 [ZonedDateTime]의 [ZoneId].
+ *               기본값은 시스템의 기본 시간대입니다.
+ * @return Unix Epoch 시간을 나타내는 [ZonedDateTime] 인스턴스.
+ * @since 0.13.0
+ * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.toZonedDateTime
+ */
+fun Long.toZonedDateTime(
+    zoneId: ZoneId = ZoneId.systemDefault(),
+): ZonedDateTime {
+    val instant: Instant = Instant.ofEpochMilli(this)
+    return instant.atZone(zoneId)
 }
 
 /**
