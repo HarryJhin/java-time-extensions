@@ -7,30 +7,26 @@ import java.time.Month
 import java.time.Period
 import java.time.Year
 import java.time.ZoneOffset
+import java.time.format.DateTimeParseException
 
 /**
- * [Int]를 연(Year) 단위의 [Period]로 변환합니다.
+ * [Int]를 얀도로 해석하고 [Period]로 변환합니다.
  *
- * ```kotlin
- * val year: Period = 2022.years // P2022Y
- * ```
- *
- * @return 지정된 연 수를 나타내는 [Period] 인스턴스
+ * @return 지정된 연 기간을 나타내는 [Period] 인스턴스
+ * @throws DateTimeParseException 지정된 연도가 유효하지 않은 경우 발생합니다.
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.years
  */
 val Int.years: Period
     get() = Period.ofYears(this)
 
 /**
- * [Int]를 월(month) 단위의 [Period]로 변환합니다.
+ * [Int]를 월로 해석하고 [Period]로 변환합니다.
  *
- * 예시:
- * ```kotlin
- * val month: Period = 3.months // P3M
- * ```
- *
- * @return 지정된 월 수를 나타내는 [Period] 인스턴스
+ * @return 지정된 월 기간을 나타내는 [Period] 인스턴스
+ * @throws DateTimeParseException 지정된 월이 유효하지 않은 경우 발생합니다.
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.months
  */
 val Int.months: Period
     get() = Period.ofMonths(this)
@@ -38,97 +34,76 @@ val Int.months: Period
 /**
  * [Int]를 일(day) 단위의 [Period]로 변환합니다.
  *
- * 예시:
- * ```kotlin
- * val day: Period = 14.days // P14D
- * ```
- *
  * @return 지정된 일 수를 나타내는 [Period] 인스턴스
+ * @throws DateTimeParseException 지정된 일이 유효하지 않은 경우 발생합니다.
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.days
  */
 val Int.days: Period
     get() = Period.ofDays(this)
 
 /**
- * [Int]를 시간(hour) 단위의 [Duration]으로 변환합니다.
+ * [Int]를 시로 해석하고 [Duration]으로 변환합니다.
  *
- * 예시)
- * ```kotlin
- * val hour: Duration = 1.hours // PT1H
- * ```
- *
- * @return 지정된 시간 기간을 나타내는 [Duration] 인스턴스
+ * @return 지정된 시 기간을 나타내는 [Duration] 인스턴스
+ * @throws DateTimeParseException 지정된 시가 유효하지 않은 경우 발생합니다.
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.hours
  */
 val Int.hours: Duration
     get() = this.toLong().hours
 
 /**
- * [Int]를 분(minute) 단위의 [Duration]으로 변환합니다.
- *
- * 예시)
- * ```kotlin
- * val minute: Duration = 1.minutes // PT1M
- * ```
+ * [Int]를 분으로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 분 기간을 나타내는 [Duration] 인스턴스
+ * @throws DateTimeParseException 지정된 분이 유효하지 않은 경우 발생합니다.
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.minutes
  */
 val Int.minutes: Duration
     get() = this.toLong().minutes
 
 /**
- * [Int]를 초(second) 단위의 [Duration]으로 변환합니다.
- *
- * 예시)
- * ```kotlin
- * val second: Duration = 1.seconds // PT1S
- * ```
+ * [Int]를 초로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 초 기간을 나타내는 [Duration] 인스턴스
+ * @throws DateTimeParseException 지정된 초가 유효하지 않은 경우 발생합니다.
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.seconds
  */
 val Int.seconds: Duration
     get() = this.toLong().seconds
 
 /**
- * [Int]를 밀리초(millisecond) 단위의 [Duration]으로 변환합니다.
- *
- * 예시)
- * ```kotlin
- * val millisecond: Duration = 1.milliseconds // PT0.001S
- * ```
+ * [Int]를 밀리초로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 밀리초 기간을 나타내는 [Duration] 인스턴스
+ * @throws DateTimeParseException 지정된 밀리초가 유효하지 않은 경우 발생합니다.
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.milliseconds
  */
 val Int.milliseconds: Duration
     get() = this.toLong().milliseconds
 
 /**
- * [Int]를 마이크로초(microsecond) 단위의 [Duration]으로 변환합니다.
- *
- * 예시)
- * ```kotlin
- * val microsecond: Duration = 1.microseconds // PT0.000001S
- * ```
+ * [Int]를 마이크로초로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 마이크로초 기간을 나타내는 [Duration] 인스턴스
+ * @throws DateTimeParseException 지정된 마이크로초가 유효하지 않은 경우 발생합니다.
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.microseconds
  */
 val Int.microseconds: Duration
     get() = this.toLong().microseconds
 
 /**
- * [Int]를 나노초(nanosecond) 단위의 [Duration]으로 변환합니다.
- *
- * 예시)
- * ```kotlin
- * val nanosecond: Duration = 1.nanoseconds // PT0.000000001S
- * ```
+ * [Int]를 나노초로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 나노초 기간을 나타내는 [Duration] 인스턴스
+ * @throws DateTimeParseException 지정된 나노초가 유효하지 않은 경우 발생합니다.
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.nanoseconds
  */
 val Int.nanoseconds: Duration
     get() = this.toLong().nanoseconds
@@ -136,13 +111,9 @@ val Int.nanoseconds: Duration
 /**
  * [Int]를 [Year]로 변환합니다.
  *
- * 예시:
- * ```kotlin
- * val year: Year = 2022.toYear() // 2022
- * ```
- *
  * @return 지정된 연도를 나타내는 [Year] 인스턴스
  * @since 0.5.0
+ * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.toYear
  */
 fun Int.toYear(): Year {
     return Year.of(this)
@@ -153,13 +124,9 @@ fun Int.toYear(): Year {
  *
  * 변환 중에 예외가 발생하면 `null`을 반환합니다.
  *
- * 예시:
- * ```kotlin
- * val year: Year? = 2022.toYearOrNull() // 2022
- * ```
- *
  * @return 지정된 연도를 나타내는 [Year] 인스턴스 또는 `null`
  * @since 0.5.0
+ * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.toYearOrNull
  */
 fun Int.toYearOrNull(): Year? {
     return try {
@@ -172,13 +139,9 @@ fun Int.toYearOrNull(): Year? {
 /**
  * [Int]를 [Month]로 변환합니다.
  *
- * 예시:
- * ```kotlin
- * val month: Month = 1.toMonth() // JANUARY
- * ```
- *
  * @return 지정된 월을 나타내는 [Month] 인스턴스
  * @since 0.5.0
+ * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.toMonth
  */
 fun Int.toMonth(): Month {
     return Month.of(this)
@@ -189,13 +152,9 @@ fun Int.toMonth(): Month {
  *
  * 변환 중에 예외가 발생하면 `null`을 반환합니다.
  *
- * 예시:
- * ```kotlin
- * val month: Month? = 13.toMonthOrNull() // null
- * ```
- *
  * @return 지정된 월을 나타내는 [Month] 인스턴스 또는 `null`
  * @since 0.5.0
+ * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.toMonthOrNull
  */
 fun Int.toMonthOrNull(): Month? {
     return try {
@@ -208,13 +167,10 @@ fun Int.toMonthOrNull(): Month? {
 /**
  * [Int]를 [DayOfWeek]로 변환합니다.
  *
- * 예시:
- * ```kotlin
- * val dayOfWeek: DayOfWeek = 1.toDayOfWeek() // MONDAY
- * ```
- *
  * @return 지정된 요일을 나타내는 [DayOfWeek] 인스턴스
+ * @throws DateTimeException 지정된 요일이 존재하지 않는 경우 발생합니다.
  * @since 0.5.0
+ * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.toDayOfWeek
  */
 fun Int.toDayOfWeek(): DayOfWeek {
     return DayOfWeek.of(this)
