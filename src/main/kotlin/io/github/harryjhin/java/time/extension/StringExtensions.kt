@@ -3,6 +3,7 @@ package io.github.harryjhin.java.time.extension
 import java.time.DateTimeException
 import java.time.Duration
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.MonthDay
 import java.time.OffsetDateTime
@@ -802,6 +803,101 @@ fun String.toLocalTimeOrNull(
 ): LocalTime? {
     return try {
         toLocalTime(formatter)
+    } catch (e: Exception) {
+        null
+    }
+}
+
+/**
+ * 주어진 일시 문자열을 [LocalDateTime]으로 파싱합니다. 기본 포맷 "yyyy-MM-dd'T'HH:mm:ss"를 사용합니다.
+ *
+ * @return 알시 문자열을 파싱한 [LocalDateTime] 인스턴스를 반환합니다.
+ * @throws DateTimeParseException 문자열 분석에 실패한 경우 발생합니다.
+ * @since 0.13.1
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalDateTime
+ */
+fun String.toLocalDateTime(): LocalDateTime {
+    return toLocalDateTime(FORMATTER_DATE_TIME)
+}
+
+/**
+ * 주어진 일시 문자열을 [pattern]을 사용하여 [LocalDateTime]으로 파싱합니다.
+ *
+ * @param pattern 일시 패턴 문자열
+ * @return 패턴을 사용하여 일시 문자열을 파싱한 [LocalDateTime] 인스턴스를 반환합니다.
+ * @throws IllegalArgumentException 패턴이 유효하지 않은 경우 발생합니다.
+ * @throws DateTimeParseException 문자열 분석에 실패한 경우 발생합니다.
+ * @since 0.13.1
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalDateTimeWithPattern
+ */
+fun String.toLocalDateTime(
+    pattern: String,
+): LocalDateTime {
+    val formatter = pattern.toDateTimeFormatter()
+    return toLocalDateTime(formatter)
+}
+
+/**
+ * 주어진 일시 문자열을 [formatter]를 사용하여 [LocalDateTime]으로 파싱합니다.
+ *
+ * @param formatter 일시 포맷터
+ * @return 포맷터를 사용하여 일시 문자열을 파싱한 [LocalDateTime] 인스턴스를 반환합니다.
+ * @throws DateTimeParseException 문자열 분석에 실패한 경우 발생합니다.
+ * @since 0.13.1
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalDateTimeWithDateTimeFormatter
+ */
+fun String.toLocalDateTime(
+    formatter: DateTimeFormatter,
+): LocalDateTime {
+    return LocalDateTime.parse(this, formatter)
+}
+
+/**
+ * 주어진 일시 문자열을 [LocalDateTime]으로 파싱합니다. 변환에 실패하면 `null`을 반환합니다.
+ *
+ * @return 일시 문자열을 파싱한 [LocalDateTime] 인스턴스를 반환합니다.
+ * @since 0.13.1
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalDateTimeOrNull
+ */
+fun String.toLocalDateTimeOrNull(): LocalDateTime? {
+    return try {
+        toLocalDateTime()
+    } catch (e: Exception) {
+        null
+    }
+}
+
+/**
+ * 주어진 일시 문자열을 [pattern]을 사용하여 [LocalDateTime]으로 파싱합니다. 변환에 실패하면 `null`을 반환합니다.
+ *
+ * @param pattern 일시 패턴 문자열
+ * @return 패턴을 사용하여 일시 문자열을 파싱한 [LocalDateTime] 인스턴스를 반환합니다.
+ * @since 0.13.1
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalDateTimeOrNullWithPattern
+ */
+fun String.toLocalDateTimeOrNull(
+    pattern: String,
+): LocalDateTime? {
+    return try {
+        toLocalDateTime(pattern)
+    } catch (e: Exception) {
+        null
+    }
+}
+
+/**
+ * 주어진 일시 문자열을 [formatter]를 사용하여 [LocalDateTime]으로 파싱합니다. 변환에 실패하면 `null`을 반환합니다.
+ *
+ * @param formatter 일시 포맷터
+ * @return 포맷터를 사용하여 일시 문자열을 파싱한 [LocalDateTime] 인스턴스를 반환합니다.
+ * @since 0.13.1
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalDateTimeOrNullWithDateTimeFormatter
+ */
+fun String.toLocalDateTimeOrNull(
+    formatter: DateTimeFormatter,
+): LocalDateTime? {
+    return try {
+        toLocalDateTime(formatter)
     } catch (e: Exception) {
         null
     }
