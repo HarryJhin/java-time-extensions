@@ -1,6 +1,8 @@
 package io.github.harryjhin.java.time.extension
 
+import java.time.DateTimeException
 import java.time.LocalDateTime
+import java.time.Month
 import java.time.OffsetDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
@@ -8,6 +10,8 @@ import java.time.format.DateTimeFormatter
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
+import kotlin.test.assertFailsWith
+import kotlin.test.assertNull
 
 class StringExtensionsTest {
 
@@ -205,6 +209,52 @@ class StringExtensionsTest {
             expected = null,
             actual = year,
         )
+    }
+
+    @Test
+    fun toMonth() {
+        // Given
+        val text = "1"
+
+        // When
+        val month: Month = text.toMonth()
+
+        // Then
+        assertEquals(
+            expected = Month.JANUARY,
+            actual = month,
+        )
+
+        // Fail cases
+        assertFailsWith(DateTimeException::class) {
+            "13".toMonth()
+        }
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "JAN".toMonth()
+        }
+    }
+
+    @Test
+    fun toMonthOrNull() {
+        // Given
+        val text = "1"
+
+        // When
+        val month: Month? = text.toMonthOrNull()
+
+        // Then
+        assertEquals(
+            expected = Month.JANUARY,
+            actual = month,
+        )
+
+        // Fail cases
+        assertNull("13".toMonthOrNull())
+
+        // Fail cases
+        assertNull("JAN".toMonthOrNull())
     }
 
     @Test

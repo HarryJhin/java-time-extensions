@@ -201,7 +201,7 @@ fun String.toDateTimeFormatterOrNull(): DateTimeFormatter? {
  * @throws DateTimeParseException 문자열 파싱에 실패한 경우
  */
 fun String.toYear(): Year {
-    return toYear(FORMATTER_YEAR)
+    return toYear(JavaTimeExtensionConfiguration.FORMATTER_YEAR)
 }
 
 /**
@@ -305,6 +305,60 @@ fun String.toYearOrNull(
 ): Year? {
     return try {
         toYear(formatter)
+    } catch (e: Exception) {
+        null
+    }
+}
+
+/**
+ * 주어진 월 문자열을 [String]을 [Month]로 변환합니다.
+ *
+ * @return 변환된 [Month] 인스턴스
+ * @throws NumberFormatException 문자열이 숫자로 변환할 수 없는 경우
+ * @throws DateTimeException 문자열 파싱에 실패한 경우
+ * @since 0.13.8
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toMonth
+ */
+fun String.toMonth(): Month {
+    return when (this) {
+        "Jan",
+        "JANUARY" -> Month.JANUARY
+        "Feb",
+        "FEBRUARY" -> Month.FEBRUARY
+        "Mar",
+        "MARCH" -> Month.MARCH
+        "Apr",
+        "APRIL" -> Month.APRIL
+        "May",
+        "MAY" -> Month.MAY
+        "Jun",
+        "JUNE" -> Month.JUNE
+        "Jul",
+        "JULY" -> Month.JULY
+        "Aug",
+        "AUGUST" -> Month.AUGUST
+        "Sep",
+        "SEPTEMBER" -> Month.SEPTEMBER
+        "Oct",
+        "OCTOBER" -> Month.OCTOBER
+        "Nov",
+        "NOVEMBER" -> Month.NOVEMBER
+        "Dec",
+        "DECEMBER" -> Month.DECEMBER
+        else -> this.toInt().toMonth()
+    }
+}
+
+/**
+ * 주어진 월 문자열을 [String]을 [Month]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ *
+ * @return 변환된 [Month] 인스턴스 또는 변환 실패 시 null
+ * @since 0.13.8
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toMonthOrNull
+ */
+fun String.toMonthOrNull(): Month? {
+    return try {
+        toMonth()
     } catch (e: Exception) {
         null
     }
@@ -809,6 +863,10 @@ fun String.toLocalTimeOrNull(
         null
     }
 }
+
+//fun String.toOffsetTime(): OffsetTime {
+//    return toOffsetTime(FORMATTER_OFFSET_TIME)
+//}
 
 /**
  * 주어진 일시 문자열을 [LocalDateTime]으로 파싱합니다. 기본 포맷 "yyyy-MM-dd'T'HH:mm:ss"를 사용합니다.
