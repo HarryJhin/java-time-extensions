@@ -12,123 +12,94 @@ import java.time.ZoneOffset
 import java.time.ZonedDateTime
 
 /**
- * [Long]을 연(Year) 단위의 [Period]로 변환합니다.
+ * [Long]을 연도(`year`)로 해석하고 [Period]로 변환합니다.
  *
- * ```kotlin
- * val year: Period = 2022L.years // P2022Y
- * ```
- *
- * @return 지정된 연 수를 나타내는 [Period] 인스턴스
+ * @return 지정된 연 기간을 나타내는 [Period] 인스턴스
+ * @throws ArithmeticException [Long]이 [Int] 범위를 벗어난 경우 발생합니다.
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.years
  */
 val Long.years: Period
     get() = this.toIntExact().years
 
 /**
- * [Long]을 월(month) 단위의 [Period]로 변환합니다.
+ * [Long]을 월(`month`)로 해석하고 [Period]로 변환합니다.
  *
- * ```kotlin
- * val month: Period = 3L.months // P3M
- * ```
- *
- * @return 지정된 월 수를 나타내는 [Period] 인스턴스
+ * @return 지정된 월 기간을 나타내는 [Period] 인스턴스
+ * @throws ArithmeticException [Long]이 [Int] 범위를 벗어난 경우 발생합니다.
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.months
  */
 val Long.months: Period
     get() = this.toIntExact().months
 
 /**
- * [Long]을 일(day) 단위의 [Period]으로 변환합니다.
+ * [Long]을 일(`day`)로 해석하고 [Period]로 변환합니다.
  *
- * ```kotlin
- * val day: Period = 1L.days // P1D
- * ```
- *
- * @return 지정된 일 수를 나타내는 [Period] 인스턴스
+ * @return 지정된 일 기간을 나타내는 [Period] 인스턴스
+ * @throws ArithmeticException [Long]이 [Int] 범위를 벗어난 경우 발생합니다.
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.days
  */
 val Long.days: Period
     get() = this.toIntExact().days
 
 /**
- * [Long]을 시간(hour) 단위의 [Duration]으로 변환합니다.
+ * [Long]을 시(`hour`)로 해석하고 [Duration]으로 변환합니다.
  *
- * ```kotlin
- * val hour: Duration = 1L.hours // PT1H
- * ```
- *
- * @return 지정된 시간 기간을 나타내는 [Duration] 인스턴스
+ * @return 지정된 시 기간을 나타내는 [Duration] 인스턴스
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.hours
  */
 val Long.hours: Duration
     get() = Duration.ofHours(this)
 
 /**
- * [Long]을 분(minute) 단위의 [Duration]으로 변환합니다.
- *
- * 예시)
- * ```kotlin
- * val minute: Duration = 1L.minutes // PT1M
- * ```
+ * [Long]을 분(`minute`)으로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 분 기간을 나타내는 [Duration] 인스턴스
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.minutes
  */
 val Long.minutes: Duration
     get() = Duration.ofMinutes(this)
 
 /**
- * [Long]을 초(second) 단위의 [Duration]으로 변환합니다.
- *
- * 예시)
- * ```kotlin
- * val second: Duration = 1L.seconds // PT1S
- * ```
+ * [Long]을 초(`second`)로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 초 기간을 나타내는 [Duration] 인스턴스
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.seconds
  */
 val Long.seconds: Duration
     get() = Duration.ofSeconds(this)
 
 /**
- * [Long]을 밀리초(millisecond) 단위의 [Duration]으로 변환합니다.
- *
- * 예시)
- * ```kotlin
- * val millisecond: Duration = 1L.milliseconds // PT0.001S
- * ```
+ * [Long]을 밀리초(`millisecond`)로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 밀리초 기간을 나타내는 [Duration] 인스턴스
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.milliseconds
  */
 val Long.milliseconds: Duration
     get() = Duration.ofMillis(this)
 
 /**
- * [Long]을 마이크로초(microsecond) 단위의 [Duration]으로 변환합니다.
- *
- * 예시)
- * ```kotlin
- * val microsecond: Duration = 1L.microseconds // PT0.000001S
- * ```
+ * [Long]을 마이크로초(`microsecond`)로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 마이크로초 기간을 나타내는 [Duration] 인스턴스
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.microseconds
  */
 val Long.microseconds: Duration
-    get() = Duration.ofNanos(this * 1000)
+    get() = Duration.ofNanos(this * 1_000)
 
 /**
- * [Long]을 나노초(nanosecond) 단위의 [Duration]으로 변환합니다.
- *
- * 예시)
- * ```kotlin
- * val nanosecond: Duration = 1L.nanoseconds // PT0.000000001S
- * ```
+ * [Long]을 나노초(`nanosecond`)로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 나노초 기간을 나타내는 [Duration] 인스턴스
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.nanoseconds
  */
 val Long.nanoseconds: Duration
     get() = Duration.ofNanos(this)
@@ -262,8 +233,7 @@ fun Long.toZonedDateTime(
  * @return 변환된 [Int] 값
  * @throws ArithmeticException [Int] 범위를 벗어난 경우
  * @since 0.8.1
- * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.overflowOoIntExact
- * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.underflowOoIntExact
+ * @sample io.github.harryjhin.java.time.extension.LongExtensionsTest.toIntExact
  */
 internal fun Long.toIntExact(): Int {
     val value: Int = this.toInt()
