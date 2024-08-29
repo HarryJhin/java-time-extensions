@@ -7,6 +7,7 @@ import java.time.Month
 import java.time.OffsetDateTime
 import java.time.OffsetTime
 import java.time.Period
+import java.time.Year
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
@@ -383,64 +384,120 @@ class StringExtensionsTest {
     }
 
     @Test
-    fun toYear1() {
+    fun toYear() {
         // Given
-        val text = "2022"
 
         // When
-        val year = text.toYear()
+        val actual: Year = "2022".toYear()
 
         // Then
         assertEquals(
-            expected = "2022".toYear(),
-            actual = year,
+            expected = Year.of(2022),
+            actual = actual,
         )
-        assertFails {
-            "2022-01".toYear()
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "22".toYear() // Text '22' could not be parsed at index 0
         }
     }
 
     @Test
-    fun toYear2() {
+    fun toYearWithString() {
         // Given
-        val text = "22"
 
         // When
-        val year = text.toYear("yy")
+        val actual: Year = "22".toYear("yy")
 
         // Then
         assertEquals(
-            expected = "2022".toYear(),
-            actual = year,
+            expected = Year.of(2022),
+            actual = actual,
         )
-    }
 
-    @Test
-    fun toYear3() {
-        // Given
-        val text = "22"
+        assertFailsWith(IllegalArgumentException::class) {
+            "22".toYear("ABC") // Unknown pattern letter: C
+        }
 
-        // When
-
-        // Then
-        assertFails {
-            text.toYear()
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "2022".toYear("yy") // Text '2022' could not be parsed, unparsed text found at index 2
         }
     }
 
     @Test
-    fun toYearOrNull1() {
+    fun toYearWithDateTimeFormatter() {
         // Given
-        val text = "22"
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yy")
 
         // When
-        val year = text.toYearOrNull()
+        val actual: Year = "22".toYear(formatter)
 
         // Then
         assertEquals(
-            expected = null,
-            actual = year,
+            expected = Year.of(2022),
+            actual = actual,
         )
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "2022".toYear(formatter) // Text '2022' could not be parsed, unparsed text found at index 2
+        }
+    }
+
+    @Test
+    fun toYearOrNull() {
+        // Given
+
+        // When
+        val actual: Year? = "2022".toYearOrNull()
+
+        // Then
+        assertEquals(
+            expected = Year.of(2022),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertNull("22".toYearOrNull())
+    }
+
+    @Test
+    fun toYearOrNullWithString() {
+        // Given
+
+        // When
+        val actual: Year? = "22".toYearOrNull("yy")
+
+        // Then
+        assertEquals(
+            expected = Year.of(2022),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertNull("22".toYearOrNull("ABC"))
+
+        // Fail cases
+        assertNull("2022".toYearOrNull("yy"))
+    }
+
+    @Test
+    fun toYearOrNullWithDateTimeFormatter() {
+        // Given
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yy")
+
+        // When
+        val actual: Year? = "22".toYearOrNull(formatter)
+
+        // Then
+        assertEquals(
+            expected = Year.of(2022),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertNull("2022".toYearOrNull(formatter))
     }
 
     @Test

@@ -380,32 +380,39 @@ fun String.toDateTimeFormatterOrNull(): DateTimeFormatter? {
 }
 
 /**
- * [String]을 [Year]로 변환합니다. 기본 포맷 "yyyy"를 사용합니다.
+ * [String]을 연도(`year`)로 해석하고 [Year]로 파싱합니다.
  *
- * 예시:
- * ```kotlin
- * val year: Year = "2022".toYear() // 2022
+ * [String]은 라이브러리 기본 형식과 일치해야 합니다.
+ *
+ * 기본 형식은 `src/main/resources/java-time-extensions.properties` 파일에서 재정의 할 수 있습니다.
+ *
+ * java-time-extensions.properties 파일의 예시:
+ *
+ * ```properties
+ * # 기본값: yyyy
+ * pattern.year=yy
  * ```
  *
- * @return 변환된 [Year] 인스턴스
- * @throws DateTimeParseException 문자열 파싱에 실패한 경우
+ * @receiver 기본 형식의 연도 문자열
+ * @return 파싱된 [Year] 인스턴스
+ * @throws DateTimeParseException [String]을 [Year]로 파싱할 수 없는 경우
+ * @since 0.4.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toYear
  */
 fun String.toYear(): Year {
     return toYear(JavaTimeExtensionConfiguration.FORMATTER_YEAR)
 }
 
 /**
- * [String]을 지정된 포맷의 [Year]로 변환합니다.
+ * [String]을 연도(`year`)로 해석하고 [pattern]을 사용하여 [Year]로 파싱합니다.
  *
- * 예시:
- * ```kotlin
- * val year: Year = "22".toYear("yy") // 2022
- * ```
- *
- * @param pattern 년도 문자열의 포맷
- * @return 변환된 [Year] 인스턴스
- * @throws DateTimeParseException 문자열 파싱에 실패한 경우
- * @throws IllegalArgumentException 제공된 포맷이 유효하지 않은 경우
+ * @receiver [pattern] 형식의 연도 문자열
+ * @param pattern 연도 문자열의 포맷
+ * @return 파싱된 [Year] 인스턴스
+ * @throws IllegalArgumentException [pattern]을 [DateTimeFormatter]로 파싱할 수 없는 경우
+ * @throws DateTimeParseException [String]을 [Year]로 파싱할 수 없는 경우
+ * @since 0.4.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toYearWithString
  */
 fun String.toYear(
     pattern: String,
@@ -415,17 +422,14 @@ fun String.toYear(
 }
 
 /**
- * [String]을 지정된 [DateTimeFormatter]를 사용하여 [Year]로 변환합니다.
+ * [String]을 연도(`year`)로 해석하고 [formatter]를 사용하여 [Year]로 파싱합니다.
  *
- * 예시:
- * ```kotlin
- * val formatter = DateTimeFormatter.ofPattern("yy")
- * val year: Year = "22".toYear(formatter) // 2022
- * ```
- *
- * @param formatter 년도 문자열을 파싱할 [DateTimeFormatter]
- * @return 변환된 [Year] 인스턴스
- * @throws DateTimeParseException 문자열 파싱에 실패한 경우
+ * @receiver [formatter] 형식의 연도 문자열
+ * @param formatter [String]을 파싱할 [DateTimeFormatter]
+ * @return 파싱된 [Year] 인스턴스
+ * @throws DateTimeParseException [String]을 [Year]로 파싱할 수 없는 경우
+ * @since 0.4.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toYearWithDateTimeFormatter
  */
 fun String.toYear(
     formatter: DateTimeFormatter,
@@ -434,16 +438,24 @@ fun String.toYear(
 }
 
 /**
- * [String]을 [Year]로 변환합니다. 기본 포맷 "yyyy"를 사용합니다.
- * 변환에 실패하면 `null`을 반환합니다.
+ * [String]을 연도(`year`)로 해석하고 [Year]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * 예시:
- * ```kotlin
- * val validYear: Year? = "2022".toYearOrNull() // 2022
- * val invalidYear: Year? = "202X".toYearOrNull() // null
+ * [String]은 라이브러리 기본 형식과 일치해야 합니다.
+ *
+ * 기본 형식은 `src/main/resources/java-time-extensions.properties` 파일에서 재정의 할 수 있습니다.
+ *
+ * java-time-extensions.properties 파일의 예시:
+ *
+ * ```properties
+ * # 기본값: yyyy
+ * pattern.year=yy
  * ```
  *
- * @return 변환된 [Year] 인스턴스 또는 변환 실패 시 null
+ * @receiver 기본 형식의 연도 문자열
+ * @return 파싱된 [Year] 인스턴스 또는 `null`
+ * @since 0.4.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toYearOrNull
  */
 fun String.toYearOrNull(): Year? {
     return try {
@@ -454,17 +466,14 @@ fun String.toYearOrNull(): Year? {
 }
 
 /**
- * [String]을 지정된 포맷의 [Year]로 변환합니다.
- * 변환에 실패하면 `null`을 반환합니다.
+ * [String]을 연도(`year`)로 해석하고 [pattern]을 사용하여 [Year]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * 예시:
- * ```kotlin
- * val validYear: Year? = "22".toYearOrNull("yy") // 2022
- * val invalidYear: Year? = "XX".toYearOrNull("yy") // null
- * ```
- *
- * @param pattern 년도 문자열의 포맷
- * @return 변환된 [Year] 인스턴스 또는 변환 실패 시 null
+ * @receiver [pattern] 형식의 연도 문자열
+ * @param pattern 연도 형식 문자열
+ * @return 파싱된 [Year] 인스턴스 또는 `null`
+ * @since 0.4.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toYearOrNullWithString
  */
 fun String.toYearOrNull(
     pattern: String,
@@ -477,18 +486,14 @@ fun String.toYearOrNull(
 }
 
 /**
- * [String]을 지정된 [DateTimeFormatter]를 사용하여 [Year]로 변환합니다.
- * 변환에 실패하면 `null`을 반환합니다.
+ * [String]을 연도(`year`)로 해석하고 [formatter]를 사용하여 [Year]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * 예시:
- * ```kotlin
- * val formatter = DateTimeFormatter.ofPattern("yy")
- * val validYear: Year? = "22".toYearOrNull(formatter) // 2022
- * val invalidYear: Year? = "XX".toYearOrNull(formatter) // null
- * ```
- *
- * @param formatter 년도 문자열을 파싱할 [DateTimeFormatter]
- * @return 변환된 [Year] 인스턴스 또는 변환 실패 시 null
+ * @receiver [formatter] 형식의 연도 문자열
+ * @param formatter [String]을 파싱할 [DateTimeFormatter]
+ * @return 파싱된 [Year] 인스턴스 또는 `null`
+ * @since 0.4.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toYearOrNullWithDateTimeFormatter
  */
 fun String.toYearOrNull(
     formatter: DateTimeFormatter,
