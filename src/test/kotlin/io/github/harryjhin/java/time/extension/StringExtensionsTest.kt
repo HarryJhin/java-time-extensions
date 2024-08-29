@@ -4,9 +4,11 @@ import java.time.DateTimeException
 import java.time.LocalDateTime
 import java.time.Month
 import java.time.OffsetDateTime
+import java.time.OffsetTime
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
@@ -363,6 +365,72 @@ class StringExtensionsTest {
             expected = null,
             actual = time,
         )
+    }
+
+    @Test
+    fun toOffsetTime() {
+        // Given
+        val text = "00:00:00+09:00"
+
+        // When
+        val offsetTime: OffsetTime = text.toOffsetTime()
+
+        // Then
+        assertEquals(
+            expected = OffsetTime.of(0, 0, 0, 0, ZoneOffset.ofHours(9)),
+            actual = offsetTime,
+        )
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "00:00:00".toOffsetTime()
+        }
+    }
+
+    @Test
+    fun toOffsetTimeWithString() {
+        // Given
+        val text = "00:00:00 +09:00"
+
+        // When
+        val offsetTime: OffsetTime = text.toOffsetTime("HH:mm:ss XXX")
+
+        // Then
+        assertEquals(
+            expected = OffsetTime.of(0, 0, 0, 0, ZoneOffset.ofHours(9)),
+            actual = offsetTime,
+        )
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "00:00:00".toOffsetTime("HH:mm:ss XXX")
+        }
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "00:00:00 +09:00".toOffsetTime("HH:mm:ss")
+        }
+    }
+
+    @Test
+    fun toOffsetTimeWithDateTimeFormatter() {
+        // Given
+        val text = "00:00:00 +09:00"
+        val formatter = DateTimeFormatter.ofPattern("HH:mm:ss XXX")
+
+        // When
+        val offsetTime: OffsetTime = text.toOffsetTime(formatter)
+
+        // Then
+        assertEquals(
+            expected = OffsetTime.of(0, 0, 0, 0, ZoneOffset.ofHours(9)),
+            actual = offsetTime,
+        )
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "00:00:00".toOffsetTime(formatter)
+        }
     }
 
     @Test

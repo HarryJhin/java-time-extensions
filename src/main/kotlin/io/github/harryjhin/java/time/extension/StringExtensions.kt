@@ -8,6 +8,7 @@ import java.time.LocalTime
 import java.time.Month
 import java.time.MonthDay
 import java.time.OffsetDateTime
+import java.time.OffsetTime
 import java.time.Period
 import java.time.Year
 import java.time.YearMonth
@@ -864,9 +865,51 @@ fun String.toLocalTimeOrNull(
     }
 }
 
-//fun String.toOffsetTime(): OffsetTime {
-//    return toOffsetTime(FORMATTER_OFFSET_TIME)
-//}
+/**
+ * [String]을 [OffsetTime]로 변환합니다.
+ *
+ * @receiver 오프셋 시간 문자열 (설정된 형식에 맞는)
+ * @return [OffsetTime] 인스턴스
+ * @throws DateTimeParseException 문자열 분석에 실패한 경우
+ * @since 0.14.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetTime
+ */
+fun String.toOffsetTime(): OffsetTime {
+    return toOffsetTime(JavaTimeExtensionConfiguration.FORMATTER_OFFSET_TIME)
+}
+
+/**
+ * [String]을 [OffsetTime]로 변환합니다.
+ *
+ * @receiver 오프셋 시간 문자열
+ * @param pattern 시간 패턴 문자열
+ * @return [OffsetTime] 인스턴스
+ * @throws DateTimeParseException 문자열 분석에 실패한 경우
+ * @since 0.14.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetTimeWithString
+ */
+fun String.toOffsetTime(
+    pattern: String,
+): OffsetTime {
+    val formatter = pattern.toDateTimeFormatter()
+    return toOffsetTime(formatter)
+}
+
+/**
+ * [String]을 [OffsetTime]로 변환합니다.
+ *
+ * @receiver 오프셋 시간 문자열
+ * @param formatter 시간 포맷터
+ * @return [OffsetTime] 인스턴스
+ * @throws DateTimeParseException 문자열 분석에 실패한 경우
+ * @since 0.14.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetTimeWithDateTimeFormatter
+ */
+fun String.toOffsetTime(
+    formatter: DateTimeFormatter,
+): OffsetTime {
+    return OffsetTime.parse(this, formatter)
+}
 
 /**
  * 주어진 일시 문자열을 [LocalDateTime]으로 파싱합니다. 기본 포맷 "yyyy-MM-dd'T'HH:mm:ss"를 사용합니다.
