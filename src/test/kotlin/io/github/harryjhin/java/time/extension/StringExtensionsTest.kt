@@ -2,6 +2,7 @@ package io.github.harryjhin.java.time.extension
 
 import java.time.DateTimeException
 import java.time.Duration
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.Month
 import java.time.MonthDay
@@ -786,46 +787,119 @@ class StringExtensionsTest {
     @Test
     fun toLocalDate() {
         // Given
-        val text = "2022-01-01"
 
         // When
-        val date = text.toLocalDate()
+        val actual: LocalDate = "2022-01-01".toLocalDate()
 
         // Then
         assertEquals(
-            expected = "2022-01-01".toLocalDate(),
-            actual = date,
+            expected = LocalDate.of(2022, 1, 1),
+            actual = actual,
         )
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "22-01-01".toLocalDate() // Text '22-01-01' could not be parsed at index 0
+        }
+    }
+
+    @Test
+    fun toLocalDateWithString() {
+        // Given
+
+        // When
+        val actual: LocalDate = "22-01-01".toLocalDate("yy-MM-dd")
+
+        // Then
+        assertEquals(
+            expected = LocalDate.of(2022, 1, 1),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertFailsWith(IllegalArgumentException::class) {
+            "22-01-01".toLocalDate("ABC") // Unknown pattern letter: C
+        }
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "2022-01-01".toLocalDate("yy-MM-dd") // Text '2022-01-01' could not be parsed, unparsed text found at index 7
+        }
+    }
+
+    @Test
+    fun toLocalDateWithDateTimeFormatter() {
+        // Given
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yy-MM-dd")
+
+        // When
+        val actual: LocalDate = "22-01-01".toLocalDate(formatter)
+
+        // Then
+        assertEquals(
+            expected = LocalDate.of(2022, 1, 1),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "2022-01-01".toLocalDate(formatter) // Text '2022-01-01' could not be parsed, unparsed text found at index 7
+        }
     }
 
     @Test
     fun toLocalDateOrNull() {
         // Given
-        val text = "2022-01-01"
 
         // When
-        val date = text.toLocalDateOrNull()
+        val actual: LocalDate? = "2022-01-01".toLocalDateOrNull()
 
         // Then
         assertEquals(
-            expected = "2022-01-01".toLocalDate(),
-            actual = date,
+            expected = LocalDate.of(2022, 1, 1),
+            actual = actual,
         )
+
+        // Fail cases
+        assertNull("20220101".toLocalDateOrNull())
     }
 
     @Test
-    fun toLocalDateOrNullReturnsNull() {
+    fun toLocalDateOrNullWithString() {
         // Given
-        val text = "00:00:00"
 
         // When
-        val date = text.toLocalDateOrNull()
+        val actual: LocalDate? = "22-01-01".toLocalDateOrNull("yy-MM-dd")
 
         // Then
         assertEquals(
-            expected = null,
-            actual = date,
+            expected = LocalDate.of(2022, 1, 1),
+            actual = actual,
         )
+
+        // Fail cases
+        assertNull("22-01-01".toLocalDateOrNull("ABC"))
+
+        // Fail cases
+        assertNull("2022-01-01".toLocalDateOrNull("yy-MM-dd"))
+    }
+
+    @Test
+    fun toLocalDateOrNullWithDateTimeFormatter() {
+        // Given
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yy-MM-dd")
+
+        // When
+        val actual: LocalDate? = "22-01-01".toLocalDateOrNull(formatter)
+
+        // Then
+        assertEquals(
+            expected = LocalDate.of(2022, 1, 1),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertNull("2022-01-01".toLocalDateOrNull(formatter))
     }
 
     @Test

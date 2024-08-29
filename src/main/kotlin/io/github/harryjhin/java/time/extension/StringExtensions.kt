@@ -824,32 +824,39 @@ fun String.toMonthDayOrNull(
 }
 
 /**
- * 문자열을 [LocalDate]로 변환합니다. 기본 포맷 "yyyy-MM-dd"를 사용합니다.
+ * [String]을 날짜로 해석하고 [LocalDate]로 파싱합니다.
  *
- * ```kotlin
- * val date: LocalDate = "2022-01-01".toLocalDate()
+ * [String]은 라이브러리 기본 형식과 일치해야 합니다.
+ *
+ * 기본 형식은 `src/main/resources/java-time-extensions.properties` 파일에서 재정의 할 수 있습니다.
+ *
+ * java-time-extensions.properties 파일의 예시:
+ *
+ * ```properties
+ * # 기본값: yyyy-MM-dd
+ * pattern.local-date=yyyyMMdd
  * ```
  *
- * @return 변환된 [LocalDate] 인스턴스
- * @throws DateTimeParseException 문자열 분석에 실패한 경우
+ * @receiver 기본 형식의 날짜 문자열
+ * @return 파싱된 [LocalDate] 인스턴스
+ * @throws DateTimeParseException [String]을 [LocalDate]로 파싱할 수 없는 경우
  * @since 0.7.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalDate
  */
 fun String.toLocalDate(): LocalDate {
     return this.toLocalDate(JavaTimeExtensionConfiguration.FORMATTER_LOCAL_DATE)
 }
 
 /**
- * 문자열을 [LocalDate]로 변환합니다.
+ * [String]을 날짜로 해석하고 [pattern]을 사용하여 [LocalDate]로 파싱합니다.
  *
- * ```kotlin
- * val date: LocalDate = "2022-01-01".toLocalDate()
- * ```
- *
- * @param pattern 날짜 형식
- * @return [LocalDate] 인스턴스
- * @throws DateTimeParseException 문자열 분석에 실패한 경우
- * @throws IllegalArgumentException 날짜 포맷이 유효하지 않은 경우
+ * @receiver [pattern] 형식의 날짜 문자열
+ * @param pattern 날짜 형식 문자열
+ * @return 파싱된 [LocalDate] 인스턴스
+ * @throws IllegalArgumentException [pattern]을 [DateTimeFormatter]로 파싱할 수 없는 경우
+ * @throws DateTimeParseException [String]을 [LocalDate]로 파싱할 수 없는 경우
  * @since 0.7.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalDateWithString
  */
 fun String.toLocalDate(
     pattern: String,
@@ -859,16 +866,14 @@ fun String.toLocalDate(
 }
 
 /**
- * 문자열을 [LocalDate]로 변환합니다.
+ * [String]을 날짜로 해석하고 [formatter]를 사용하여 [LocalDate]로 파싱합니다.
  *
- * ```kotlin
- * val date: LocalDate = "2022-01-01".toLocalDate(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
- * ```
- *
- * @param formatter [DateTimeFormatter] 인스턴스
- * @return 변환된 [LocalDate] 인스턴스
- * @throws DateTimeParseException 문자열 분석에 실패한 경우
+ * @receiver [formatter] 형식의 날짜 문자열
+ * @param formatter [String]을 파싱할 [DateTimeFormatter]
+ * @return 파싱된 [LocalDate] 인스턴스
+ * @throws DateTimeParseException [String]을 [LocalDate]로 파싱할 수 없는 경우
  * @since 0.7.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalDateWithDateTimeFormatter
  */
 fun String.toLocalDate(
     formatter: DateTimeFormatter,
@@ -877,14 +882,24 @@ fun String.toLocalDate(
 }
 
 /**
- * 문자열을 [LocalDate]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ * [String]을 날짜로 해석하고 [LocalDate]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * ```kotlin
- * val date: LocalDate? = "2022-01-01".toLocalDateOrNull()
+ * [String]은 라이브러리 기본 형식과 일치해야 합니다.
+ *
+ * 기본 형식은 `src/main/resources/java-time-extensions.properties` 파일에서 재정의 할 수 있습니다.
+ *
+ * java-time-extensions.properties 파일의 예시:
+ *
+ * ```properties
+ * # 기본값: yyyy-MM-dd
+ * pattern.local-date=yyyyMMdd
  * ```
  *
- * @return 변환된 [LocalDate] 인스턴스 또는 null
+ * @receiver 기본 형식의 날짜 문자열
+ * @return 파싱된 [LocalDate] 인스턴스 또는 `null`
  * @since 0.7.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalDateOrNull
  */
 fun String.toLocalDateOrNull(): LocalDate? {
     return try {
@@ -895,15 +910,14 @@ fun String.toLocalDateOrNull(): LocalDate? {
 }
 
 /**
- * 문자열을 [LocalDate]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ * [String]을 날짜로 해석하고 [pattern]을 사용하여 [LocalDate]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * ```kotlin
- * val date: LocalDate? = "2022-01-01".toLocalDateOrNull()
- * ```
- *
- * @param pattern 날짜 형식
- * @return 변환된 [LocalDate] 인스턴스 또는 null
+ * @receiver [pattern] 형식의 날짜 문자열
+ * @param pattern 날짜 형식 문자열
+ * @return 파싱된 [LocalDate] 인스턴스 또는 `null`
  * @since 0.7.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalDateOrNullWithString
  */
 fun String.toLocalDateOrNull(
     pattern: String,
@@ -916,14 +930,14 @@ fun String.toLocalDateOrNull(
 }
 
 /**
- * 문자열을 [LocalDate]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ * [String]을 날짜로 해석하고 [formatter]를 사용하여 [LocalDate]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * ```kotlin
- * val date: LocalDate? = "2022-01-01".toLocalDateOrNull(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
- * ```
- *
- * @param formatter [DateTimeFormatter] 인스턴스
- * @return [LocalDate] 인스턴스
+ * @receiver [formatter] 형식의 날짜 문자열
+ * @param formatter [String]을 파싱할 [DateTimeFormatter]
+ * @return 파싱된 [LocalDate] 인스턴스 또는 `null`
+ * @since 0.7.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalDateOrNullWithDateTimeFormatter
  */
 fun String.toLocalDateOrNull(
     formatter: DateTimeFormatter,
