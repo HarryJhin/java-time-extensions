@@ -347,6 +347,42 @@ class StringExtensionsTest {
     }
 
     @Test
+    fun toDateTimeFormatter() {
+        // Given
+
+        // When
+        val formatter: DateTimeFormatter = "yyyy-MM-dd".toDateTimeFormatter()
+
+        // Then
+        assertEquals(
+            expected = DateTimeFormatter.ofPattern("yyyy-MM-dd").toString(),
+            actual = formatter.toString(),
+        )
+
+        // Fail cases
+        assertFailsWith(IllegalArgumentException::class) {
+            "ABC".toDateTimeFormatter() // Unknown pattern letter: C
+        }
+    }
+
+    @Test
+    fun toDateTimeFormatterOrNull() {
+        // Given
+
+        // When
+        val formatter: DateTimeFormatter? = "yyyy-MM-dd".toDateTimeFormatterOrNull()
+
+        // Then
+        assertEquals(
+            expected = DateTimeFormatter.ofPattern("yyyy-MM-dd").toString(),
+            actual = formatter.toString(),
+        )
+
+        // Then
+        assertNull("ABC".toDateTimeFormatterOrNull())
+    }
+
+    @Test
     fun toYear1() {
         // Given
         val text = "2022"

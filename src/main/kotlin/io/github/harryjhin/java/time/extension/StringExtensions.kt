@@ -283,17 +283,41 @@ fun String.toDurationOrNull(): Duration? {
 }
 
 /**
- * [String]을 [DateTimeFormatter]로 변환합니다.
+ * [String]을 날짜 및 시간 형식으로 해석하고 [DateTimeFormatter]으로 파싱합니다.
  *
- * 예시:
- * ```kotlin
- * val formatter: DateTimeFormatter = "yyyy-MM-dd".toDateTimeFormatter()
+ * [String]이 라이브러리 기본 형식과 일치하는 경우 새롭게 생성하지 않고,
+ * 싱글톤 객체를 반환합니다.
+ *
+ * 기본 형식은 `src/main/resources/java-time-extensions.properties` 파일에서 재정의 할 수 있습니다.
+ *
+ * java-time-extensions.properties 파일의 예시:
+ *
+ * ```properties
+ * # 기본값: yyyy-MM-dd
+ * pattern.local-date=yyyyMMdd
+ * # 기본값: yyyy-MM-dd'T'HH:mm:ss
+ * pattern.local-date-time=yyyy-MM-dd HH:mm:ss
+ * # 기본값: HH:mm:ss
+ * pattern.local-time=HHmmss
+ * # 기본값: MM-dd
+ * pattern.month-day=MMdd
+ * # 기본값: yyyy-MM-dd'T'HH:mm:ss.SSSZ
+ * pattern.offset-date-time=yyyy-MM-dd HH:mm:ss.SSSZ
+ * # 기본값: HH:mm:ss.SSSZ
+ * pattern.offset-time=HHmmssSSSZ
+ * # 기본값: yyyy
+ * pattern.year=yy
+ * # 기본값: yyyy-MM
+ * pattern.year-month=yyyy-MM
+ * # 기본값: yyyy-MM-dd'T'HH:mm:ss.SSS.Z
+ * pattern.zoned-date-time=yyyy-MM-dd HH:mm:ss.SSS Z
  * ```
  *
- * @return 변환된 [DateTimeFormatter] 인스턴스
+ * @receiver 날짜 및 시간 형식 문자열
+ * @return 파싱된 [DateTimeFormatter] 인스턴스
  * @throws IllegalArgumentException 날짜 포맷이 유효하지 않은 경우
  * @since 0.7.0
- * @sample io.github.harryjhin.java.time.extension.DateTimeFormatterExtensionsTest.stringToDateTimeFormatter
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toDateTimeFormatter
  */
 fun String.toDateTimeFormatter(): DateTimeFormatter {
     return when (this) {
@@ -311,15 +335,41 @@ fun String.toDateTimeFormatter(): DateTimeFormatter {
 }
 
 /**
- * [String]을 [DateTimeFormatter]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ * [String]을 날짜 및 시간 형식으로 해석하고 [DateTimeFormatter]으로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * ```kotlin
- * val formatter: DateTimeFormatter? = "yyyy-MM-dd".toDateTimeFormatterOrNull()
+ * [String]이 라이브러리 기본 형식과 일치하는 경우 새롭게 생성하지 않고,
+ * 싱글톤 객체를 반환합니다.
+ *
+ * 기본 형식은 `src/main/resources/java-time-extensions.properties` 파일에서 재정의 할 수 있습니다.
+ *
+ * java-time-extensions.properties 파일의 예시:
+ *
+ * ```properties
+ * # 기본값: yyyy-MM-dd
+ * pattern.local-date=yyyyMMdd
+ * # 기본값: yyyy-MM-dd'T'HH:mm:ss
+ * pattern.local-date-time=yyyy-MM-dd HH:mm:ss
+ * # 기본값: HH:mm:ss
+ * pattern.local-time=HHmmss
+ * # 기본값: MM-dd
+ * pattern.month-day=MMdd
+ * # 기본값: yyyy-MM-dd'T'HH:mm:ss.SSSZ
+ * pattern.offset-date-time=yyyy-MM-dd HH:mm:ss.SSSZ
+ * # 기본값: HH:mm:ss.SSSZ
+ * pattern.offset-time=HHmmssSSSZ
+ * # 기본값: yyyy
+ * pattern.year=yy
+ * # 기본값: yyyy-MM
+ * pattern.year-month=yyyy-MM
+ * # 기본값: yyyy-MM-dd'T'HH:mm:ss.SSS.Z
+ * pattern.zoned-date-time=yyyy-MM-dd HH:mm:ss.SSS Z
  * ```
  *
- * @return 변환된 [DateTimeFormatter] 인스턴스 또는 변환 실패 시 null
+ * @receiver 날짜 및 시간 형식 문자열
+ * @return 파싱된 [DateTimeFormatter] 인스턴스 또는 `null`
  * @since 0.7.0
- * @sample io.github.harryjhin.java.time.extension.DateTimeFormatterExtensionsTest.stringToDateTimeFormatterOrNull
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toDateTimeFormatterOrNull
  */
 fun String.toDateTimeFormatterOrNull(): DateTimeFormatter? {
     return try {
