@@ -106,15 +106,12 @@ val String.microseconds: Duration
     get() = this.toLong().microseconds
 
 /**
- * [String]을 나노초(nanosecond) 단위의 [Duration]으로 변환합니다.
- *
- * ```kotlin
- * val nanosecond: Duration = "1".nanoseconds // PT0.000000001S
- * ```
+ * [String]을 나노초(`nanosecond`)로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 나노초 기간을 나타내는 [Duration] 인스턴스
- * @throws NumberFormatException 문자열이 숫자로 변환할 수 없는 경우
+ * @throws NumberFormatException [String]이 [Long]의 범위를 벗어난 경우
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.nanoseconds
  */
 val String.nanoseconds: Duration
     get() = this.toLong().nanoseconds
@@ -300,28 +297,40 @@ fun String.toMonth(): Month {
     return when (this) {
         "Jan",
         "JANUARY" -> Month.JANUARY
+
         "Feb",
         "FEBRUARY" -> Month.FEBRUARY
+
         "Mar",
         "MARCH" -> Month.MARCH
+
         "Apr",
         "APRIL" -> Month.APRIL
+
         "May",
         "MAY" -> Month.MAY
+
         "Jun",
         "JUNE" -> Month.JUNE
+
         "Jul",
         "JULY" -> Month.JULY
+
         "Aug",
         "AUGUST" -> Month.AUGUST
+
         "Sep",
         "SEPTEMBER" -> Month.SEPTEMBER
+
         "Oct",
         "OCTOBER" -> Month.OCTOBER
+
         "Nov",
         "NOVEMBER" -> Month.NOVEMBER
+
         "Dec",
         "DECEMBER" -> Month.DECEMBER
+
         else -> this.toInt().toMonth()
     }
 }
