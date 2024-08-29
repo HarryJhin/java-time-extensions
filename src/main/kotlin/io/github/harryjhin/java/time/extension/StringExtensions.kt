@@ -5,6 +5,7 @@ import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.Month
 import java.time.MonthDay
 import java.time.OffsetDateTime
 import java.time.Period
@@ -156,14 +157,15 @@ val String.nanoseconds: Duration
  */
 fun String.toDateTimeFormatter(): DateTimeFormatter {
     return when (this) {
-        PATTERN_YEAR -> FORMATTER_YEAR
-        PATTERN_YEAR_MONTH -> FORMATTER_YEAR_MONTH
-        PATTERN_MONTH -> FORMATTER_MONTH
-        PATTERN_MONTH_DAY -> FORMATTER_MONTH_DAY
-        PATTERN_LOCAL_DATE -> FORMATTER_DATE
-        PATTERN_LOCAL_DATE_TIME -> FORMATTER_DATE_TIME
-        PATTERN_LOCAL_TIME -> FORMATTER_TIME
-        PATTERN_OFFSET_DATE_TIME -> FORMATTER_OFFSET_DATE_TIME
+        JavaTimeExtensionConfiguration.PATTERN_LOCAL_DATE -> JavaTimeExtensionConfiguration.FORMATTER_LOCAL_DATE
+        JavaTimeExtensionConfiguration.PATTERN_LOCAL_DATE_TIME -> JavaTimeExtensionConfiguration.FORMATTER_LOCAL_DATE_TIME
+        JavaTimeExtensionConfiguration.PATTERN_LOCAL_TIME -> JavaTimeExtensionConfiguration.FORMATTER_LOCAL_TIME
+        JavaTimeExtensionConfiguration.PATTERN_MONTH_DAY -> JavaTimeExtensionConfiguration.FORMATTER_MONTH_DAY
+        JavaTimeExtensionConfiguration.PATTERN_OFFSET_DATE_TIME -> JavaTimeExtensionConfiguration.FORMATTER_OFFSET_DATE_TIME
+        JavaTimeExtensionConfiguration.PATTERN_OFFSET_TIME -> JavaTimeExtensionConfiguration.FORMATTER_OFFSET_TIME
+        JavaTimeExtensionConfiguration.PATTERN_YEAR -> JavaTimeExtensionConfiguration.FORMATTER_YEAR
+        JavaTimeExtensionConfiguration.PATTERN_YEAR_MONTH -> JavaTimeExtensionConfiguration.FORMATTER_YEAR_MONTH
+        JavaTimeExtensionConfiguration.PATTERN_ZONED_DATE_TIME -> JavaTimeExtensionConfiguration.FORMATTER_ZONED_DATE_TIME
         else -> DateTimeFormatter.ofPattern(this)
     }
 }
@@ -322,7 +324,7 @@ fun String.toYearOrNull(
  * @sample io.github.harryjhin.java.time.extension.YearMonthTest.stringToYearMonth
  */
 fun String.toYearMonth(): YearMonth {
-    return toYearMonth(FORMATTER_YEAR_MONTH)
+    return toYearMonth(JavaTimeExtensionConfiguration.FORMATTER_YEAR_MONTH)
 }
 
 /**
@@ -458,7 +460,7 @@ fun String.toYearMonthOrNull(
  * @sample io.github.harryjhin.java.time.extension.MonthDayExtensionsTest.stringToMonthDay
  */
 fun String.toMonthDay(): MonthDay {
-    return toMonthDay(FORMATTER_MONTH_DAY)
+    return toMonthDay(JavaTimeExtensionConfiguration.FORMATTER_MONTH_DAY)
 }
 
 /**
@@ -592,7 +594,7 @@ fun String.toMonthDayOrNull(
  * @since 0.7.0
  */
 fun String.toLocalDate(): LocalDate {
-    return this.toLocalDate(FORMATTER_DATE)
+    return this.toLocalDate(JavaTimeExtensionConfiguration.FORMATTER_LOCAL_DATE)
 }
 
 /**
@@ -703,7 +705,7 @@ fun String.toLocalDateOrNull(
  * @since 0.2.0
  */
 fun String.toLocalTime(): LocalTime {
-    return toLocalTime(FORMATTER_TIME)
+    return toLocalTime(JavaTimeExtensionConfiguration.FORMATTER_LOCAL_TIME)
 }
 
 /**
@@ -817,7 +819,7 @@ fun String.toLocalTimeOrNull(
  * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalDateTime
  */
 fun String.toLocalDateTime(): LocalDateTime {
-    return toLocalDateTime(FORMATTER_DATE_TIME)
+    return toLocalDateTime(JavaTimeExtensionConfiguration.FORMATTER_LOCAL_DATE_TIME)
 }
 
 /**
@@ -912,7 +914,7 @@ fun String.toLocalDateTimeOrNull(
  * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetDateTime
  */
 fun String.toOffsetDateTime(): OffsetDateTime {
-    return toOffsetDateTime(FORMATTER_OFFSET_DATE_TIME)
+    return toOffsetDateTime(JavaTimeExtensionConfiguration.FORMATTER_OFFSET_DATE_TIME)
 }
 
 /**
