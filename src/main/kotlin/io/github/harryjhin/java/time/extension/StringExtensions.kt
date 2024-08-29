@@ -18,113 +18,89 @@ import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
 /**
- * [String]을 연(Year) 단위의 [Period]로 변환합니다.
+ * [String]을 연도(`year`)로 해석하고 [Period]로 변환합니다.
  *
- * ```kotlin
- * val year: Period = "2022".years // P2022Y
- * ```
- *
- * @return 지정된 연 수를 나타내는 [Period] 인스턴스
- * @throws NumberFormatException 문자열이 숫자로 변환할 수 없는 경우
+ * @return 지정된 연 기간을 나타내는 [Period] 인스턴스
+ * @throws NumberFormatException [String]이 [Int]의 범위를 벗어난 경우
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.years
  */
 val String.years: Period
     get() = this.toInt().years
 
 /**
- * [String]을 월(month) 단위의 [Period]로 변환합니다.
+ * [String]을 월(`month`)로 해석하고 [Period]로 변환합니다.
  *
- * ```kotlin
- * val month: Period = "3".months // P3M
- * ```
- *
- * @return 지정된 월 수를 나타내는 [Period] 인스턴스
- * @throws NumberFormatException 문자열이 숫자로 변환할 수 없는 경우
+ * @return 지정된 월 기간을 나타내는 [Period] 인스턴스
+ * @throws NumberFormatException [String]이 [Int]의 범위를 벗어난 경우
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.months
  */
 val String.months: Period
     get() = this.toInt().months
 
 /**
- * [String]을 일(day) 단위의 [Period]로 변환합니다.
+ * [String]을 일(`day`)로 해석하고 [Period]로 변환합니다.
  *
- * ```kotlin
- * val day: Period = "14".days // P14D
- * ```
- *
- * @return 지정된 일 수를 나타내는 [Period] 인스턴스
- * @throws NumberFormatException 문자열이 숫자로 변환할 수 없는 경우
+ * @return 지정된 일 기간을 나타내는 [Period] 인스턴스
+ * @throws NumberFormatException [String]이 [Int]의 범위를 벗어난 경우
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.days
  */
 val String.days: Period
     get() = this.toInt().days
 
 /**
- * [String]을 시간(hour) 단위의 [Duration]으로 변환합니다.
+ * [String]을 시(`hour`)로 해석하고 [Duration]으로 변환합니다.
  *
- * ```kotlin
- * val hour: Duration = "1".hours // PT1H
- * ```
- *
- * @return 지정된 시간 기간을 나타내는 [Duration] 인스턴스
- * @throws NumberFormatException 문자열이 숫자로 변환할 수 없는 경우
+ * @return 지정된 시 기간을 나타내는 [Duration] 인스턴스
+ * @throws NumberFormatException [String]이 [Long]의 범위를 벗어난 경우
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.hours
  */
 val String.hours: Duration
     get() = this.toLong().hours
 
 /**
- * [String]을 분(minute) 단위의 [Duration]으로 변환합니다.
- *
- * ```kotlin
- * val minute: Duration = "30".minutes // PT30M
- * ```
+ * [String]을 분(`minute`)으로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 분 기간을 나타내는 [Duration] 인스턴스
- * @throws NumberFormatException 문자열이 숫자로 변환할 수 없는 경우
+ * @throws NumberFormatException [String]이 [Long]의 범위를 벗어난 경우
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.minutes
  */
 val String.minutes: Duration
     get() = this.toLong().minutes
 
 /**
- * [String]을 초(second) 단위의 [Duration]으로 변환합니다.
- *
- * ```kotlin
- * val second: Duration = "30".seconds // PT30S
- * ```
+ * [String]을 초(`second`)로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 초 기간을 나타내는 [Duration] 인스턴스
- * @throws NumberFormatException 문자열이 숫자로 변환할 수 없는 경우
+ * @throws NumberFormatException [String]이 [Long]의 범위를 벗어난 경우
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.seconds
  */
 val String.seconds: Duration
     get() = this.toLong().seconds
 
 /**
- * [String]을 밀리초(millisecond) 단위의 [Duration]으로 변환합니다.
- *
- * ```kotlin
- * val millisecond: Duration = "1".milliseconds // PT0.001S
- * ```
+ * [String]을 밀리초(`millisecond`)로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 밀리초 기간을 나타내는 [Duration] 인스턴스
- * @throws NumberFormatException 문자열이 숫자로 변환할 수 없는 경우
+ * @throws NumberFormatException [String]이 [Long]의 범위를 벗어난 경우
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.milliseconds
  */
 val String.milliseconds: Duration
     get() = this.toLong().milliseconds
 
 /**
- * [String]을 마이크로초(microsecond) 단위의 [Duration]으로 변환합니다.
- *
- * ```kotlin
- * val microsecond: Duration = "1".microseconds // PT0.000001S
- * ```
+ * [String]을 마이크로초(`microsecond`)로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 마이크로초 기간을 나타내는 [Duration] 인스턴스
- * @throws NumberFormatException 문자열이 숫자로 변환할 수 없는 경우
+ * @throws NumberFormatException [String]이 [Long]의 범위를 벗어난 경우
  * @since 0.3.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.microseconds
  */
 val String.microseconds: Duration
     get() = this.toLong().microseconds

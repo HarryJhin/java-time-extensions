@@ -1,10 +1,12 @@
 package io.github.harryjhin.java.time.extension
 
 import java.time.DateTimeException
+import java.time.Duration
 import java.time.LocalDateTime
 import java.time.Month
 import java.time.OffsetDateTime
 import java.time.OffsetTime
+import java.time.Period
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
@@ -23,13 +25,28 @@ class StringExtensionsTest {
         val text = "2022"
 
         // When
-        val year = text.years
+        val year: Period = text.years // P2022Y
 
         // Then
         assertEquals(
-            expected = "P2022Y",
-            actual = year.toString(),
+            expected = Period.ofYears(2022),
+            actual = year,
         )
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "2147483648".years // For input string: "2147483648"
+        }
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "-2147483649".years // For input string: "-2147483649"
+        }
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "non-numeric strings".years
+        }
     }
 
     @Test
@@ -38,13 +55,28 @@ class StringExtensionsTest {
         val text = "1"
 
         // When
-        val month = text.months
+        val month: Period = text.months // P1M
 
         // Then
         assertEquals(
-            expected = "P1M",
-            actual = month.toString(),
+            expected = Period.ofMonths(1),
+            actual = month,
         )
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "2147483648".months // For input string: "2147483648"
+        }
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "-2147483649".months // For input string: "-2147483649"
+        }
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "non-numeric strings".minutes
+        }
     }
 
     @Test
@@ -53,13 +85,28 @@ class StringExtensionsTest {
         val text = "1"
 
         // When
-        val day = text.days
+        val day: Period = text.days  // P1D
 
         // Then
         assertEquals(
-            expected = "P1D",
-            actual = day.toString(),
+            expected = Period.ofDays(1),
+            actual = day,
         )
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "2147483648".days // For input string: "2147483648"
+        }
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "-2147483649".days // For input string: "-2147483649"
+        }
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "non-numeric strings".minutes
+        }
     }
 
     @Test
@@ -68,13 +115,28 @@ class StringExtensionsTest {
         val text = "1"
 
         // When
-        val hour = text.hours
+        val hour: Duration = text.hours // PT1H
 
         // Then
         assertEquals(
-            expected = "PT1H",
-            actual = hour.toString(),
+            expected = Duration.ofHours(1),
+            actual = hour,
         )
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "9223372036854775808".hours // For input string: "9223372036854775808"
+        }
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "-9223372036854775809".hours // For input string: "-9223372036854775809"
+        }
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "non-numeric strings".minutes
+        }
     }
 
     @Test
@@ -83,13 +145,28 @@ class StringExtensionsTest {
         val text = "1"
 
         // When
-        val minute = text.minutes
+        val minute: Duration = text.minutes // PT1M
 
         // Then
         assertEquals(
-            expected = "PT1M",
-            actual = minute.toString(),
+            expected = Duration.ofMinutes(1),
+            actual = minute,
         )
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "9223372036854775808".minutes // For input string: "9223372036854775808"
+        }
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "-9223372036854775809".minutes // For input string: "-9223372036854775809"
+        }
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "non-numeric strings".minutes
+        }
     }
 
     @Test
@@ -98,13 +175,28 @@ class StringExtensionsTest {
         val text = "1"
 
         // When
-        val second = text.seconds
+        val second = text.seconds // PT1S
 
         // Then
         assertEquals(
-            expected = "PT1S",
-            actual = second.toString(),
+            expected = Duration.ofSeconds(1),
+            actual = second,
         )
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "9223372036854775808".seconds // For input string: "9223372036854775808"
+        }
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "-9223372036854775809".seconds // For input string: "-9223372036854775809"
+        }
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "non-numeric strings".seconds
+        }
     }
 
     @Test
@@ -113,13 +205,28 @@ class StringExtensionsTest {
         val text = "1"
 
         // When
-        val millisecond = text.milliseconds
+        val millisecond: Duration = text.milliseconds // PT0.001S
 
         // Then
         assertEquals(
-            expected = "PT0.001S",
-            actual = millisecond.toString(),
+            expected = Duration.ofMillis(1),
+            actual = millisecond,
         )
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "9223372036854775808".milliseconds // For input string: "9223372036854775808"
+        }
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "-9223372036854775809".milliseconds // For input string: "-9223372036854775809"
+        }
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "non-numeric strings".milliseconds
+        }
     }
 
     @Test
@@ -128,12 +235,12 @@ class StringExtensionsTest {
         val text = "1"
 
         // When
-        val microsecond = text.microseconds
+        val microsecond: Duration = text.microseconds // PT0.000001S
 
         // Then
         assertEquals(
-            expected = "PT0.000001S",
-            actual = microsecond.toString(),
+            expected = Duration.ofNanos(1_000),
+            actual = microsecond,
         )
     }
 
@@ -143,13 +250,28 @@ class StringExtensionsTest {
         val text = "1"
 
         // When
-        val nanosecond = text.nanoseconds
+        val nanosecond: Duration = text.nanoseconds // PT0.000000001S
 
         // Then
         assertEquals(
-            expected = "PT0.000000001S",
-            actual = nanosecond.toString(),
+            expected = Duration.ofNanos(1),
+            actual = nanosecond,
         )
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "9223372036854775808".nanoseconds // For input string: "9223372036854775808"
+        }
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "-9223372036854775809".nanoseconds // For input string: "-9223372036854775809"
+        }
+
+        // Fail cases
+        assertFailsWith(NumberFormatException::class) {
+            "non-numeric strings".nanoseconds
+        }
     }
 
     @Test
