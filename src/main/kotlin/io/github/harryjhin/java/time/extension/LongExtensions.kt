@@ -14,6 +14,9 @@ import java.time.ZonedDateTime
 /**
  * [Long]을 연도(`year`)로 해석하고 [Period]로 변환합니다.
  *
+ * 지원 범위:
+ * - `2147483647L` ~ `-2147483648L`
+ *
  * @return 지정된 연 기간을 나타내는 [Period] 인스턴스
  * @throws ArithmeticException [Long]이 [Int] 범위를 벗어난 경우 발생합니다.
  * @since 0.3.0
@@ -25,6 +28,9 @@ val Long.years: Period
 /**
  * [Long]을 월(`month`)로 해석하고 [Period]로 변환합니다.
  *
+ * 지원 범위:
+ * - `2147483647L` ~ `-2147483648L`
+ *
  * @return 지정된 월 기간을 나타내는 [Period] 인스턴스
  * @throws ArithmeticException [Long]이 [Int] 범위를 벗어난 경우 발생합니다.
  * @since 0.3.0
@@ -35,6 +41,9 @@ val Long.months: Period
 
 /**
  * [Long]을 일(`day`)로 해석하고 [Period]로 변환합니다.
+ *
+ * 지원 범위:
+ * - `2147483647L` ~ `-2147483648L`
  *
  * @return 지정된 일 기간을 나타내는 [Period] 인스턴스
  * @throws ArithmeticException [Long]이 [Int] 범위를 벗어난 경우 발생합니다.
