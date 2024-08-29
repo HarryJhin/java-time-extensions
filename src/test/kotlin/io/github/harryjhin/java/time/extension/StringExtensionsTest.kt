@@ -8,13 +8,13 @@ import java.time.OffsetDateTime
 import java.time.OffsetTime
 import java.time.Period
 import java.time.Year
+import java.time.YearMonth
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFails
 import kotlin.test.assertFailsWith
 import kotlin.test.assertNull
 
@@ -549,19 +549,119 @@ class StringExtensionsTest {
     @Test
     fun toYearMonth() {
         // Given
-        val text = "2022-01"
 
         // When
-        val yearMonth = text.toYearMonth()
+        val actual: YearMonth = "2022-01".toYearMonth()
 
         // Then
         assertEquals(
-            expected = "2022-01".toYearMonth(),
-            actual = yearMonth,
+            expected = YearMonth.of(2022, 1),
+            actual = actual,
         )
-        assertFails {
-            "2022-01-01".toYearMonth()
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "2022 01".toYearMonth() // Text '2022 01' could not be parsed at index 4
         }
+    }
+
+    @Test
+    fun toYearMonthWithString() {
+        // Given
+
+        // When
+        val actual: YearMonth = "22-01".toYearMonth("yy-MM")
+
+        // Then
+        assertEquals(
+            expected = YearMonth.of(2022, 1),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertFailsWith(IllegalArgumentException::class) {
+            "22-01".toYearMonth("ABC") // Unknown pattern letter: C
+        }
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "2022-01".toYearMonth("yy-MM") // Text '2022-01' could not be parsed, unparsed text found at index 7
+        }
+    }
+
+    @Test
+    fun toYearMonthWithDateTimeFormatter() {
+        // Given
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yy-MM")
+
+        // When
+        val actual: YearMonth = "22-01".toYearMonth(formatter)
+
+        // Then
+        assertEquals(
+            expected = YearMonth.of(2022, 1),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "2022-01".toYearMonth(formatter) // Text '2022-01' could not be parsed, unparsed text found at index 7
+        }
+    }
+
+    @Test
+    fun toYearMonthOrNull() {
+        // Given
+
+        // When
+        val actual: YearMonth? = "2022-01".toYearMonthOrNull()
+
+        // Then
+        assertEquals(
+            expected = YearMonth.of(2022, 1),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertNull("2022 01".toYearMonthOrNull())
+    }
+
+    @Test
+    fun toYearMonthOrNullWithString() {
+        // Given
+
+        // When
+        val actual: YearMonth? = "22-01".toYearMonthOrNull("yy-MM")
+
+        // Then
+        assertEquals(
+            expected = YearMonth.of(2022, 1),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertNull("22-01".toYearMonthOrNull("ABC"))
+
+        // Fail cases
+        assertNull("2022-01".toYearMonthOrNull("yy-MM"))
+    }
+
+    @Test
+    fun toYearMonthOrNullWithDateTimeFormatter() {
+        // Given
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yy-MM")
+
+        // When
+        val actual: YearMonth? = "22-01".toYearMonthOrNull(formatter)
+
+        // Then
+        assertEquals(
+            expected = YearMonth.of(2022, 1),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertNull("2022-01".toYearMonthOrNull(formatter))
     }
 
     @Test

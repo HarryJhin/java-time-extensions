@@ -572,36 +572,39 @@ fun String.toMonthOrNull(): Month? {
 }
 
 /**
- * [String]을 [YearMonth]로 변환합니다. 기본 포맷 "yyyy-MM"을 사용합니다.
+ * [String]을 연도와 월(`year-month`)로 해석하고 [YearMonth]로 파싱합니다.
  *
- * 예시:
- * ```kotlin
- * val yearMonth: YearMonth = "2022-01".toYearMonth() // 2022-01
+ * [String]은 라이브러리 기본 형식과 일치해야 합니다.
+ *
+ * 기본 형식은 `src/main/resources/java-time-extensions.properties` 파일에서 재정의 할 수 있습니다.
+ *
+ * java-time-extensions.properties 파일의 예시:
+ *
+ * ```properties
+ * # 기본값: yyyy-MM
+ * pattern.year-month=yyyy-MM
  * ```
  *
- * @return 변환된 [YearMonth] 인스턴스
- * @throws DateTimeParseException 문자열 파싱에 실패한 경우
+ * @receiver 기본 형식의 연도와 월 문자열
+ * @return 파싱한 [YearMonth] 인스턴스
+ * @throws DateTimeParseException [String]을 [YearMonth]로 파싱할 수 없는 경우
  * @since 0.3.0
- * @sample io.github.harryjhin.java.time.extension.YearMonthTest.stringToYearMonth
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toYearMonth
  */
 fun String.toYearMonth(): YearMonth {
     return toYearMonth(JavaTimeExtensionConfiguration.FORMATTER_YEAR_MONTH)
 }
 
 /**
- * [String]을 지정된 포맷의 [YearMonth]로 변환합니다.
+ * [String]을 연도와 월(`year-month`)로 해석하고 [pattern]을 사용하여 [YearMonth]로 파싱합니다.
  *
- * 예시:
- * ```kotlin
- * val yearMonth: YearMonth = "2022/01".toYearMonth("yyyy/MM") // 2022-01
- * ```
- *
- * @param pattern 날짜 문자열의 포맷
- * @return 변환된 [YearMonth] 인스턴스
- * @throws DateTimeParseException 문자열 파싱에 실패한 경우
- * @throws IllegalArgumentException 제공된 포맷이 유효하지 않은 경우
+ * @receiver [pattern] 형식의 연도와 월 문자열
+ * @param pattern 연도와 월 포맷 문자열
+ * @return 파싱한 [YearMonth] 인스턴스
+ * @throws IllegalArgumentException [pattern]을 [DateTimeFormatter]로 파싱할 수 없는 경우
+ * @throws DateTimeParseException [String]을 [YearMonth]로 파싱할 수 없는 경우
  * @since 0.3.0
- * @sample io.github.harryjhin.java.time.extension.YearMonthTest.stringToYearMonthFormat
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toYearMonthWithString
  */
 fun String.toYearMonth(
     pattern: String,
@@ -611,19 +614,14 @@ fun String.toYearMonth(
 }
 
 /**
- * [String]을 지정된 [DateTimeFormatter]를 사용하여 [YearMonth]로 변환합니다.
+ * [String]을 연도와 월(`year-month`)로 해석하고 [formatter]를 사용하여 [YearMonth]로 파싱합니다.
  *
- * 예시:
- * ```kotlin
- * val formatter = DateTimeFormatter.ofPattern("yyyy/MM")
- * val yearMonth: YearMonth = "2022/01".toYearMonth(formatter) // 2022-01
- * ```
- *
- * @param formatter 날짜 문자열을 파싱할 [DateTimeFormatter]
- * @return 변환된 [YearMonth] 인스턴스
- * @throws DateTimeParseException 문자열 파싱에 실패한 경우
+ * @receiver [formatter] 형식의 연도와 월 문자열
+ * @param formatter [String]을 파싱할 [DateTimeFormatter]
+ * @return 파싱한 [YearMonth] 인스턴스
+ * @throws DateTimeParseException [String]을 [YearMonth]로 파싱할 수 없는 경우
  * @since 0.3.0
- * @sample io.github.harryjhin.java.time.extension.YearMonthTest.stringToYearMonthFormatter
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toYearMonthWithDateTimeFormatter
  */
 fun String.toYearMonth(
     formatter: DateTimeFormatter,
@@ -632,19 +630,24 @@ fun String.toYearMonth(
 }
 
 /**
- * [String]을 [YearMonth]로 변환합니다. 기본 포맷 "yyyy-MM"을 사용합니다.
+ * [String]을 연도와 월(`year-month`)로 해석하고 [YearMonth]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * 변환에 실패하면 `null`을 반환합니다.
+ * [String]은 라이브러리 기본 형식과 일치해야 합니다.
  *
- * 예시:
- * ```kotlin
- * val validYearMonth: YearMonth? = "2022-01".toYearMonthOrNull() // 2022-01
- * val invalidYearMonth: YearMonth? = "2022-13".toYearMonthOrNull() // null
+ * 기본 형식은 `src/main/resources/java-time-extensions.properties` 파일에서 재정의 할 수 있습니다.
+ *
+ * java-time-extensions.properties 파일의 예시:
+ *
+ * ```properties
+ * # 기본값: yyyy-MM
+ * pattern.year-month=yyyy MM
  * ```
  *
- * @return 변환된 [YearMonth] 인스턴스 또는 변환 실패 시 null
+ * @receiver 기본 형식의 연도와 월 문자열
+ * @return 파싱한 [YearMonth] 인스턴스 또는 `null`
  * @since 0.3.0
- * @sample io.github.harryjhin.java.time.extension.YearMonthTest.stringToYearMonthOrNull
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toYearMonthOrNull
  */
 fun String.toYearMonthOrNull(): YearMonth? {
     return try {
@@ -655,20 +658,14 @@ fun String.toYearMonthOrNull(): YearMonth? {
 }
 
 /**
- * [String]을 지정된 포맷의 [YearMonth]로 변환합니다.
+ * [String]을 연도와 월(`year-month`)로 해석하고 [pattern]을 사용하여 [YearMonth]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * 변환에 실패하면 `null`을 반환합니다.
- *
- * 예시:
- * ```kotlin
- * val validYearMonth: YearMonth? = "2022/01".toYearMonthOrNull("yyyy/MM") // 2022-01
- * val invalidYearMonth: YearMonth? = "2022/13".toYearMonthOrNull("yyyy/MM") // null
- * ```
- *
- * @param pattern 날짜 문자열의 포맷
- * @return 변환된 [YearMonth] 인스턴스 또는 변환 실패 시 null
+ * @receiver [pattern] 형식의 연도와 월 문자열
+ * @param pattern 연도와 월 포맷 문자열
+ * @return 파싱한 [YearMonth] 인스턴스 또는 `null`
  * @since 0.3.0
- * @sample io.github.harryjhin.java.time.extension.YearMonthTest.stringToYearMonthOrNullFormat
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toYearMonthOrNullWithString
  */
 fun String.toYearMonthOrNull(
     pattern: String,
@@ -681,21 +678,14 @@ fun String.toYearMonthOrNull(
 }
 
 /**
- * [String]을 지정된 [DateTimeFormatter]를 사용하여 [YearMonth]로 변환합니다.
+ * [String]을 연도와 월(`year-month`)로 해석하고 [formatter]를 사용하여 [YearMonth]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * 변환에 실패하면 `null`을 반환합니다.
- *
- * 예시:
- * ```kotlin
- * val formatter = DateTimeFormatter.ofPattern("yyyy/MM")
- * val validYearMonth: YearMonth? = "2022/01".toYearMonthOrNull(formatter) // 2022-01
- * val invalidYearMonth: YearMonth? = "2022/13".toYearMonthOrNull(formatter) // null
- * ```
- *
- * @param formatter 날짜 문자열을 파싱할 [DateTimeFormatter]
- * @return 변환된 [YearMonth] 인스턴스 또는 변환 실패 시 null
+ * @receiver [formatter] 형식의 연도와 월 문자열
+ * @param formatter [String]을 파싱할 [DateTimeFormatter]
+ * @return 파싱한 [YearMonth] 인스턴스 또는 `null`
  * @since 0.3.0
- * @sample io.github.harryjhin.java.time.extension.YearMonthTest.stringToYearMonthOrNullFormatter
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toYearMonthOrNullWithDateTimeFormatter
  */
 fun String.toYearMonthOrNull(
     formatter: DateTimeFormatter,
