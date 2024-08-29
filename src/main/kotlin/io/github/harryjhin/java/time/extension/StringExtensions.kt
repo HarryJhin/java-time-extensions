@@ -948,34 +948,39 @@ fun String.toLocalDateOrNull(
 }
 
 /**
- * 문자열을 [LocalTime]로 변환합니다.
+ * [String]을 시간으로 해석하고 [LocalDateTime]로 파싱합니다.
  *
- * ```kotlin
- * val time: LocalTime = "00:00:00".toLocalTime()
+ * [String]은 라이브러리 기본 형식과 일치해야 합니다.
+ *
+ * 기본 형식은 `src/main/resources/java-time-extensions.properties` 파일에서 재정의 할 수 있습니다.
+ *
+ * java-time-extensions.properties 파일의 예시:
+ *
+ * ```properties
+ * # 기본값: HH:mm:ss
+ * pattern.local-time=HHmmss
  * ```
  *
- * @return [LocalTime] 인스턴스
- * @throws DateTimeParseException 문자열 분석에 실패한 경우
- * @throws IllegalArgumentException 시간 포맷이 유효하지 않은 경우
+ * @receiver 기본 형식의 시간 문자열
+ * @return 파싱된 [LocalTime] 인스턴스
+ * @throws DateTimeParseException [String]을 [LocalTime]로 파싱할 수 없는 경우
  * @since 0.2.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalTime
  */
 fun String.toLocalTime(): LocalTime {
     return toLocalTime(JavaTimeExtensionConfiguration.FORMATTER_LOCAL_TIME)
 }
 
 /**
- * 문자열을 [LocalTime]로 변환합니다.
+ * [String]을 시간으로 해석하고 [pattern]을 사용하여 [LocalTime]로 파싱합니다.
  *
- * ```kotlin
- * val format = "HH:mm:ss"
- * val time: LocalTime = "00:00:00".toLocalTime(format)
- * ```
- *
- * @param pattern 시간 포맷 문자열
- * @return [LocalTime] 인스턴스
- * @throws DateTimeParseException 문자열 분석에 실패한 경우
- * @throws IllegalArgumentException 시간 포맷이 유효하지 않은 경우
+ * @receiver [pattern] 형식의 시간 문자열
+ * @param pattern 시간 형식 문자열
+ * @return 파싱된 [LocalTime] 인스턴스
+ * @throws IllegalArgumentException [pattern]을 [DateTimeFormatter]로 파싱할 수 없는 경우
+ * @throws DateTimeParseException [String]을 [LocalTime]로 파싱할 수 없는 경우
  * @since 0.2.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalTimeWithString
  */
 fun String.toLocalTime(
     pattern: String,
@@ -985,17 +990,14 @@ fun String.toLocalTime(
 }
 
 /**
- * 문자열을 [LocalTime]로 변환합니다.
+ * [String]을 시간으로 해석하고 [formatter]를 사용하여 [LocalTime]로 파싱합니다.
  *
- * ```kotlin
- * val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
- * val time: LocalTime = "00:00:00".toLocalTime(formatter)
- * ```
- *
- * @param formatter [DateTimeFormatter] 인스턴스
- * @return [LocalTime] 인스턴스
- * @throws DateTimeParseException 문자열 분석에 실패한 경우
+ * @receiver [formatter] 형식의 시간 문자열
+ * @param formatter [String]을 파싱할 [DateTimeFormatter]
+ * @return 파싱된 [LocalTime] 인스턴스
+ * @throws DateTimeParseException [String]을 [LocalTime]로 파싱할 수 없는 경우
  * @since 0.2.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalTimeWithDateTimeFormatter
  */
 fun String.toLocalTime(
     formatter: DateTimeFormatter,
@@ -1004,14 +1006,24 @@ fun String.toLocalTime(
 }
 
 /**
- * 문자열을 [LocalTime]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ * [String]을 시간으로 해석하고 [LocalTime]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * ```kotlin
- * val time: LocalTime? = "00:00:00".toLocalTimeOrNull()
+ * [String]은 라이브러리 기본 형식과 일치해야 합니다.
+ *
+ * 기본 형식은 `src/main/resources/java-time-extensions.properties` 파일에서 재정의 할 수 있습니다.
+ *
+ * java-time-extensions.properties 파일의 예시:
+ *
+ * ```properties
+ * # 기본값: HH:mm:ss
+ * pattern.local-time=HHmmss
  * ```
  *
- * @return [LocalTime] 인스턴스
+ * @receiver 기본 형식의 시간 문자열
+ * @return 파싱된 [LocalTime] 인스턴스 또는 `null`
  * @since 0.2.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalTimeOrNull
  */
 fun String.toLocalTimeOrNull(): LocalTime? {
     return try {
@@ -1022,16 +1034,14 @@ fun String.toLocalTimeOrNull(): LocalTime? {
 }
 
 /**
- * 문자열을 [LocalTime]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ * [String]을 시간으로 해석하고 [pattern]을 사용하여 [LocalTime]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * ```kotlin
- * val format = "HH:mm:ss"
- * val time: LocalTime? = "00:00:00".toLocalTimeOrNull(format)
- * ```
- *
- * @param pattern 날짜 형식 문자열
- * @return [LocalTime] 인스턴스
+ * @receiver [pattern] 형식의 시간 문자열
+ * @param pattern 시간 형식 문자열
+ * @return 파싱된 [LocalTime] 인스턴스 또는 `null`
  * @since 0.2.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalTimeOrNullWithString
  */
 fun String.toLocalTimeOrNull(
     pattern: String,
@@ -1044,16 +1054,14 @@ fun String.toLocalTimeOrNull(
 }
 
 /**
- * 문자열을 [LocalTime]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ * [String]을 시간으로 해석하고 [formatter]를 사용하여 [LocalTime]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * ```kotlin
- * val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
- * val time: LocalTime? = "00:00:00".toLocalTimeOrNull(formatter)
- * ```
- *
- * @param formatter [DateTimeFormatter] 인스턴스
- * @return [LocalTime] 인스턴스
+ * @receiver [formatter] 형식의 시간 문자열
+ * @param formatter [String]을 파싱할 [DateTimeFormatter]
+ * @return 파싱된 [LocalTime] 인스턴스 또는 `null`
  * @since 0.2.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalTimeOrNullWithDateTimeFormatter
  */
 fun String.toLocalTimeOrNull(
     formatter: DateTimeFormatter,

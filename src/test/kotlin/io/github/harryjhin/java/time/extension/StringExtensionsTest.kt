@@ -4,6 +4,7 @@ import java.time.DateTimeException
 import java.time.Duration
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.Month
 import java.time.MonthDay
 import java.time.OffsetDateTime
@@ -905,46 +906,119 @@ class StringExtensionsTest {
     @Test
     fun toLocalTime() {
         // Given
-        val text = "00:00:00"
 
         // When
-        val time = text.toLocalTime()
+        val actual: LocalTime = "00:00:00".toLocalTime()
 
         // Then
         assertEquals(
-            expected = "00:00:00".toLocalTime(),
-            actual = time,
+            expected = LocalTime.of(0, 0, 0),
+            actual = actual,
         )
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "00:00".toLocalTime() // Text '00:00' could not be parsed, unparsed text found at index 5
+        }
+    }
+
+    @Test
+    fun toLocalTimeWithString() {
+        // Given
+
+        // When
+        val actual: LocalTime = "00:00".toLocalTime("HH:mm")
+
+        // Then
+        assertEquals(
+            expected = LocalTime.of(0, 0),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "00:00:00".toLocalTime("HH:mm") // Text '00:00:00' could not be parsed, unparsed text found at index 5
+        }
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "00:00".toLocalTime("HH:mm:ss") // Text '00:00' could not be parsed, unparsed text found at index 5
+        }
+    }
+
+    @Test
+    fun toLocalTimeWithDateTimeFormatter() {
+        // Given
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+
+        // When
+        val actual: LocalTime = "00:00".toLocalTime(formatter)
+
+        // Then
+        assertEquals(
+            expected = LocalTime.of(0, 0),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "00:00:00".toLocalTime(formatter) // Text '00:00:00' could not be parsed, unparsed text found at index 5
+        }
     }
 
     @Test
     fun toLocalTimeOrNull() {
         // Given
-        val text = "00:00:00"
 
         // When
-        val time = text.toLocalTimeOrNull()
+        val actual: LocalTime? = "00:00:00".toLocalTimeOrNull()
 
         // Then
         assertEquals(
-            expected = "00:00:00".toLocalTime(),
-            actual = time,
+            expected = LocalTime.of(0, 0, 0),
+            actual = actual,
         )
+
+        // Fail cases
+        assertNull("00:00".toLocalTimeOrNull())
     }
 
     @Test
-    fun toLocalTimeOrNullReturnsNull() {
+    fun toLocalTimeOrNullWithString() {
         // Given
-        val text = "2022-01-01"
 
         // When
-        val time = text.toLocalTimeOrNull()
+        val actual: LocalTime? = "00:00".toLocalTimeOrNull("HH:mm")
 
         // Then
         assertEquals(
-            expected = null,
-            actual = time,
+            expected = LocalTime.of(0, 0),
+            actual = actual,
         )
+
+        // Fail cases
+        assertNull("00:00:00".toLocalTimeOrNull("ABC"))
+
+        // Fail cases
+        assertNull("00:00".toLocalTimeOrNull("HH:mm:ss"))
+    }
+
+    @Test
+    fun toLocalTimeOrNullWithDateTimeFormatter() {
+        // Given
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+
+        // When
+        val actual: LocalTime? = "00:00".toLocalTimeOrNull(formatter)
+
+        // Then
+        assertEquals(
+            expected = LocalTime.of(0, 0),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertNull("00:00:00".toLocalTimeOrNull(formatter))
     }
 
     @Test
