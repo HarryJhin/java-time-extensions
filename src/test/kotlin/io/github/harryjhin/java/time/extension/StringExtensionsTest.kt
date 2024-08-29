@@ -434,6 +434,64 @@ class StringExtensionsTest {
     }
 
     @Test
+    fun toOffsetTimeOrNull() {
+        // Given
+        val text = "00:00:00+09:00"
+
+        // When
+        val offsetTime: OffsetTime? = text.toOffsetTimeOrNull()
+
+        // Then
+        assertEquals(
+            expected = OffsetTime.of(0, 0, 0, 0, ZoneOffset.ofHours(9)),
+            actual = offsetTime,
+        )
+
+        // Fail cases
+        assertNull("00:00:00".toOffsetTimeOrNull())
+    }
+
+    @Test
+    fun toOffsetTimeOrNullWithString() {
+        // Given
+        val text = "00:00:00 +09:00"
+
+        // When
+        val offsetTime: OffsetTime? = text.toOffsetTimeOrNull("HH:mm:ss XXX")
+
+        // Then
+        assertEquals(
+            expected = OffsetTime.of(0, 0, 0, 0, ZoneOffset.ofHours(9)),
+            actual = offsetTime,
+        )
+
+        // Fail cases
+        assertNull("00:00:00".toOffsetTimeOrNull("HH:mm:ss XXX"))
+
+        // Fail cases
+        assertNull("00:00:00 +09:00".toOffsetTimeOrNull("HH:mm:ss"))
+    }
+
+    @Test
+    fun toOffsetTimeOrNullWithDateTimeFormatter() {
+        // Given
+        val text = "00:00:00 +09:00"
+        val formatter = DateTimeFormatter.ofPattern("HH:mm:ss XXX")
+
+        // When
+        val offsetTime: OffsetTime? = text.toOffsetTimeOrNull(formatter)
+
+        // Then
+        assertEquals(
+            expected = OffsetTime.of(0, 0, 0, 0, ZoneOffset.ofHours(9)),
+            actual = offsetTime,
+        )
+
+        // Fail cases
+        assertNull("00:00:00".toOffsetTimeOrNull(formatter))
+    }
+
+    @Test
     fun toLocalDateTime() {
         // Given
         val text = "2022-01-01T00:00:00"

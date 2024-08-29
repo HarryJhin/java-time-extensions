@@ -912,6 +912,60 @@ fun String.toOffsetTime(
 }
 
 /**
+ * [String]을 [OffsetTime]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ *
+ * @receiver 오프셋 시간 문자열
+ * @return [OffsetTime] 인스턴스
+ * @since 0.14.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetTimeOrNull
+ */
+fun String.toOffsetTimeOrNull(): OffsetTime? {
+    return try {
+        toOffsetTime()
+    } catch (e: Exception) {
+        null
+    }
+}
+
+/**
+ * [String]을 [OffsetTime]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ *
+ * @receiver 오프셋 시간 문자열
+ * @param pattern 시간 패턴 문자열
+ * @return [OffsetTime] 인스턴스
+ * @since 0.14.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetTimeOrNullWithString
+ */
+fun String.toOffsetTimeOrNull(
+    pattern: String,
+): OffsetTime? {
+    return try {
+        toOffsetTime(pattern)
+    } catch (e: Exception) {
+        null
+    }
+}
+
+/**
+ * [String]을 [OffsetTime]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ *
+ * @receiver 오프셋 시간 문자열
+ * @param formatter 시간 포맷터
+ * @return [OffsetTime] 인스턴스
+ * @since 0.14.0
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetTimeOrNullWithDateTimeFormatter
+ */
+fun String.toOffsetTimeOrNull(
+    formatter: DateTimeFormatter,
+): OffsetTime? {
+    return try {
+        toOffsetTime(formatter)
+    } catch (e: Exception) {
+        null
+    }
+}
+
+/**
  * 주어진 일시 문자열을 [LocalDateTime]으로 파싱합니다. 기본 포맷 "yyyy-MM-dd'T'HH:mm:ss"를 사용합니다.
  *
  * @return 알시 문자열을 파싱한 [LocalDateTime] 인스턴스를 반환합니다.
