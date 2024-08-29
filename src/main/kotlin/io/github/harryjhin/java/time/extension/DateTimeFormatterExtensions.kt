@@ -1,43 +1,20 @@
 package io.github.harryjhin.java.time.extension
 
+import io.github.harryjhin.java.time.extension.JavaTimeExtensionConfiguration.PATTERN_MONTH
+import io.github.harryjhin.java.time.extension.JavaTimeExtensionConfiguration.PATTERN_MONTH_DAY
+import io.github.harryjhin.java.time.extension.JavaTimeExtensionConfiguration.PATTERN_OFFSET_DATE_TIME
+import io.github.harryjhin.java.time.extension.JavaTimeExtensionConfiguration.PATTERN_OFFSET_TIME
 import java.time.format.DateTimeFormatter
 
-/**
- * [java.time.Year] 기본 패턴 `yyyy`를 나타냅니다.
- */
-internal const val PATTERN_YEAR: String = "yyyy"
-
-/**
- * [java.time.YearMonth] 기본 패턴 `yyyy-MM`을 나타냅니다.
- */
-internal const val PATTERN_YEAR_MONTH: String = "yyyy-MM"
-
-/**
- * [java.time.Month] 기본 패턴 `MM`을 나타냅니다.
- */
-internal const val PATTERN_MONTH: String = "MM"
-
-/**
- * [java.time.MonthDay] 기본 패턴 `MM-dd`을 나타냅니다.
- */
-internal const val PATTERN_MONTH_DAY: String = "MM-dd"
-
-/**
- * [java.time.LocalDate] 기본 패턴 `yyyy-MM-dd`을 나타냅니다.
- */
-internal const val PATTERN_DATE: String = "yyyy-MM-dd"
-
-/**
- * [java.time.LocalDateTime] 기본 패턴 `yyyy-MM-dd'T'HH:mm:ss`을 나타냅니다.
- */
-internal const val PATTERN_DATE_TIME: String = "yyyy-MM-dd'T'HH:mm:ss"
-
-/**
- * [java.time.LocalTime] 기본 패턴 `HH:mm:ss`을 나타냅니다.
- */
-internal const val PATTERN_TIME: String = "HH:mm:ss"
-
-internal const val PATTERN_OFFSET_DATE_TIME: String = "yyyy-MM-dd'T'HH:mm:ssXXX"
+internal val PATTERN_MONTH: String = JavaTimeExtensionConfiguration.PATTERN_MONTH
+internal val PATTERN_MONTH_DAY: String = JavaTimeExtensionConfiguration.PATTERN_MONTH_DAY
+internal val PATTERN_LOCAL_DATE: String = JavaTimeExtensionConfiguration.PATTERN_LOCAL_DATE
+internal val PATTERN_LOCAL_DATE_TIME: String = JavaTimeExtensionConfiguration.PATTERN_LOCAL_DATE_TIME
+internal val PATTERN_LOCAL_TIME: String = JavaTimeExtensionConfiguration.PATTERN_LOCAL_TIME
+internal val PATTERN_OFFSET_DATE_TIME: String = JavaTimeExtensionConfiguration.PATTERN_OFFSET_DATE_TIME
+internal val PATTERN_OFFSET_TIME: String = JavaTimeExtensionConfiguration.PATTERN_OFFSET_TIME
+internal val PATTERN_YEAR: String = JavaTimeExtensionConfiguration.PATTERN_YEAR
+internal val PATTERN_YEAR_MONTH: String = JavaTimeExtensionConfiguration.PATTERN_YEAR_MONTH
 
 /**
  * [java.time.Year] 기본 포맷터 [DateTimeFormatter]입니다.
@@ -81,7 +58,7 @@ internal val FORMATTER_MONTH_DAY: DateTimeFormatter by lazy {
  * 패턴: `yyyy-MM-dd`
  */
 internal val FORMATTER_DATE: DateTimeFormatter by lazy {
-    DateTimeFormatter.ofPattern(PATTERN_DATE)
+    DateTimeFormatter.ofPattern(PATTERN_LOCAL_DATE)
 }
 
 /**
@@ -90,7 +67,7 @@ internal val FORMATTER_DATE: DateTimeFormatter by lazy {
  * 패턴: `yyyy-MM-dd'T'HH:mm:ss`
  */
 internal val FORMATTER_DATE_TIME: DateTimeFormatter by lazy {
-    DateTimeFormatter.ofPattern(PATTERN_DATE_TIME)
+    DateTimeFormatter.ofPattern(PATTERN_LOCAL_DATE_TIME)
 }
 
 /**
@@ -99,7 +76,16 @@ internal val FORMATTER_DATE_TIME: DateTimeFormatter by lazy {
  * 패턴: `HH:mm:ss`
  */
 internal val FORMATTER_TIME: DateTimeFormatter by lazy {
-    DateTimeFormatter.ofPattern(PATTERN_TIME)
+    DateTimeFormatter.ofPattern(PATTERN_LOCAL_TIME)
+}
+
+/**
+ * [java.time.OffsetTime] 기본 포맷터 [DateTimeFormatter]입니다.
+ *
+ * 패턴: `HH:mm:ssXXX`
+ */
+internal val FORMATTER_OFFSET_TIME: DateTimeFormatter by lazy {
+    DateTimeFormatter.ofPattern(PATTERN_OFFSET_TIME)
 }
 
 /**
