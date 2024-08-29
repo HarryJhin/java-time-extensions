@@ -698,36 +698,39 @@ fun String.toYearMonthOrNull(
 }
 
 /**
- * [String]을 [MonthDay]로 변환합니다. 기본 포맷 "MM-dd"를 사용합니다.
+ * [String]을 월과 일(`month-day`)로 해석하고 [MonthDay]로 파싱합니다.
  *
- * 예시:
- * ```kotlin
- * val monthDay: MonthDay = "01-01".toMonthDay() // --01-01
+ * [String]은 라이브러리 기본 형식과 일치해야 합니다.
+ *
+ * 기본 형식은 `src/main/resources/java-time-extensions.properties` 파일에서 재정의 할 수 있습니다.
+ *
+ * java-time-extensions.properties 파일의 예시:
+ *
+ * ```properties
+ * # 기본값: MM-dd
+ * pattern.month-day=MMdd
  * ```
  *
- * @return 변환된 [MonthDay] 인스턴스
- * @throws DateTimeParseException 문자열 파싱에 실패한 경우
+ * @receiver 기본 형식의 월과 일 문자열
+ * @return 파싱한 [MonthDay] 인스턴스
+ * @throws DateTimeParseException [String]을 [MonthDay]로 파싱할 수 없는 경우
  * @since 0.8.0
- * @sample io.github.harryjhin.java.time.extension.MonthDayExtensionsTest.stringToMonthDay
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toMonthDay
  */
 fun String.toMonthDay(): MonthDay {
     return toMonthDay(JavaTimeExtensionConfiguration.FORMATTER_MONTH_DAY)
 }
 
 /**
- * [String]을 지정된 포맷의 [MonthDay]로 변환합니다.
+ * [String]을 월과 일(`month-day`)로 해석하고 [pattern]을 사용하여 [MonthDay]로 파싱합니다.
  *
- * 예시:
- * ```kotlin
- * val monthDay: MonthDay = "01/01".toMonthDay("MM/dd") // --01-01
- * ```
- *
- * @param pattern 날짜 문자열의 포맷
- * @return 변환된 [MonthDay] 인스턴스
- * @throws DateTimeParseException 문자열 파싱에 실패한 경우
- * @throws IllegalArgumentException 제공된 포맷이 유효하지 않은 경우
+ * @receiver [pattern] 형식의 월과 일 문자열
+ * @param pattern 월과 일 포맷 문자열
+ * @return 파싱한 [MonthDay] 인스턴스
+ * @throws IllegalArgumentException [pattern]을 [DateTimeFormatter]로 파싱할 수 없는 경우
+ * @throws DateTimeParseException [String]을 [MonthDay]로 파싱할 수 없는 경우
  * @since 0.8.0
- * @sample io.github.harryjhin.java.time.extension.MonthDayExtensionsTest.stringToMonthDayWithPattern
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toMonthDayWithString
  */
 fun String.toMonthDay(
     pattern: String,
@@ -737,19 +740,14 @@ fun String.toMonthDay(
 }
 
 /**
- * [String]을 지정된 [DateTimeFormatter]를 사용하여 [MonthDay]로 변환합니다.
+ * [String]을 월과 일(`month-day`)로 해석하고 [formatter]를 사용하여 [MonthDay]로 파싱합니다.
  *
- * 예시:
- * ```kotlin
- * val formatter = DateTimeFormatter.ofPattern("MM/dd")
- * val monthDay: MonthDay = "01/01".toMonthDay(formatter) // --01-01
- * ```
- *
- * @param formatter 날짜 문자열을 파싱할 [DateTimeFormatter]
- * @return 변환된 [MonthDay] 인스턴스
- * @throws DateTimeParseException 문자열 파싱에 실패한 경우
+ * @receiver [formatter] 형식의 월과 일 문자열
+ * @param formatter [String]을 파싱할 [DateTimeFormatter]
+ * @return 파싱한 [MonthDay] 인스턴스
+ * @throws DateTimeParseException [String]을 [MonthDay]로 파싱할 수 없는 경우
  * @since 0.8.0
- * @sample io.github.harryjhin.java.time.extension.MonthDayExtensionsTest.stringToMonthDayWithFormatter
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toMonthDayWithDateTimeFormatter
  */
 fun String.toMonthDay(
     formatter: DateTimeFormatter,
@@ -758,19 +756,24 @@ fun String.toMonthDay(
 }
 
 /**
- * [String]을 [MonthDay]로 변환합니다. 기본 포맷 "MM-dd"를 사용합니다.
+ * [String]을 월과 일(`month-day`)로 해석하고 [MonthDay]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * 변환에 실패하면 `null`을 반환합니다.
+ * [String]은 라이브러리 기본 형식과 일치해야 합니다.
  *
- * 예시:
- * ```kotlin
- * val validMonthDay: MonthDay? = "01-01".toMonthDayOrNull() // --01-01
- * val invalidMonthDay: MonthDay? = "13-01".toMonthDayOrNull() // null
+ * 기본 형식은 `src/main/resources/java-time-extensions.properties` 파일에서 재정의 할 수 있습니다.
+ *
+ * java-time-extensions.properties 파일의 예시:
+ *
+ * ```properties
+ * # 기본값: MM-dd
+ * pattern.month-day=MMdd
  * ```
  *
- * @return 변환된 [MonthDay] 인스턴스 또는 변환 실패 시 null
+ * @receiver 기본 형식의 월과 일 문자열
+ * @return 파싱한 [MonthDay] 인스턴스 또는 `null`
  * @since 0.8.0
- * @sample io.github.harryjhin.java.time.extension.MonthDayExtensionsTest.stringToMonthDayOrNull
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toMonthDayOrNull
  */
 fun String.toMonthDayOrNull(): MonthDay? {
     return try {
@@ -781,20 +784,14 @@ fun String.toMonthDayOrNull(): MonthDay? {
 }
 
 /**
- * [String]을 지정된 포맷의 [MonthDay]로 변환합니다.
+ * [String]을 월과 일(`month-day`)로 해석하고 [pattern]을 사용하여 [MonthDay]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * 변환에 실패하면 `null`을 반환합니다.
- *
- * 예시:
- * ```kotlin
- * val validMonthDay: MonthDay? = "01/01".toMonthDayOrNull("MM/dd") // --01-01
- * val invalidMonthDay: MonthDay? = "13/01".toMonthDayOrNull("MM/dd") // null
- * ```
- *
- * @param pattern 날짜 문자열의 포맷
- * @return 변환된 [MonthDay] 인스턴스 또는 변환 실패 시 null
+ * @receiver [pattern] 형식의 월과 일 문자열
+ * @param pattern 월과 일 포맷 문자열
+ * @return 파싱한 [MonthDay] 인스턴스 또는 `null`
  * @since 0.8.0
- * @sample io.github.harryjhin.java.time.extension.MonthDayExtensionsTest.stringToMonthDayOrNullWithPattern
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toMonthDayOrNullWithString
  */
 fun String.toMonthDayOrNull(
     pattern: String,
@@ -807,21 +804,14 @@ fun String.toMonthDayOrNull(
 }
 
 /**
- * [String]을 지정된 [DateTimeFormatter]를 사용하여 [MonthDay]로 변환합니다.
+ * [String]을 월과 일(`month-day`)로 해석하고 [formatter]를 사용하여 [MonthDay]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * 변환에 실패하면 `null`을 반환합니다.
- *
- * 예시:
- * ```kotlin
- * val formatter = DateTimeFormatter.ofPattern("MM/dd")
- * val validMonthDay: MonthDay? = "01/01".toMonthDayOrNull(formatter) // --01-01
- * val invalidMonthDay: MonthDay? = "13/01".toMonthDayOrNull(formatter) // null
- * ```
- *
- * @param formatter 날짜 문자열을 파싱할 [DateTimeFormatter]
- * @return 변환된 [MonthDay] 인스턴스 또는 변환 실패 시 null
+ * @receiver [formatter] 형식의 월과 일 문자열
+ * @param formatter [String]을 파싱할 [DateTimeFormatter]
+ * @return 파싱한 [MonthDay] 인스턴스 또는 `null`
  * @since 0.8.0
- * @sample io.github.harryjhin.java.time.extension.MonthDayExtensionsTest.stringToMonthDayOrNullWithFormatter
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toMonthDayOrNullWithDateTimeFormatter
  */
 fun String.toMonthDayOrNull(
     formatter: DateTimeFormatter,

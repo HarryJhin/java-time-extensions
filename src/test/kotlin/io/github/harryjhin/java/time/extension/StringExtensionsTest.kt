@@ -4,6 +4,7 @@ import java.time.DateTimeException
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.Month
+import java.time.MonthDay
 import java.time.OffsetDateTime
 import java.time.OffsetTime
 import java.time.Period
@@ -662,6 +663,124 @@ class StringExtensionsTest {
 
         // Fail cases
         assertNull("2022-01".toYearMonthOrNull(formatter))
+    }
+
+    @Test
+    fun toMonthDay() {
+        // Given
+
+        // When
+        val actual: MonthDay = "01-01".toMonthDay()
+
+        // Then
+        assertEquals(
+            expected = MonthDay.of(1, 1),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "01 01".toMonthDay() // Text '01 01' could not be parsed at index 2
+        }
+    }
+
+    @Test
+    fun toMonthDayWithString() {
+        // Given
+
+        // When
+        val actual: MonthDay = "01-01".toMonthDay("MM-dd")
+
+        // Then
+        assertEquals(
+            expected = MonthDay.of(1, 1),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertFailsWith(IllegalArgumentException::class) {
+            "01-01".toMonthDay("ABC") // Unknown pattern letter: C
+        }
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "01 01".toMonthDay("MM-dd") // Text '01 01' could not be parsed, unparsed text found at index 2
+        }
+    }
+
+    @Test
+    fun toMonthDayWithDateTimeFormatter() {
+        // Given
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MM-dd")
+
+        // When
+        val actual: MonthDay = "01-01".toMonthDay(formatter)
+
+        // Then
+        assertEquals(
+            expected = MonthDay.of(1, 1),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "01 01".toMonthDay(formatter) // Text '01 01' could not be parsed, unparsed text found at index 2
+        }
+    }
+
+    @Test
+    fun toMonthDayOrNull() {
+        // Given
+
+        // When
+        val actual: MonthDay? = "01-01".toMonthDayOrNull()
+
+        // Then
+        assertEquals(
+            expected = MonthDay.of(1, 1),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertNull("01 01".toMonthDayOrNull())
+    }
+
+    @Test
+    fun toMonthDayOrNullWithString() {
+        // Given
+
+        // When
+        val actual: MonthDay? = "01-01".toMonthDayOrNull("MM-dd")
+
+        // Then
+        assertEquals(
+            expected = MonthDay.of(1, 1),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertNull("01-01".toMonthDayOrNull("ABC"))
+
+        // Fail cases
+        assertNull("01 01".toMonthDayOrNull("MM-dd"))
+    }
+
+    @Test
+    fun toMonthDayOrNullWithDateTimeFormatter() {
+        // Given
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("MM-dd")
+
+        // When
+        val actual: MonthDay? = "01-01".toMonthDayOrNull(formatter)
+
+        // Then
+        assertEquals(
+            expected = MonthDay.of(1, 1),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertNull("01 01".toMonthDayOrNull(formatter))
     }
 
     @Test
