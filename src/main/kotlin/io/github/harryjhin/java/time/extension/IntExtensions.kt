@@ -7,13 +7,11 @@ import java.time.Month
 import java.time.Period
 import java.time.Year
 import java.time.ZoneOffset
-import java.time.format.DateTimeParseException
 
 /**
- * [Int]를 연도로 해석하고 [Period]로 변환합니다.
+ * [Int]를 연도(`year`)로 해석하고 [Period]로 변환합니다.
  *
  * @return 지정된 연 기간을 나타내는 [Period] 인스턴스
- * @throws DateTimeParseException 지정된 연도가 유효하지 않은 경우 발생합니다.
  * @since 0.3.0
  * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.years
  */
@@ -21,10 +19,9 @@ val Int.years: Period
     get() = Period.ofYears(this)
 
 /**
- * [Int]를 월로 해석하고 [Period]로 변환합니다.
+ * [Int]를 월(`month`)로 해석하고 [Period]로 변환합니다.
  *
  * @return 지정된 월 기간을 나타내는 [Period] 인스턴스
- * @throws DateTimeParseException 지정된 월이 유효하지 않은 경우 발생합니다.
  * @since 0.3.0
  * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.months
  */
@@ -32,10 +29,9 @@ val Int.months: Period
     get() = Period.ofMonths(this)
 
 /**
- * [Int]를 일로 해석하고 [Period]로 변환합니다.
+ * [Int]를 일(`day`)로 해석하고 [Period]로 변환합니다.
  *
  * @return 지정된 일 수를 나타내는 [Period] 인스턴스
- * @throws DateTimeParseException 지정된 일이 유효하지 않은 경우 발생합니다.
  * @since 0.3.0
  * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.days
  */
@@ -43,10 +39,9 @@ val Int.days: Period
     get() = Period.ofDays(this)
 
 /**
- * [Int]를 시로 해석하고 [Duration]으로 변환합니다.
+ * [Int]를 시(`hour`)로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 시 기간을 나타내는 [Duration] 인스턴스
- * @throws DateTimeParseException 지정된 시가 유효하지 않은 경우 발생합니다.
  * @since 0.3.0
  * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.hours
  */
@@ -54,10 +49,9 @@ val Int.hours: Duration
     get() = this.toLong().hours
 
 /**
- * [Int]를 분으로 해석하고 [Duration]으로 변환합니다.
+ * [Int]를 분(`minute`)으로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 분 기간을 나타내는 [Duration] 인스턴스
- * @throws DateTimeParseException 지정된 분이 유효하지 않은 경우 발생합니다.
  * @since 0.3.0
  * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.minutes
  */
@@ -65,10 +59,9 @@ val Int.minutes: Duration
     get() = this.toLong().minutes
 
 /**
- * [Int]를 초로 해석하고 [Duration]으로 변환합니다.
+ * [Int]를 초(`second`)로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 초 기간을 나타내는 [Duration] 인스턴스
- * @throws DateTimeParseException 지정된 초가 유효하지 않은 경우 발생합니다.
  * @since 0.3.0
  * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.seconds
  */
@@ -76,10 +69,9 @@ val Int.seconds: Duration
     get() = this.toLong().seconds
 
 /**
- * [Int]를 밀리초로 해석하고 [Duration]으로 변환합니다.
+ * [Int]를 밀리초(`milliseconds`)로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 밀리초 기간을 나타내는 [Duration] 인스턴스
- * @throws DateTimeParseException 지정된 밀리초가 유효하지 않은 경우 발생합니다.
  * @since 0.3.0
  * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.milliseconds
  */
@@ -87,10 +79,9 @@ val Int.milliseconds: Duration
     get() = this.toLong().milliseconds
 
 /**
- * [Int]를 마이크로초로 해석하고 [Duration]으로 변환합니다.
+ * [Int]를 마이크로초(`microsecond`)로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 마이크로초 기간을 나타내는 [Duration] 인스턴스
- * @throws DateTimeParseException 지정된 마이크로초가 유효하지 않은 경우 발생합니다.
  * @since 0.3.0
  * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.microseconds
  */
@@ -98,10 +89,9 @@ val Int.microseconds: Duration
     get() = this.toLong().microseconds
 
 /**
- * [Int]를 나노초로 해석하고 [Duration]으로 변환합니다.
+ * [Int]를 나노초(`nanosecond`)로 해석하고 [Duration]으로 변환합니다.
  *
  * @return 지정된 나노초 기간을 나타내는 [Duration] 인스턴스
- * @throws DateTimeParseException 지정된 나노초가 유효하지 않은 경우 발생합니다.
  * @since 0.3.0
  * @sample io.github.harryjhin.java.time.extension.IntExtensionsTest.nanoseconds
  */

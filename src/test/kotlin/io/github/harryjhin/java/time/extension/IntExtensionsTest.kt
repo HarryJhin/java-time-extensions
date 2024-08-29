@@ -1,5 +1,6 @@
 package io.github.harryjhin.java.time.extension
 
+import java.time.DateTimeException
 import java.time.DayOfWeek
 import java.time.Duration
 import java.time.Month
@@ -8,7 +9,8 @@ import java.time.Year
 import java.time.ZoneOffset
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFails
+import kotlin.test.assertFailsWith
+import kotlin.test.assertNull
 
 class IntExtensionsTest {
 
@@ -150,32 +152,28 @@ class IntExtensionsTest {
             expected = Year.of(2022),
             actual = actual,
         )
+
+        // Fail cases
+        assertFailsWith(DateTimeException::class) {
+            (Year.MAX_VALUE + 1).toYear()
+        }
     }
 
     @Test
     fun toYearOrNull() {
         // Given
-        val text = "${Year.MAX_VALUE + 1}"
 
         // When
-        val exception = assertFails {
-            text.toYear()
-        }
+        val actual: Year? = 2022.toYearOrNull()
 
         // Then
         assertEquals(
-            expected = "java.time.format.DateTimeParseException: Text '$text' could not be parsed at index 0",
-            actual = exception.toString()
-        )
-
-        // When
-        val actual: Year? = text.toYearOrNull()
-
-        // Then
-        assertEquals(
-            expected = null,
+            expected = Year.of(2022),
             actual = actual,
         )
+
+        // Fail cases
+        assertNull((Year.MAX_VALUE + 1).toYearOrNull())
     }
 
     @Test
@@ -218,20 +216,30 @@ class IntExtensionsTest {
             expected = DayOfWeek.MONDAY,
             actual = actual,
         )
+
+        // Fail cases
+        assertFailsWith(DateTimeException::class) {
+            8.toDayOfWeek()
+        }
     }
 
     @Test
     fun toZoneOffset() {
         // Given
-        val second = 9 * 60 * 60
+        val second = 9 * 60 * 60 // 32_400
 
         // When
-        val zoneOffset: ZoneOffset = second.toZoneOffset()
+        val actual: ZoneOffset = second.toZoneOffset() // +09:00
 
         // Then
         assertEquals(
             expected = ZoneOffset.ofHours(9),
-            actual = zoneOffset,
+            actual = actual,
         )
+
+        // Fail cases
+        assertFailsWith(DateTimeException::class) {
+            (18 * 60 * 60 + 1).toZoneOffset() // 64_801
+        }
     }
 }
