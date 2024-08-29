@@ -1074,11 +1074,22 @@ fun String.toLocalTimeOrNull(
 }
 
 /**
- * [String]을 [OffsetTime]로 변환합니다.
+ * [String]을 시간과 UTC 오프셋(`offset-time`)으로 해석하고 [OffsetTime]로 파싱합니다.
  *
- * @receiver 오프셋 시간 문자열 (설정된 형식에 맞는)
- * @return [OffsetTime] 인스턴스
- * @throws DateTimeParseException 문자열 분석에 실패한 경우
+ * [String]은 라이브러리 기본 형식과 일치해야 합니다.
+ *
+ * 기본 형식은 `src/main/resources/java-time-extensions.properties` 파일에서 재정의 할 수 있습니다.
+ *
+ * java-time-extensions.properties 파일의 예시:
+ *
+ * ```properties
+ * # 기본값: HH:mm:ssXXX
+ * pattern.offset-time=HHmmssXXX
+ * ```
+ *
+ * @receiver 기본 형식의 오프셋 시간 문자열
+ * @return 파싱된 [OffsetTime] 인스턴스
+ * @throws DateTimeParseException [String]을 [OffsetTime]로 파싱할 수 없는 경우
  * @since 0.14.0
  * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetTime
  */
@@ -1087,12 +1098,13 @@ fun String.toOffsetTime(): OffsetTime {
 }
 
 /**
- * [String]을 [OffsetTime]로 변환합니다.
+ * [String]을 시간과 UTC 오프셋(`offset-time`)으로 해석하고 [pattern]을 사용하여 [OffsetTime]로 파싱합니다.
  *
- * @receiver 오프셋 시간 문자열
- * @param pattern 시간 패턴 문자열
- * @return [OffsetTime] 인스턴스
- * @throws DateTimeParseException 문자열 분석에 실패한 경우
+ * @receiver [pattern] 형식의 오프셋 시간 문자열
+ * @param pattern 오프셋 시간 형식 문자열
+ * @return 파싱된 [OffsetTime] 인스턴스
+ * @throws IllegalArgumentException [pattern]을 [DateTimeFormatter]로 파싱할 수 없는 경우
+ * @throws DateTimeParseException [String]을 [OffsetTime]로 파싱할 수 없는 경우
  * @since 0.14.0
  * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetTimeWithString
  */
@@ -1104,12 +1116,12 @@ fun String.toOffsetTime(
 }
 
 /**
- * [String]을 [OffsetTime]로 변환합니다.
+ * [String]을 시간과 UTC 오프셋(`offset-time`)으로 해석하고 [formatter]를 사용하여 [OffsetTime]로 파싱합니다.
  *
- * @receiver 오프셋 시간 문자열
- * @param formatter 시간 포맷터
- * @return [OffsetTime] 인스턴스
- * @throws DateTimeParseException 문자열 분석에 실패한 경우
+ * @receiver [formatter] 형식의 오프셋 시간 문자열
+ * @param formatter [String]을 파싱할 [DateTimeFormatter]
+ * @return 파싱된 [OffsetTime] 인스턴스
+ * @throws DateTimeParseException [String]을 [OffsetTime]로 파싱할 수 없는 경우
  * @since 0.14.0
  * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetTimeWithDateTimeFormatter
  */
@@ -1120,10 +1132,22 @@ fun String.toOffsetTime(
 }
 
 /**
- * [String]을 [OffsetTime]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ * [String]을 시간과 UTC 오프셋(`offset-time`)으로 해석하고 [OffsetTime]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * @receiver 오프셋 시간 문자열
- * @return [OffsetTime] 인스턴스
+ * [String]은 라이브러리 기본 형식과 일치해야 합니다.
+ *
+ * 기본 형식은 `src/main/resources/java-time-extensions.properties` 파일에서 재정의 할 수 있습니다.
+ *
+ * java-time-extensions.properties 파일의 예시:
+ *
+ * ```properties
+ * # 기본값: HH:mm:ssXXX
+ * pattern.offset-time=HHmmssXXX
+ * ```
+ *
+ * @receiver 기본 형식의 오프셋 시간 문자열
+ * @return 파싱된 [OffsetTime] 인스턴스 또는 `null`
  * @since 0.14.0
  * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetTimeOrNull
  */
@@ -1136,11 +1160,12 @@ fun String.toOffsetTimeOrNull(): OffsetTime? {
 }
 
 /**
- * [String]을 [OffsetTime]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ * [String]을 시간과 UTC 오프셋(`offset-time`)으로 해석하고 [pattern]을 사용하여 [OffsetTime]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * @receiver 오프셋 시간 문자열
- * @param pattern 시간 패턴 문자열
- * @return [OffsetTime] 인스턴스
+ * @receiver [pattern] 형식의 오프셋 시간 문자열
+ * @param pattern 오프셋 시간 형식 문자열
+ * @return 파싱된 [OffsetTime] 인스턴스 또는 `null`
  * @since 0.14.0
  * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetTimeOrNullWithString
  */
@@ -1155,11 +1180,12 @@ fun String.toOffsetTimeOrNull(
 }
 
 /**
- * [String]을 [OffsetTime]로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ * [String]을 시간과 UTC 오프셋(`offset-time`)으로 해석하고 [formatter]를 사용하여 [OffsetTime]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * @receiver 오프셋 시간 문자열
- * @param formatter 시간 포맷터
- * @return [OffsetTime] 인스턴스
+ * @receiver [formatter] 형식의 오프셋 시간 문자열
+ * @param formatter [String]을 파싱할 [DateTimeFormatter]
+ * @return 파싱된 [OffsetTime] 인스턴스 또는 `null`
  * @since 0.14.0
  * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetTimeOrNullWithDateTimeFormatter
  */
