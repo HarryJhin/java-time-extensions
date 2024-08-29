@@ -275,6 +275,78 @@ class StringExtensionsTest {
     }
 
     @Test
+    fun toPeriod() {
+        // Given
+
+        // When
+        val period: Period = "P1Y2M3W4D".toPeriod()
+
+        // Then
+        assertEquals(
+            expected = Period.of(1, 2, 25),
+            actual = period,
+        )
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "PT20.345S".toPeriod() // Text cannot be parsed to a Period
+        }
+    }
+
+    @Test
+    fun toPeriodOrNull() {
+        // Given
+
+        // When
+        val period: Period? = "P1Y2M3W4D".toPeriodOrNull()
+
+        // Then
+        assertEquals(
+            expected = Period.of(1, 2, 25),
+            actual = period,
+        )
+
+        // Fail cases
+        assertNull("PT20.345S".toPeriodOrNull())
+    }
+
+    @Test
+    fun toDuration() {
+        // Given
+
+        // When
+        val duration: Duration = "P2DT3H4M".toDuration()
+
+        // Then
+        assertEquals(
+            expected = Duration.ofDays(2).plusHours(3).plusMinutes(4),
+            actual = duration,
+        )
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "PT20.345".toDuration() // Text cannot be parsed to a Duration
+        }
+    }
+
+    @Test
+    fun toDurationOrNull() {
+        // Given
+
+        // When
+        val duration: Duration? = "P2DT3H4M".toDurationOrNull()
+
+        // Then
+        assertEquals(
+            expected = Duration.ofDays(2).plusHours(3).plusMinutes(4),
+            actual = duration,
+        )
+
+        // Fail cases
+        assertNull("PT20.345".toDurationOrNull())
+    }
+
+    @Test
     fun toYear1() {
         // Given
         val text = "2022"
