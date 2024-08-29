@@ -295,21 +295,21 @@ fun String.toDurationOrNull(): Duration? {
  * ```properties
  * # 기본값: yyyy-MM-dd
  * pattern.local-date=yyyyMMdd
- * # 기본값: yyyy-MM-dd'T'HH:mm:ss
+ * # 기본값: yyyy-MM-dd['T'][ ]HH:mm[:ss][.SSS]
  * pattern.local-date-time=yyyy-MM-dd HH:mm:ss
- * # 기본값: HH:mm:ss
+ * # 기본값: HH:mm[:ss][.SSS]
  * pattern.local-time=HHmmss
- * # 기본값: MM-dd
+ * # 기본값: [--]MM-dd
  * pattern.month-day=MMdd
- * # 기본값: yyyy-MM-dd'T'HH:mm:ss.SSSZ
+ * # 기본값: yyyy-MM-dd['T'][ ]HH:mm[:ss][.SSS]XXX
  * pattern.offset-date-time=yyyy-MM-dd HH:mm:ss.SSSZ
- * # 기본값: HH:mm:ss.SSSZ
+ * # 기본값: HH:mm[:ss][.SSS]XXX
  * pattern.offset-time=HHmmssSSSZ
  * # 기본값: yyyy
  * pattern.year=yy
  * # 기본값: yyyy-MM
- * pattern.year-month=yyyy-MM
- * # 기본값: yyyy-MM-dd'T'HH:mm:ss.SSS.Z
+ * pattern.year-month=yyyyMM
+ * # 기본값: yyyy-MM-dd['T'][ ]HH:mm[:ss][.SSS]XXX'['VV']'
  * pattern.zoned-date-time=yyyy-MM-dd HH:mm:ss.SSS Z
  * ```
  *
@@ -348,21 +348,21 @@ fun String.toDateTimeFormatter(): DateTimeFormatter {
  * ```properties
  * # 기본값: yyyy-MM-dd
  * pattern.local-date=yyyyMMdd
- * # 기본값: yyyy-MM-dd'T'HH:mm:ss
+ * # 기본값: yyyy-MM-dd['T'][ ]HH:mm[:ss][.SSS]
  * pattern.local-date-time=yyyy-MM-dd HH:mm:ss
- * # 기본값: HH:mm:ss
+ * # 기본값: HH:mm[:ss][.SSS]
  * pattern.local-time=HHmmss
- * # 기본값: MM-dd
+ * # 기본값: [--]MM-dd
  * pattern.month-day=MMdd
- * # 기본값: yyyy-MM-dd'T'HH:mm:ss.SSSZ
+ * # 기본값: yyyy-MM-dd['T'][ ]HH:mm[:ss][.SSS]XXX
  * pattern.offset-date-time=yyyy-MM-dd HH:mm:ss.SSSZ
- * # 기본값: HH:mm:ss.SSSZ
+ * # 기본값: HH:mm[:ss][.SSS]XXX
  * pattern.offset-time=HHmmssSSSZ
  * # 기본값: yyyy
  * pattern.year=yy
  * # 기본값: yyyy-MM
- * pattern.year-month=yyyy-MM
- * # 기본값: yyyy-MM-dd'T'HH:mm:ss.SSS.Z
+ * pattern.year-month=yyyyMM
+ * # 기본값: yyyy-MM-dd['T'][ ]HH:mm[:ss][.SSS]XXX'['VV']'
  * pattern.zoned-date-time=yyyy-MM-dd HH:mm:ss.SSS Z
  * ```
  *
@@ -582,7 +582,7 @@ fun String.toMonthOrNull(): Month? {
  *
  * ```properties
  * # 기본값: yyyy-MM
- * pattern.year-month=yyyy-MM
+ * pattern.year-month=yyyyMM
  * ```
  *
  * @receiver 기본 형식의 연도와 월 문자열
@@ -707,7 +707,7 @@ fun String.toYearMonthOrNull(
  * java-time-extensions.properties 파일의 예시:
  *
  * ```properties
- * # 기본값: MM-dd
+ * # 기본값: [--]MM-dd
  * pattern.month-day=MMdd
  * ```
  *
@@ -766,7 +766,7 @@ fun String.toMonthDay(
  * java-time-extensions.properties 파일의 예시:
  *
  * ```properties
- * # 기본값: MM-dd
+ * # 기본값: [--]MM-dd
  * pattern.month-day=MMdd
  * ```
  *
@@ -957,7 +957,7 @@ fun String.toLocalDateOrNull(
  * java-time-extensions.properties 파일의 예시:
  *
  * ```properties
- * # 기본값: HH:mm:ss
+ * # 기본값: HH:mm[:ss][.SSS]
  * pattern.local-time=HHmmss
  * ```
  *
@@ -1016,7 +1016,7 @@ fun String.toLocalTime(
  * java-time-extensions.properties 파일의 예시:
  *
  * ```properties
- * # 기본값: HH:mm:ss
+ * # 기본값: HH:mm[:ss][.SSS]
  * pattern.local-time=HHmmss
  * ```
  *
@@ -1083,7 +1083,7 @@ fun String.toLocalTimeOrNull(
  * java-time-extensions.properties 파일의 예시:
  *
  * ```properties
- * # 기본값: HH:mm:ssXXX
+ * # 기본값: HH:mm[:ss][.SSS]XXX
  * pattern.offset-time=HHmmssXXX
  * ```
  *
@@ -1142,7 +1142,7 @@ fun String.toOffsetTime(
  * java-time-extensions.properties 파일의 예시:
  *
  * ```properties
- * # 기본값: HH:mm:ssXXX
+ * # 기본값: HH:mm[:ss][.SSS]XXX
  * pattern.offset-time=HHmmssXXX
  * ```
  *
@@ -1200,10 +1200,19 @@ fun String.toOffsetTimeOrNull(
 }
 
 /**
- * 주어진 일시 문자열을 [LocalDateTime]으로 파싱합니다. 기본 포맷 "yyyy-MM-dd'T'HH:mm:ss"를 사용합니다.
+ * [String]을 날짜와 시간(`date-time`)으로 해석하고 [LocalDateTime]로 파싱합니다.
  *
- * @return 알시 문자열을 파싱한 [LocalDateTime] 인스턴스를 반환합니다.
- * @throws DateTimeParseException 문자열 분석에 실패한 경우 발생합니다.
+ * [String]은 라이브러리 기본 형식과 일치해야 합니다.
+ *
+ * 기본 형식은 `src/main/resources/java-time-extensions.properties` 파일에서 재정의 할 수 있습니다.
+ *
+ * java-time-extensions.properties 파일의 예시:
+ *
+ * ```properties
+ * # 기본값: yyyy-MM-dd['T'][ ]HH:mm[:ss][.SSS]
+ * pattern.local-date-time=yyyyMMdd'T'HHmmss
+ * ```
+ *
  * @since 0.13.1
  * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalDateTime
  */
@@ -1212,12 +1221,11 @@ fun String.toLocalDateTime(): LocalDateTime {
 }
 
 /**
- * 주어진 일시 문자열을 [pattern]을 사용하여 [LocalDateTime]으로 파싱합니다.
+ * [String]을 날짜와 시간(`date-time`)으로 해석하고 [pattern]을 사용하여 [LocalDateTime]로 파싱합니다.
  *
- * @param pattern 일시 패턴 문자열
- * @return 패턴을 사용하여 일시 문자열을 파싱한 [LocalDateTime] 인스턴스를 반환합니다.
- * @throws IllegalArgumentException 패턴이 유효하지 않은 경우 발생합니다.
- * @throws DateTimeParseException 문자열 분석에 실패한 경우 발생합니다.
+ * @receiver [pattern] 형식의 날짜와 시간 문자열
+ * @param pattern 날짜와 시간 패턴 문자열
+ * @return 파싱한 [LocalDateTime] 인스턴스
  * @since 0.13.1
  * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalDateTimeWithPattern
  */
@@ -1229,11 +1237,11 @@ fun String.toLocalDateTime(
 }
 
 /**
- * 주어진 일시 문자열을 [formatter]를 사용하여 [LocalDateTime]으로 파싱합니다.
+ * [String]을 날짜와 시간(`date-time`)으로 해석하고 [formatter]를 사용하여 [LocalDateTime]로 파싱합니다.
  *
- * @param formatter 일시 포맷터
- * @return 포맷터를 사용하여 일시 문자열을 파싱한 [LocalDateTime] 인스턴스를 반환합니다.
- * @throws DateTimeParseException 문자열 분석에 실패한 경우 발생합니다.
+ * @receiver [formatter] 형식의 날짜와 시간 문자열
+ * @param formatter [String]을 파싱할 [DateTimeFormatter]
+ * @return 파싱한 [LocalDateTime] 인스턴스
  * @since 0.13.1
  * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalDateTimeWithDateTimeFormatter
  */
@@ -1244,9 +1252,22 @@ fun String.toLocalDateTime(
 }
 
 /**
- * 주어진 일시 문자열을 [LocalDateTime]으로 파싱합니다. 변환에 실패하면 `null`을 반환합니다.
+ * [String]을 날짜와 시간(`date-time`)으로 해석하고 [LocalDateTime]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * @return 일시 문자열을 파싱한 [LocalDateTime] 인스턴스를 반환합니다.
+ * [String]은 라이브러리 기본 형식과 일치해야 합니다.
+ *
+ * 기본 형식은 `src/main/resources/java-time-extensions.properties` 파일에서 재정의 할 수 있습니다.
+ *
+ * java-time-extensions.properties 파일의 예시:
+ *
+ * ```properties
+ * # 기본값: yyyy-MM-dd['T'][ ]HH:mm[:ss][.SSS]
+ * pattern.local-date-time=yyyyMMdd'T'HHmmss
+ * ```
+ *
+ * @receiver 기본 형식의 날짜와 시간 문자열
+ * @return 파싱한 [LocalDateTime] 인스턴스 또는 `null`
  * @since 0.13.1
  * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalDateTimeOrNull
  */
@@ -1259,10 +1280,12 @@ fun String.toLocalDateTimeOrNull(): LocalDateTime? {
 }
 
 /**
- * 주어진 일시 문자열을 [pattern]을 사용하여 [LocalDateTime]으로 파싱합니다. 변환에 실패하면 `null`을 반환합니다.
+ * [String]을 날짜와 시간(`date-time`)으로 해석하고 [pattern]을 사용하여 [LocalDateTime]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * @param pattern 일시 패턴 문자열
- * @return 패턴을 사용하여 일시 문자열을 파싱한 [LocalDateTime] 인스턴스를 반환합니다.
+ * @receiver [pattern] 형식의 날짜와 시간 문자열
+ * @param pattern 날짜와 시간 패턴 문자열
+ * @return 파싱한 [LocalDateTime] 인스턴스 또는 `null`
  * @since 0.13.1
  * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalDateTimeOrNullWithPattern
  */
@@ -1277,10 +1300,12 @@ fun String.toLocalDateTimeOrNull(
 }
 
 /**
- * 주어진 일시 문자열을 [formatter]를 사용하여 [LocalDateTime]으로 파싱합니다. 변환에 실패하면 `null`을 반환합니다.
+ * [String]을 날짜와 시간(`date-time`)으로 해석하고 [formatter]를 사용하여 [LocalDateTime]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * @param formatter 일시 포맷터
- * @return 포맷터를 사용하여 일시 문자열을 파싱한 [LocalDateTime] 인스턴스를 반환합니다.
+ * @receiver [formatter] 형식의 날짜와 시간 문자열
+ * @param formatter [String]을 파싱할 [DateTimeFormatter]
+ * @return 파싱한 [LocalDateTime] 인스턴스 또는 `null`
  * @since 0.13.1
  * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toLocalDateTimeOrNullWithDateTimeFormatter
  */
@@ -1295,10 +1320,22 @@ fun String.toLocalDateTimeOrNull(
 }
 
 /**
- * 문자열을 [OffsetDateTime]으로 변환합니다. 기본 포맷 "yyyy-MM-dd'T'HH:mm:ssXXX"를 사용합니다.
+ * [String]을 날짜와 시간, UTC 오프셋(`offset-date-time`)으로 해석하고 [OffsetDateTime]로 파싱합니다.
  *
- * @return [OffsetDateTime] 인스턴스
- * @throws DateTimeParseException 문자열 분석에 실패한 경우
+ * [String]은 라이브러리 기본 형식과 일치해야 합니다.
+ *
+ * 기본 형식은 `src/main/resources/java-time-extensions.properties` 파일에서 재정의 할 수 있습니다.
+ *
+ * java-time-extensions.properties 파일의 예시:
+ *
+ * ```properties
+ * # 기본값: yyyy-MM-dd['T'][ ]HH:mm[:ss][.SSS]XXX
+ * pattern.offset-date-time=yyyyMMdd'T'HHmmssXXX
+ * ```
+ *
+ * @receiver 기본 형식의 오프셋 일시 문자열
+ * @return 파싱한 [OffsetDateTime] 인스턴스
+ * @throws DateTimeParseException [String]을 [OffsetDateTime]로 파싱할 수 없는 경우
  * @since 0.12.0
  * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetDateTime
  */
@@ -1307,12 +1344,13 @@ fun String.toOffsetDateTime(): OffsetDateTime {
 }
 
 /**
- * 문자열을 [pattern] 형식으로 [OffsetDateTime]으로 변환합니다.
+ * [String]을 날짜와 시간, UTC 오프셋(`offset-date-time`)으로 해석하고 [pattern]을 사용하여 [OffsetDateTime]로 파싱합니다.
  *
- * @param pattern 날짜 형식 문자열
- * @return [OffsetDateTime] 인스턴스
- * @throws DateTimeParseException 문자열 분석에 실패한 경우
- * @throws IllegalArgumentException 날짜 포맷이 유효하지 않은 경우
+ * @receiver [pattern] 형식의 오프셋 일시 문자열
+ * @param pattern 날짜와 시간, UTC 오프셋 형식 문자열
+ * @return 파싱한 [OffsetDateTime] 인스턴스
+ * @throws IllegalArgumentException [pattern]을 [DateTimeFormatter]로 파싱할 수 없는 경우
+ * @throws DateTimeParseException [String]을 [OffsetDateTime]로 파싱할 수 없는 경우
  * @since 0.12.0
  * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetDateTimeWithPattern
  */
@@ -1324,11 +1362,12 @@ fun String.toOffsetDateTime(
 }
 
 /**
- * 문자열을 [formatter]를 사용하여 [OffsetDateTime]으로 변환합니다.
+ * [String]을 날짜와 시간, UTC 오프셋(`offset-date-time`)으로 해석하고 [formatter]를 사용하여 [OffsetDateTime]로 파싱합니다.
  *
- * @param formatter 날짜 포맷터
- * @return [OffsetDateTime] 인스턴스
- * @throws DateTimeParseException 문자열 분석에 실패한 경우
+ * @receiver [formatter] 형식의 오프셋 일시 문자열
+ * @param formatter 날짜와 시간, UTC 오프셋 포맷터
+ * @return 파싱한 [OffsetDateTime] 인스턴스
+ * @throws DateTimeParseException [String]을 [OffsetDateTime]로 파싱할 수 없는 경우
  * @since 0.12.0
  * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetDateTimeWithDateTimeFormatter
  */
@@ -1339,9 +1378,22 @@ fun String.toOffsetDateTime(
 }
 
 /**
- * 문자열을 [OffsetDateTime]으로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ * [String]을 날짜와 시간, UTC 오프셋(`offset-date-time`)으로 해석하고 [OffsetDateTime]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * @return [OffsetDateTime] 인스턴스
+ * [String]은 라이브러리 기본 형식과 일치해야 합니다.
+ *
+ * 기본 형식은 `src/main/resources/java-time-extensions.properties` 파일에서 재정의 할 수 있습니다.
+ *
+ * java-time-extensions.properties 파일의 예시:
+ *
+ * ```properties
+ * # 기본값: yyyy-MM-dd['T'][ ]HH:mm[:ss][.SSS]XXX
+ * pattern.offset-date-time=yyyyMMdd'T'HHmmssXXX
+ * ```
+ *
+ * @receiver 기본 형식의 오프셋 일시 문자열
+ * @return 파싱한 [OffsetDateTime] 인스턴스 또는 `null`
  * @since 0.12.0
  * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetDateTimeOrNull
  */
@@ -1354,10 +1406,12 @@ fun String.toOffsetDateTimeOrNull(): OffsetDateTime? {
 }
 
 /**
- * 문자열을 [pattern] 형식으로 [OffsetDateTime]으로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ * [String]을 날짜와 시간, UTC 오프셋(`offset-date-time`)으로 해석하고 [pattern]을 사용하여 [OffsetDateTime]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * @param pattern 날짜 형식 문자열
- * @return [OffsetDateTime] 인스턴스
+ * @receiver [pattern] 형식의 오프셋 일시 문자열
+ * @param pattern 날짜와 시간, UTC 오프셋 형식 문자열
+ * @return 파싱한 [OffsetDateTime] 인스턴스 또는 `null`
  * @since 0.12.0
  * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetDateTimeOrNullWithPattern
  */
@@ -1372,10 +1426,12 @@ fun String.toOffsetDateTimeOrNull(
 }
 
 /**
- * 문자열을 [formatter]를 사용하여 [OffsetDateTime]으로 변환합니다. 변환에 실패하면 `null`을 반환합니다.
+ * [String]을 날짜와 시간, UTC 오프셋(`offset-date-time`)으로 해석하고 [formatter]를 사용하여 [OffsetDateTime]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
  *
- * @param formatter 날짜 포맷터
- * @return [OffsetDateTime] 인스턴스
+ * @receiver [formatter] 형식의 오프셋 일시 문자열
+ * @param formatter 날짜와 시간, UTC 오프셋 포맷터
+ * @return 파싱한 [OffsetDateTime] 인스턴스 또는 `null`
  * @since 0.12.0
  * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toOffsetDateTimeOrNullWithDateTimeFormatter
  */

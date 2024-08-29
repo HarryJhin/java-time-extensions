@@ -14,6 +14,7 @@ import java.time.Year
 import java.time.YearMonth
 import java.time.ZoneId
 import java.time.ZoneOffset
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import kotlin.test.Test
@@ -918,7 +919,7 @@ class StringExtensionsTest {
 
         // Fail cases
         assertFailsWith(DateTimeParseException::class) {
-            "00:00".toLocalTime() // Text '00:00' could not be parsed, unparsed text found at index 5
+            "000000".toLocalTime() // Text '00:00' could not be parsed, unparsed text found at index 5
         }
     }
 
@@ -980,7 +981,7 @@ class StringExtensionsTest {
         )
 
         // Fail cases
-        assertNull("00:00".toLocalTimeOrNull())
+        assertNull("000000".toLocalTimeOrNull())
     }
 
     @Test
@@ -1148,47 +1149,67 @@ class StringExtensionsTest {
     @Test
     fun toLocalDateTime() {
         // Given
-        val text = "2022-01-01T00:00:00"
+        val text = "2022-01-01 00:00"
 
         // When
-        val dateTime: LocalDateTime = text.toLocalDateTime()
+        val actual: LocalDateTime = text.toLocalDateTime()
 
         // Then
         assertEquals(
-            expected = LocalDateTime.of(2022, 1, 1, 0, 0, 0),
-            actual = dateTime,
+            expected = LocalDateTime.of(2022, 1, 1, 0, 0),
+            actual = actual,
         )
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "2022-01-01T00".toLocalDateTime()
+        }
     }
 
     @Test
     fun toLocalDateTimeWithPattern() {
         // Given
-        val text = "2022-01-01T00:00"
+        val text = "20220101 00:00"
 
         // When
-        val dateTime: LocalDateTime = text.toLocalDateTime("yyyy-MM-dd'T'HH:mm")
+        val actual: LocalDateTime = text.toLocalDateTime("yyyyMMdd HH:mm")
 
         // Then
         assertEquals(
             expected = LocalDateTime.of(2022, 1, 1, 0, 0),
-            actual = dateTime,
+            actual = actual,
         )
+
+        // Fail cases
+        assertFailsWith(IllegalArgumentException::class) {
+            "20220101 00:00".toLocalDateTime("ABC") // Unknown pattern letter: C
+        }
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "2022-01-01T00:00".toLocalDateTime("yyyyMMdd HH:mm") // Text '2022-01-01T00:00' could not be parsed at index 4
+        }
     }
 
     @Test
     fun toLocalDateTimeWithDateTimeFormatter() {
         // Given
-        val text = "2022-01-01T00:00"
+        val text = "20220101 00:00"
+        val formatter = DateTimeFormatter.ofPattern("yyyyMMdd HH:mm")
 
         // When
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")
-        val dateTime: LocalDateTime = text.toLocalDateTime(formatter)
+        val actual: LocalDateTime = text.toLocalDateTime(formatter)
 
         // Then
         assertEquals(
             expected = LocalDateTime.of(2022, 1, 1, 0, 0),
-            actual = dateTime,
+            actual = actual,
         )
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "2022-01-01T00:00".toLocalDateTime(formatter) // Text '2022-01-01T00:00' could not be parsed at index 4
+        }
     }
 
     @Test
@@ -1197,44 +1218,56 @@ class StringExtensionsTest {
         val text = "2022-01-01T00:00"
 
         // When
-        val dateTime: LocalDateTime? = text.toLocalDateTimeOrNull()
+        val actual: LocalDateTime? = text.toLocalDateTimeOrNull()
 
         // Then
         assertEquals(
-            expected = null,
-            actual = dateTime,
+            expected = LocalDateTime.of(2022, 1, 1, 0, 0),
+            actual = actual,
         )
+
+        // Fail cases
+        assertNull("20220101".toLocalDateTimeOrNull())
     }
 
     @Test
     fun toLocalDateTimeOrNullWithPattern() {
         // Given
-        val text = "2022-01-01T00:00"
+        val text = "22-01-01 00:00"
 
         // When
-        val dateTime: LocalDateTime? = text.toLocalDateTimeOrNull("yy-MM-dd'T'HH:mm")
+        val actual: LocalDateTime? = text.toLocalDateTimeOrNull("yy-MM-dd HH:mm")
 
         // Then
         assertEquals(
-            expected = null,
-            actual = dateTime,
+            expected = LocalDateTime.of(2022, 1, 1, 0, 0),
+            actual = actual,
         )
+
+        // Fail cases
+        assertNull("2022-01-01T00:00".toLocalDateTimeOrNull("ABC"))
+
+        // Fail cases
+        assertNull("2022-01-01T00:00".toLocalDateTimeOrNull("yy-MM-dd HH:mm"))
     }
 
     @Test
     fun toLocalDateTimeOrNullWithDateTimeFormatter() {
         // Given
-        val text = "2022-01-01T00:00"
+        val text = "22-01-01 00:00"
+        val formatter = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm")
 
         // When
-        val formatter = DateTimeFormatter.ofPattern("yy-MM-dd'T'HH:mm")
-        val dateTime: LocalDateTime? = text.toLocalDateTimeOrNull(formatter)
+        val actual: LocalDateTime? = text.toLocalDateTimeOrNull(formatter)
 
         // Then
         assertEquals(
-            expected = null,
-            actual = dateTime,
+            expected = LocalDateTime.of(2022, 1, 1, 0, 0),
+            actual = actual,
         )
+
+        // Fail cases
+        assertNull("2022-01-01T00:00".toLocalDateTimeOrNull(formatter))
     }
 
     @Test
