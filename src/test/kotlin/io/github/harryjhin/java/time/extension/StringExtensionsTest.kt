@@ -1391,4 +1391,130 @@ class StringExtensionsTest {
             actual = zoneOffset,
         )
     }
+
+    @Test
+    fun toZonedDateTime() {
+        // Given
+        val text = "2022-01-01 00:00+09:00[Asia/Seoul]"
+
+        // When
+        val actual: ZonedDateTime = text.toZonedDateTime() // 2022-01-01T00:00+09:00[Asia/Seoul]
+
+        // Then
+        assertEquals(
+            expected = ZonedDateTime.of(2022, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Seoul")),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "2022-01-01T00:00+09:00".toZonedDateTime() // Text '2022-01-01T00:00+09:00' could not be parsed at index 22
+        }
+    }
+
+    @Test
+    fun toZonedDateTimeWithString() {
+        // Given
+        val text = "22-01-01 00:00+09:00[Asia/Seoul]"
+        val pattern = "yy-MM-dd HH:mmXXX'['VV']'"
+
+        // When
+        val actual: ZonedDateTime = text.toZonedDateTime(pattern) // 2022-01-01T00:00+09:00[Asia/Seoul]
+
+        // Then
+        assertEquals(
+            expected = ZonedDateTime.of(2022, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Seoul")),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertFailsWith(IllegalArgumentException::class) {
+            "22-01-01 00:00+09:00[Asia/Seoul]".toZonedDateTime("ABC") // Unknown pattern letter: C
+        }
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "2022-01-01T00:00+09:00".toZonedDateTime("yy-MM-dd HH:mmXXX[VV]") // Text '2022-01-01T00:00+09:00' could not be parsed at index 2
+        }
+    }
+
+    @Test
+    fun toZonedDateTimeWithDateTimeFormatter() {
+        // Given
+        val text = "22-01-01 00:00+09:00[Asia/Seoul]"
+        val formatter = DateTimeFormatter.ofPattern("yy-MM-dd HH:mmXXX'['VV']'")
+
+        // When
+        val actual: ZonedDateTime = text.toZonedDateTime(formatter) // 2022-01-01T00:00+09:00[Asia/Seoul]
+
+        // Then
+        assertEquals(
+            expected = ZonedDateTime.of(2022, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Seoul")),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertFailsWith(DateTimeParseException::class) {
+            "2022-01-01T00:00+09:00".toZonedDateTime(formatter) // Text '2022-01-01T00:00+09:00' could not be parsed at index 2
+        }
+    }
+
+    @Test
+    fun toZonedDateTimeOrNull() {
+        // Given
+        val text = "2022-01-01T00:00+09:00[Asia/Seoul]"
+
+        // When
+        val actual: ZonedDateTime? = text.toZonedDateTimeOrNull()
+
+        // Then
+        assertEquals(
+            expected = ZonedDateTime.of(2022, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Seoul")),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertNull("20220101".toZonedDateTimeOrNull())
+    }
+
+    @Test
+    fun toZonedDateTimeOrNullWithString() {
+        // Given
+        val text = "22-01-01 00:00+09:00[Asia/Seoul]"
+        val pattern = "yy-MM-dd HH:mmXXX'['VV']'"
+
+        // When
+        val actual: ZonedDateTime? = text.toZonedDateTimeOrNull(pattern) // 2022-01-01T00:00+09:00[Asia/Seoul]
+
+        // Then
+        assertEquals(
+            expected = ZonedDateTime.of(2022, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Seoul")),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertNull("22-01-01T00:00+09:00[Asia/Seoul]".toZonedDateTimeOrNull("ABC"))
+
+        // Fail cases
+        assertNull("2022-01-01T00:00+09:00".toZonedDateTimeOrNull("yy-MM-dd HH:mmXXX[VV]"))
+    }
+
+    @Test
+    fun toZonedDateTimeOrNullWithDateTimeFormatter() {
+        // Given
+        val text = "22-01-01T00:00+09:00[Asia/Seoul]"
+        val formatter = DateTimeFormatter.ofPattern("yy-MM-dd'T'HH:mmXXX'['VV']'")
+
+        // When
+        val actual: ZonedDateTime? = text.toZonedDateTimeOrNull(formatter) // 2022-01-01T00:00+09:00[Asia/Seoul]
+
+        // Then
+        assertEquals(
+            expected = ZonedDateTime.of(2022, 1, 1, 0, 0, 0, 0, ZoneId.of("Asia/Seoul")),
+            actual = actual,
+        )
+
+        // Fail cases
+        assertNull("2022-01-01T00:00+09:00".toZonedDateTimeOrNull(formatter))
+    }
 }

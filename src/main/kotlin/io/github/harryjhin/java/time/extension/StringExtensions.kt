@@ -14,6 +14,7 @@ import java.time.Year
 import java.time.YearMonth
 import java.time.ZoneId
 import java.time.ZoneOffset
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
@@ -1481,4 +1482,130 @@ fun String.toZoneId(): ZoneId {
  */
 fun String.toZoneOffset(): ZoneOffset {
     return ZoneOffset.of(this)
+}
+
+/**
+ * [String]을 날짜와 시간, 시간대(`zoned-date-time`)로 해석하고 [ZonedDateTime]로 파싱합니다.
+ *
+ * [String]은 라이브러리 기본 형식과 일치해야 합니다.
+ *
+ * 기본 형식은 `src/main/resources/java-time-extensions.properties` 파일에서 재정의 할 수 있습니다.
+ *
+ * java-time-extensions.properties 파일의 예시:
+ *
+ * ```properties
+ * # 기본값: yyyy-MM-dd['T'][ ]HH:mm[:ss][.SSS]XXX'['VV']'
+ * pattern.zoned-date-time=yyyyMMdd'T'HHmmssXXX
+ * ```
+ *
+ * @receiver 기본 형식의 날짜와 시간, 시간대 문자열
+ * @return 파싱한 [ZonedDateTime] 인스턴스
+ * @throws DateTimeParseException [String]을 [ZonedDateTime]로 파싱할 수 없는 경우
+ * @since 0.14.9
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toZonedDateTime
+ */
+fun String.toZonedDateTime(): ZonedDateTime {
+    return toZonedDateTime(JavaTimeExtensionConfiguration.FORMATTER_ZONED_DATE_TIME)
+}
+
+/**
+ * [String]을 날짜와 시간, 시간대(`zoned-date-time`)로 해석하고 [pattern]을 사용하여 [ZonedDateTime]로 파싱합니다.
+ *
+ * @receiver [pattern] 형식의 날짜와 시간, 시간대 문자열
+ * @param pattern 날짜와 시간, 시간대 포맷 문자열
+ * @return 파싱한 [ZonedDateTime] 인스턴스
+ * @throws IllegalArgumentException [pattern]을 [DateTimeFormatter]로 파싱할 수 없는 경우
+ * @throws DateTimeParseException [String]을 [ZonedDateTime]로 파싱할 수 없는 경우
+ * @since 0.14.9
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toZonedDateTimeWithString
+ */
+fun String.toZonedDateTime(
+    pattern: String,
+): ZonedDateTime {
+    val formatter = pattern.toDateTimeFormatter()
+    return toZonedDateTime(formatter)
+}
+
+/**
+ * [String]을 날짜와 시간, 시간대(`zoned-date-time`)로 해석하고 [formatter]를 사용하여 [ZonedDateTime]로 파싱합니다.
+ *
+ * @receiver [formatter] 형식의 날짜와 시간, 시간대 문자열
+ * @param formatter [String]을 파싱할 [DateTimeFormatter]
+ * @return 파싱한 [ZonedDateTime] 인스턴스
+ * @throws DateTimeParseException [String]을 [ZonedDateTime]로 파싱할 수 없는 경우
+ * @since 0.14.9
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toZonedDateTimeWithDateTimeFormatter
+ */
+fun String.toZonedDateTime(
+    formatter: DateTimeFormatter,
+): ZonedDateTime {
+    return ZonedDateTime.parse(this, formatter)
+}
+
+/**
+ * [String]을 날짜와 시간, 시간대(`zoned-date-time`)로 해석하고 [ZonedDateTime]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
+ *
+ * [String]은 라이브러리 기본 형식과 일치해야 합니다.
+ *
+ * 기본 형식은 `src/main/resources/java-time-extensions.properties` 파일에서 재정의 할 수 있습니다.
+ *
+ * java-time-extensions.properties 파일의 예시:
+ *
+ * ```properties
+ * # 기본값: yyyy-MM-dd['T'][ ]HH:mm[:ss][.SSS]XXX'['VV']'
+ * pattern.zoned-date-time=yyyyMMdd'T'HHmmssXXX
+ * ```
+ *
+ * @receiver 기본 형식의 날짜와 시간, 시간대 문자열
+ * @return 파싱한 [ZonedDateTime] 인스턴스 또는 `null`
+ * @since 0.14.9
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toZonedDateTimeOrNull
+ */
+fun String.toZonedDateTimeOrNull(): ZonedDateTime? {
+    return try {
+        toZonedDateTime()
+    } catch (e: Exception) {
+        null
+    }
+}
+
+/**
+ * [String]을 날짜와 시간, 시간대(`zoned-date-time`)로 해석하고 [pattern]을 사용하여 [ZonedDateTime]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
+ *
+ * @receiver [pattern] 형식의 날짜와 시간, 시간대 문자열
+ * @param pattern 날짜와 시간, 시간대 포맷 문자열
+ * @return 파싱한 [ZonedDateTime] 인스턴스 또는 `null`
+ * @since 0.14.9
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toZonedDateTimeOrNullWithString
+ */
+fun String.toZonedDateTimeOrNull(
+    pattern: String,
+): ZonedDateTime? {
+    return try {
+        toZonedDateTime(pattern)
+    } catch (e: Exception) {
+        null
+    }
+}
+
+/**
+ * [String]을 날짜와 시간, 시간대(`zoned-date-time`)로 해석하고 [formatter]를 사용하여 [ZonedDateTime]로 파싱하거나,
+ * 파싱할 수 없는 경우 `null`을 반환합니다.
+ *
+ * @receiver [formatter] 형식의 날짜와 시간, 시간대 문자열
+ * @param formatter [String]을 파싱할 [DateTimeFormatter]
+ * @return 파싱한 [ZonedDateTime] 인스턴스 또는 `null`
+ * @since 0.14.9
+ * @sample io.github.harryjhin.java.time.extension.StringExtensionsTest.toZonedDateTimeOrNullWithDateTimeFormatter
+ */
+fun String.toZonedDateTimeOrNull(
+    formatter: DateTimeFormatter,
+): ZonedDateTime? {
+    return try {
+        toZonedDateTime(formatter)
+    } catch (e: Exception) {
+        null
+    }
 }
