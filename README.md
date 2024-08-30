@@ -28,20 +28,79 @@
 - **직관적인 중위 함수**: `LocalDate`와 `LocalTime`을 결합하여 `LocalDateTime`을 만들거나,
 두 `LocalDate` 인스턴스 간의 차이를 계산하는 등, 기존 메서드를 사용하는 것보다 직관적인 문법을 제공합니다.
 
-## kotlinx-datetime 비교
+## 핵심 개념
 
-`kotlinx-datetime`은 시간대를 포함한 civil time(상용시)을 다루는데 특화된 라이브러리입니다.
-예를 들어, kotlinx-datetime은 모든 시간 객체에 시간대 정보를 포함시키며,
-이를 통해 로컬 시간대(예: UTC+9)와 관련된 작업을 쉽게 처리할 수 있습니다.
-이 라이브러리는 시간대 정보가 필요하지 않은 단순한 연산(예: 한 달 더하기)도 지원합니다.
+`java-time-extensions`는 **생성**, **기간**, **연산**, **분해**, **결합**, **비교**, **포맷팅**을 위한 다양한 확장 함수를 제공합니다.
 
-반면, `java-time-extensions`는 `java.time.*` 패키지를 기반으로 하여,
+### 생성
+
+`java-time-extensions`는 다양한 타입으로부터 `java.time.*` 인스턴스를 생성할 수 있는 확장 함수를 제공합니다.
+
+```kotlin
+val date: LocalDate = "2021-01-01".toLocalDate() // 2021-01-01
+```
+
+### 기간
+
+`java-time-extensions`는 기간 개념을 다루는 확장 기능을 제공합니다.
+
+```kotlin
+val period: Pariod = 1.days // P1D
+```
+
+### 연산
+
+`java-time-extensions`는 날짜 및 시간 인스턴스의 연산을 위해 확장 기능을 제공합니다.
+
+```kotlin
+val date: LocalDate = "2021-01-01".toLocalDate() + 1.days // 2021-01-02
+```
+
+### 분해
+
+`java-time-extensions`는 날짜 및 시간 인스턴스를 분해하는 확장 기능을 제공합니다.
+
+```kotlin
+val year: Year = "2021-01-01".toLocalDate().toYear() // 2021
+```
+
+### 결합
+
+`java-time-extensions`는 날짜 및 시간 인스턴스를 결합하는 확장 기능을 제공합니다.
+
+```kotlin
+val dateTime: LocalDateTime = "2021-01-01".toLocalDate() at "12:00".toLocalTime() // 2021-01-01T12:00
+```
+
+### 비교
+
+`java-time-extensions`는 날짜 및 시간 인스턴스를 비교하는 확장 기능을 제공합니다.
+
+```kotlin
+val period: Period = "2021-01-01".toLocalDate() betweeb "2021-02-01".toLocalDate() // P1M
+```
+
+### 포맷팅
+
+`java-time-extensions`는 날짜 및 시간 인스턴스를 포맷팅하는 확장 기능을 제공합니다.
+
+```kotlin
+val string: String = "2021-01-01".toLocalDate().toString("yyyyMMdd") // 20210101
+```
+
+## kotlinx - datetime 비교
+
+`kotlinx-datetime` 은 시간대를 포함한 civil time (상용시) 을 다루는데 특화된 라이브러리입니다.
+예를 들어, kotlinx - datetime은 모든 시간 객체에 시간대 정보를 포함시키며,
+이를 통해 로컬 시간대 (예: UTC + 9)와 관련된 작업을 쉽게 처리할 수 있습니다.
+이 라이브러리는 시간대 정보가 필요하지 않은 단순한 연산 (예: 한 달 더하기)도 지원합니다.
+
+반면, `java-time-extensions` 는 `java.time.*` 패키지를 기반으로 하여,
 기존의 API를 더 편리하게 사용할 수 있도록 돕는 확장 기능을 제공합니다.
-`kotlinx-datetime`처럼 새로운 엔티티나 시간대에 대한 복잡한 처리를 추가하지는 않습니다.
-대신, `java.time.*` 패키지를 사용하는 **Kotlin 사용자**들이 더 쉽게 날짜와 시간을 다룰 수 있도록 하는 것이 이 라이브러리의 주된 목적입니다.
-
-따라서 `java-time-extensions`는 `kotlinx-datetime`을 대체하기 위한 것이 아니라,
-이미 `java.time.*`을 사용하고 있는 Kotlin 개발자들에게 **더 나은 개발 경험을 제공**하는 데 초점을 맞추고 있습니다.
+`kotlinx-datetime` 처럼 새로운 엔티티나 시간대에 대한 복잡한 처리를 추가하지는 않습니다.
+대신, `java.time.*` 패키지를 사용하는 Kotlin 사용자들이 더 쉽게 날짜와 시간을 다룰 수 있도록 하는 것이 이 라이브러리의 주된 목적입니다.
+따라서 `java-time-extensions` 는 `kotlinx-datetime` 을 대체하기 위한 것이 아니라,
+이미 `java.time.*` 을 사용하고 있는 Kotlin 개발자들에게 **더 나은 개발 경험을 제공** 하는 데 초점을 맞추고 있습니다.
 
 ## Gradle 설정
 
