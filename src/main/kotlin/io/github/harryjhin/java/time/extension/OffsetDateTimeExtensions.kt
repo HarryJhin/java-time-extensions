@@ -1,8 +1,12 @@
 package io.github.harryjhin.java.time.extension
 
 import java.time.Duration
+import java.time.Month
+import java.time.MonthDay
 import java.time.OffsetDateTime
 import java.time.Period
+import java.time.Year
+import java.time.YearMonth
 
 /**
  * [OffsetDateTime]의 연도 정보를 [Period]로 변환합니다.
@@ -93,6 +97,50 @@ val OffsetDateTime.microseconds: Duration
  */
 val OffsetDateTime.nanoseconds: Duration
     get() = Duration.ofNanos(nano.toLong())
+
+/**
+ * [OffsetDateTime]의 연(`year`) 정보를 [Year]로 변환합니다.
+ *
+ * @return `year`를 [Year]로 변환한 객체
+ * @since 0.14.10
+ * @sample io.github.harryjhin.java.time.extension.OffsetDateTimeExtensionsTest.toYear
+ */
+fun OffsetDateTime.toYear(): Year {
+    return Year.from(this)
+}
+
+/**
+ * [OffsetDateTime]의 월(`month`) 정보를 [Month]로 변환합니다.
+ *
+ * @return `month`를 [Month]로 변환한 객체
+ * @since 0.14.10
+ * @sample io.github.harryjhin.java.time.extension.OffsetDateTimeExtensionsTest.toMonth
+ */
+fun OffsetDateTime.toMonth(): Month {
+    return Month.from(this)
+}
+
+/**
+ * [OffsetDateTime]의 연(`year`)과 월(`month`) 정보를 [YearMonth]로 변환합니다.
+ *
+ * @return `year`와 `month`를 [YearMonth]로 변환한 객체
+ * @since 0.14.9
+ * @sample io.github.harryjhin.java.time.extension.OffsetDateTimeExtensionsTest.toYearMonth
+ */
+fun OffsetDateTime.toYearMonth(): YearMonth {
+    return YearMonth.from(this)
+}
+
+/**
+ * [OffsetDateTime]의 월(`month`)과 일(`day`) 정보를 [MonthDay]로 변환합니다.
+ *
+ * @return `month`와 `day`를 [MonthDay]로 변환한 객체
+ * @since 0.14.10
+ * @sample io.github.harryjhin.java.time.extension.OffsetDateTimeExtensionsTest.toMonthDay
+ */
+fun OffsetDateTime.toMonthDay(): MonthDay {
+    return MonthDay.from(this)
+}
 
 /**
  * [OffsetDateTime]과 [endOffsetDateTime] 사이의 시간 차이를 [Duration]으로 계산합니다.

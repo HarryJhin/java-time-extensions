@@ -1,8 +1,12 @@
 package io.github.harryjhin.java.time.extension
 
 import java.time.Duration
+import java.time.Month
+import java.time.MonthDay
 import java.time.OffsetDateTime
 import java.time.Period
+import java.time.Year
+import java.time.YearMonth
 import java.time.ZoneOffset
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -145,6 +149,66 @@ class OffsetDateTimeExtensionsTest {
     }
 
     @Test
+    fun toYear() {
+        // Given
+        val offsetDateTime: OffsetDateTime = "2022-01-01T00:00+09:00".toOffsetDateTime()
+
+        // When
+        val actual: Year = offsetDateTime.toYear()
+
+        // Then
+        assertEquals(
+            expected = Year.of(2022),
+            actual = actual,
+        )
+    }
+
+    @Test
+    fun toMonth() {
+        // Given
+        val offsetDateTime: OffsetDateTime = "2022-01-01T00:00+09:00".toOffsetDateTime()
+
+        // When
+        val actual: Month = offsetDateTime.toMonth()
+
+        // Then
+        assertEquals(
+            expected = Month.JANUARY,
+            actual = actual,
+        )
+    }
+
+    @Test
+    fun toYearMonth() {
+        // Given
+        val offsetDateTime: OffsetDateTime = "2022-01-01T00:00+09:00".toOffsetDateTime()
+
+        // When
+        val actual: YearMonth = offsetDateTime.toYearMonth()
+
+        // Then
+        assertEquals(
+            expected = YearMonth.of(2022, Month.JANUARY),
+            actual = actual,
+        )
+    }
+
+    @Test
+    fun toMonthDay() {
+        // Given
+        val offsetDateTime: OffsetDateTime = "2022-01-01T00:00+09:00".toOffsetDateTime()
+
+        // When
+        val actual: MonthDay = offsetDateTime.toMonthDay()
+
+        // Then
+        assertEquals(
+            expected = MonthDay.of(Month.JANUARY, 1),
+            actual = actual,
+        )
+    }
+
+    @Test
     fun between() {
         // Given
         val start: OffsetDateTime = OffsetDateTime.of(2022, 1, 2, 3, 4, 5, 123_456_789, ZoneOffset.UTC)
@@ -159,7 +223,8 @@ class OffsetDateTimeExtensionsTest {
         )
 
         // When
-        val duration2: Duration = start between OffsetDateTime.of(2022, 1, 2, 3, 4, 5, 123_456_789, ZoneOffset.ofHours(9))
+        val duration2: Duration =
+            start between OffsetDateTime.of(2022, 1, 2, 3, 4, 5, 123_456_789, ZoneOffset.ofHours(9))
 
         // Then
         assertEquals(
