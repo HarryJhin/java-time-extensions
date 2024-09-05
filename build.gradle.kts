@@ -1,18 +1,18 @@
 import org.jetbrains.dokka.DokkaConfiguration
 import org.jetbrains.dokka.gradle.DokkaTask
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.net.URL
 
 plugins {
     kotlin("jvm") version "2.0.0"
     id("org.jetbrains.dokka") version "1.9.20"
-    id("org.jreleaser") version "1.13.1"
-    `java-library`
     `maven-publish`
+    id("org.jreleaser") version "1.13.1"
 }
 
 project.description = "Kotlin을 위한 java.time.* 확장 함수 라이브러리"
 project.group = "io.github.harryjhin"
-project.version = "1.0.1"
+project.version = "1.0.2"
 
 repositories {
     mavenCentral()
@@ -29,14 +29,19 @@ tasks.test {
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(8)
-        vendor = JvmVendorSpec.AMAZON
+        vendor = JvmVendorSpec.ADOPTIUM
     }
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
     withJavadocJar()
     withSourcesJar()
 }
 
 kotlin {
     jvmToolchain(8)
+    compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_1_8)
+    }
 }
 
 tasks.withType<DokkaTask>().configureEach {
