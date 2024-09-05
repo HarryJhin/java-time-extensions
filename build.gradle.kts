@@ -12,7 +12,7 @@ plugins {
 
 project.description = "Kotlin을 위한 java.time.* 확장 함수 라이브러리"
 project.group = "io.github.harryjhin"
-project.version = "1.0.0"
+project.version = "1.0.1"
 
 repositories {
     mavenCentral()
@@ -26,8 +26,17 @@ tasks.test {
     useJUnitPlatform()
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+        vendor = JvmVendorSpec.AMAZON
+    }
+    withJavadocJar()
+    withSourcesJar()
+}
+
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(8)
 }
 
 tasks.withType<DokkaTask>().configureEach {
@@ -66,12 +75,6 @@ tasks.register<Jar>("dokkaJavadocJar") {
 
 tasks.jar {
     dependsOn(tasks.named("dokkaJavadocJar"))
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    withJavadocJar()
-    withSourcesJar()
 }
 
 publishing {
